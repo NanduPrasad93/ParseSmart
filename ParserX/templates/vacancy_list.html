@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vacancies</title>
+</head>
+<body>
+    <h1>Available Vacancies</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Description</th>
+                <th>Salary</th>
+                <th>Qualification</th>
+                <th>Experience</th>
+                <th>Last Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vacancy in vacancies %}
+            <tr>
+                <td>{{ vacancy.Job_Title }}</td>
+                <td>{{ vacancy.Description }}</td>
+                <td>{{ vacancy.Salary }}</td>
+                <td>{{ vacancy.Qualification }}</td>
+                <td>{{ vacancy.Experience }}</td>
+                <td>{{ vacancy.Last_date_of_application }}</td>
+                <td>
+                    <a href="{% url 'apply_vacancy' vacancy.id %}">Apply</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

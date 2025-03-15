@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Resources</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .add-resource-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        .empty-message {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Resources</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Resource Type</th>
+                <th>Field</th>
+                <th>Link</th>
+                <th>Edit</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+                <tr>
+                    <td>{{ resource.title }}</td>
+                    <td>{{ resource.description }}</td>
+                    <td>{{ resource.get_resource_type_display }}</td>
+                    <td>{{ resource.get_field_display }}</td>
+                    <td><a href="{{ resource.link }}" target="_blank">View Resource</a></td>
+                    <td><a href="{% url 'edit_resource' resource.id %}">Edit</a></td>
+                    <td><a href="{% url 'remove_resources' resource.id %}">Remove</a></td>
+
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-message">No resources available yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'add_resource' %}" class="add-resource-link">Add New Resource</a>
+</body>
+</html>

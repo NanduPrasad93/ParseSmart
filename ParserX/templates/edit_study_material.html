@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Study Material</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Edit Study Material</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="Category">Category</label>
+                {{ form.Category }}
+            </div>
+            <div class="form-group">
+                <label for="Topic">Topic</label>
+                {{ form.Topic }}
+            </div>
+            <div class="form-group">
+                <label for="File_upload">Upload File</label>
+                {{ form.File_upload }}
+            </div>
+            <div class="form-group">
+                <button type="submit">Update Material</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

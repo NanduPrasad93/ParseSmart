@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Resources for {{ field_name }}</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        tr:hover { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Resources for {{ field_name }}</h1>
+    {% if resources %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resource in resources %}
+                    <tr>
+                        <td>{{ resource.title }}</td>
+                        <td>{{ resource.description }}</td>
+                        <td>{{ resource.resource_type }}</td>
+                        <td><a href="{{ resource.link }}" target="_blank">Access</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No resources available for this field yet.</p>
+    {% endif %}
+    <p><a href="{% url 'select_field' %}">Back to Field Selection</a></p>
+</body>
+</html>

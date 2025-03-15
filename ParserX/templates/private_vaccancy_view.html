@@ -1,0 +1,153 @@
+{% load static %} 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacancy Table</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .heading {
+            text-align: center;
+            color: #333;
+        }
+
+        .category-header {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        /* Table Styles */
+        .table-container {
+            margin-top: 30px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .vacancy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .vacancy-table th, .vacancy-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .vacancy-table th {
+            background-color:  rgb(239, 102, 18);
+            color: white;
+        }
+
+        .vacancy-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .vacancy-table tr:hover {
+            background-color:rgb(17, 1, 1);
+        }
+
+        .vacancy-table a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .vacancy-table a:hover {
+            color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="heading">Vacancy Details</h2>
+
+        <div class="category-header">
+            <h3 class="category-title">{{ category }}</h3>
+        </div>
+
+        <div class="table-container">
+            <table class="vacancy-table">
+                <thead>
+                    <tr>
+                        <th>Job Name</th>
+                        <th>Job Category</th>
+                        <th>Description</th>
+                        <th>Date of Application</th>
+                        <th>Last Date of Application</th>
+                        <th>Qualification</th>
+                        <th>Edit</th>
+                        <th>Remove</th>
+                        <th>Applicants</th>
+                        <th>Interview Date & Time</th>
+                        <th>Set Interview</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for var in var %}
+                    <tr>
+                        <td>{{ var.Job_name }}</td>
+                        <td>{{ var.Job_category }}</td>
+                        <td>{{ var.Job_description }}</td>
+                        <td>{{ var.Last_date_for_apply }}</td>
+                        <td>{{ var.Qualification }}</td>
+                        <td>{{ var.Experience }}</td>
+                        <td><a href="{% url 'edit_com_vaccancy' id=var.id %}">Edit</a></td>
+                        <td>
+                            <a href="{% url 'remove_com_vaccancy' id=var.id %}" 
+                               onclick="return confirm('Are you sure you want to delete this vacancy?');">
+                               Delete
+                            </a>
+                        </td>
+                        <td><a href="{% url 'view_applicants' var.id %}">View Applicants</a></td>
+                        <td>
+                            {% if var.interview_datetime %}
+                                {{ var.interview_datetime }}
+                            {% else %}
+                                Not Announced
+                            {% endif %}
+                        </td>
+                        <td>
+                            <form method="POST" action="{% url 'announce_interview' var.id %}">
+                                {% csrf_token %}
+                                <input type="datetime-local" name="interview_datetime" value="{{ var.interview_datetime|date:'Y-m-d\TH:i' }}" required>
+                                <button type="submit">Save</button>
+                            </form>
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</body>
+</html>

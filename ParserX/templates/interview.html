@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAS Interview - Speech to Text</title>
+</head>
+<body>
+    <form id="uploadForm" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="audioFile" name="audio" accept="audio/*">
+        <button type="button" onclick="uploadAudio()">Upload & Transcribe</button>
+    </form>
+    
+    <p id="response"></p>
+    
+    <script>
+    function uploadAudio() {
+        let formData = new FormData();
+        let fileInput = document.getElementById("audioFile");
+        
+        if (!fileInput.files.length) {
+            alert("Please select an audio file first!");
+            return;
+        }
+    
+        formData.append("audio", fileInput.files[0]);
+    
+        fetch("{% url 'transcribe_audio' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("response").innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => console.error("Error:", error));
+    }
+    </script>
+    
+</body>
+</html>

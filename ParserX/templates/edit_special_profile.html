@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Special Profile</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50;
+            margin: 0;
+            padding: 0;
+            color: #ecf0f1;
+            background-image: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+            min-height: 100vh;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #ecf0f1;
+            margin: 30px 0;
+            position: relative;
+            padding-bottom: 10px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 3px;
+            background-color: #e67e22;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .edit-form-container {
+            width: 70%;
+            max-width: 800px;
+            margin: 30px auto;
+            background-color: #34495e;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .edit-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #3498db, #2980b9, #1f6da8);
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ecf0f1;
+            margin-bottom: 5px;
+        }
+        
+        .form-subtitle {
+            font-size: 14px;
+            color: #bdc3c7;
+        }
+        
+        form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            animation: slideIn 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #3498db;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #ecf0f1;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233498db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
+        .file-input-group {
+            position: relative;
+        }
+        
+        input[type="file"] {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .file-input-label {
+            display: block;
+            padding: 12px;
+            text-align: center;
+            background-color: rgba(52, 152, 219, 0.1);
+            border: 1px dashed #3498db;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .file-input-label i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+        
+        .current-photo {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .current-photo img {
+            max-width: 80px;
+            height: auto;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        
+        .photo-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-remove-photo {
+            color: #e74c3c;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button[type="submit"] {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        button[type="button"] {
+            background-color: transparent;
+            color: #bdc3c7;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+        
+        button[type="button"]:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .errorlist {
+            color: #e74c3c;
+            list-style: none;
+            padding: 0;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .helptext {
+            display: block;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .edit-form-container {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Edit Special Profile</h2>
+    
+    <div class="edit-form-container">
+        <div class="form-header">
+            <div class="form-title">Edit Profile</div>
+            <div class="form-subtitle">Update candidate information</div>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group" style="animation-delay: 0.1s;">
+                <label for="{{ form.Candidate_name.id_for_label }}">Candidate Name</label>
+                {{ form.Candidate_name }}
+                {% if form.Candidate_name.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Candidate_name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.15s;">
+                <label for="{{ form.Fathers_name.id_for_label }}">Father's Name</label>
+                {{ form.Fathers_name }}
+                {% if form.Fathers_name.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Fathers_name.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.2s;">
+                <label for="{{ form.Phone_no.id_for_label }}">Phone Number</label>
+                {{ form.Phone_no }}
+                {% if form.Phone_no.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Phone_no.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.25s;">
+                <label for="{{ form.Email_id.id_for_label }}">Email</label>
+                {{ form.Email_id }}
+                {% if form.Email_id.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Email_id.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.3s;">
+                <label for="{{ form.Highest_qua.id_for_label }}">Highest Qualification</label>
+                {{ form.Highest_qua }}
+                {% if form.Highest_qua.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Highest_qua.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.35s;">
+                <label for="{{ form.Dob.id_for_label }}">Date of Birth</label>
+                {{ form.Dob }}
+                {% if form.Dob.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Dob.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.4s;">
+                <label for="{{ form.Gender.id_for_label }}">Gender</label>
+                {{ form.Gender }}
+                {% if form.Gender.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Gender.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.45s;">
+                <label for="{{ form.Caste.id_for_label }}">Caste</label>
+                {{ form.Caste }}
+                {% if form.Caste.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Caste.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.5s;">
+                <label for="{{ form.Height.id_for_label }}">Height (cm)</label>
+                {{ form.Height }}
+                {% if form.Height.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Height.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.55s;">
+                <label for="{{ form.Weight.id_for_label }}">Weight (kg)</label>
+                {{ form.Weight }}
+                {% if form.Weight.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Weight.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            
+            <div class="form-group" style="animation-delay: 0.6s;">
+                <label for="{{ form.Photo.id_for_label }}">Photo</label>
+                <div class="file-input-group">
+                    <div class="file-input-label">
+                        <i class="fas fa-upload"></i> Choose a file
+                    </div>
+                    {{ form.profile_photo }}
+                </div>
+                {% if form.instance.Photo %}
+                <div class="current-photo">
+                    <img src="{{ form.instance.Photo.url }}" alt="Current Photo">
+                    <div>
+                        <div>Current photo</div>
+                        <div class="photo-actions">
+                            <a href="#" class="btn-remove-photo">Remove</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if form.Photo.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.Photo.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% if form.Photo.help_text %}
+                    <span class="helptext">{{ form.Photo.help_text }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" onclick="window.history.back();">Cancel</button>
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Display file name when selected
+            const fileInput = document.querySelector('input[type="file"]');
+            const fileLabel = document.querySelector('.file-input-label');
+            
+            if (fileInput && fileLabel) {
+                fileInput.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        fileLabel.textContent = this.files[0].name;
+                    } else {
+                        fileLabel.innerHTML = '<i class="fas fa-upload"></i> Choose a file';
+                    }
+                });
+            }
+            
+            // Remove photo functionality
+            const removeBtn = document.querySelector('.btn-remove-photo');
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create a hidden input to signal deletion
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = 'Photo-clear';
+                    hiddenInput.value = 'on';
+                    document.querySelector('form').appendChild(hiddenInput);
+                    
+                    // Hide the current photo display
+                    document.querySelector('.current-photo').style.display = 'none';
+                });
+            }
+            
+            // Form groups animation
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.animationDelay = `${0.1 + (index * 0.05)}s`;
+            });
+        });
+    </script>
+</body>
+</html>

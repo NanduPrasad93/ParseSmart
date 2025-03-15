@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Defence Exams</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #e6a800;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #e6a800;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr {
+            transition: background-color 0.3s ease;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        td a {
+            color: #e6a800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+
+        /* No Data Message */
+        tr.empty-row td {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Upcoming Defence Exams</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Exam Name</th>
+                <th>Application Start Date</th>
+                <th>Official Notification</th>
+                <th>Last Date to Apply</th>
+                <th>Exam Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exam in exams %}
+            <tr>
+                <td>{{ exam.exam_name }}</td>
+                <td>{{ exam.app_start_date }}</td>
+                <td>
+                    {% if exam.official_notification != "N/A" %}
+                        <a href="{{ exam.official_notification }}" target="_blank">View</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>{{ exam.last_date_to_apply }}</td>
+                <td>{{ exam.exam_date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No exam data available at the moment.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

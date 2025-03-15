@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Central Gov Job</title>
+</head>
+<body>
+    <h2>Edit Job Details</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="{% url 'central_gov_jobs_view' %}">Back to Jobs List</a>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for Vacancy</title>
+</head>
+<body>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    
+    <h1>{{ vacancy.Job_Title }}</h1>
+    <p>{{ vacancy.Description }}</p>
+    <p>Salary: {{ vacancy.Salary }}</p>
+    <p>Last Date: {{ vacancy.Last_date_of_application }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Apply</button>
+    </form>
+
+</body>
+</html>
+

@@ -1,0 +1,222 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from mehedi.asiandevelopers.com/demo/fleming/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 07 Dec 2024 10:47:43 GMT -->
+<head>
+	<meta charset="UTF-8">
+	<title>Fleming - Responsive HTML 5 Template</title>
+
+	<!-- responsive meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- For IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&amp;display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'user/assets/css/animate.css' %}">  
+    <link rel="stylesheet" href="{% static 'user/assets/css/aos.css' %}">  
+    <link rel="stylesheet" href="{% static 'user/assets/css/bootstrap.min.css' %}">	
+    <link rel="stylesheet" href="{% static 'user/assets/css/bootstrap-select.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/custom-animate.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/fancybox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/imp.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/rtl.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/scrollbar.css' %}">
+
+    <!-- Module css -->
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/header-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/banner-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/about-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/blog-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/fact-counter-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/faq-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/contact-page.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/breadcrumb-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/team-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/partner-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/testimonial-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/services-section.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/module-css/footer-section.css' %}">
+   
+    <link rel="stylesheet" href="{% static 'user/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'user/assets/css/responsive.css' %}">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'user/assets/images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'user/assets/images/favicon/favicon-32x32.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static 'user/assets/images/favicon/favicon-16x16.png' %}" sizes="16x16">
+
+    <!-- Fixing Internet Explorer-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+    
+</head>
+
+<body>
+
+<div class="boxed_wrapper ltr">
+
+<!-- Preloader -->
+<div class="loader-wrap">
+    <div class="preloader"><div class="preloader-close">Preloader Close</div></div>
+    <div class="layer layer-one"><span class="overlay"></span></div>
+    <div class="layer layer-two"><span class="overlay"></span></div>        
+    <div class="layer layer-three"><span class="overlay"></span></div>        
+</div>
+
+<!-- page-direction -->
+<div class="page_direction">
+    <div class="demo-rtl direction_switch"><button class="rtl">RTL</button></div>
+    <div class="demo-ltr direction_switch"><button class="ltr">LTR</button></div>
+</div>
+<!-- page-direction end -->
+
+<!-- Hidden Form for Sector Selection -->
+<form id="sectorForm" method="post" action="{% url 'ppage' %}" style="display: none;">
+    {% csrf_token %}
+    <input type="hidden" id="sectorInput" name="sector">
+</form>
+
+<!-- Start Main Slider -->
+<section class="main-slider style3">
+    <div class="header-social-link-1">
+        <ul class="clearfix">
+            <li class="wow slideInDown" data-wow-delay="500ms" data-wow-duration="1500ms">
+                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> 
+            </li>
+            <li class="wow slideInDown" data-wow-delay="400ms" data-wow-duration="2000ms">
+                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> 
+            </li>
+            <li class="wow slideInDown" data-wow-delay="300ms" data-wow-duration="2500ms">
+                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </li>
+            <li class="wow slideInDown" data-wow-delay="200ms" data-wow-duration="3000ms">
+                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> 
+            </li>
+        </ul>
+    </div>
+    <div class="slider-box">
+        <!-- Banner Carousel -->
+        <div class="banner-carousel owl-theme owl-carousel">
+            <!-- Slide -->
+            <div class="slide">
+                <div class="image-layer" style="background-image:url({% static 'user/assets/images/slides/slide-v3-1.jpg' %})"></div>
+                <div class="shape"><img src="{% static 'user/assets/images/shape/slider-shape-3.png' %}" alt=""></div>
+                <div class="auto-container">
+                    <div class="content">
+                        <div class="sub-title">
+                            <h5>hala madrid</h5>
+                        </div>
+                        <div class="big-title">
+                            <h2>Choose Your <br> Sector</h2>
+                        </div>
+                        <div class="btns-box">
+                            <a class="btn-one" href="#" onclick="submitForm('public')" style="padding: 30px 45px; font-size: 25px;">
+                                <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
+                                <span class="txt">PUBLIC<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                            <a class="btn-one style2 marlft15" href="#" onclick="submitForm('private')" style="padding: 30px 45px; font-size: 25px;">
+                                <span class="txt">PRIVATE<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide -->
+            <div class="slide">
+                <div class="image-layer" style="background-image:url({% static 'user/assets/images/slides/slide-v3-2.jpg' %})"></div>
+                <div class="shape"><img src="{% static 'user/assets/images/shape/slider-shape-3.png' %}" alt=""></div>
+                <div class="auto-container">
+                    <div class="content">
+                        <div class="sub-title">
+                            <h5>Most Successful</h5>
+                        </div>
+                        <div class="big-title">
+                            <h2>Choose Your <br> Sector</h2>
+                        </div>
+                        <div class="btns-box">
+                            <a class="btn-one" href="#" onclick="submitForm('public')" style="padding: 30px 45px; font-size: 25px;">
+                                <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
+                                <span class="txt">PUBLIC<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                            <a class="btn-one style2 marlft15" href="#" onclick="submitForm('private')" style="padding: 30px 45px; font-size: 25px;">
+                                <span class="txt">PRIVATE<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide -->
+            <div class="slide">
+                <div class="image-layer" style="background-image:url({% static 'user/assets/images/slides/slide-v3-3.jpg' %})"></div>
+                <div class="shape"><img src="{% static 'user/assets/images/shape/slider-shape-3.png' %}" alt=""></div>
+                <div class="auto-container">
+                    <div class="content">
+                        <div class="sub-title">
+                            <h5>Most Successful</h5>
+                        </div>
+                        <div class="big-title">
+                            <h2>Our Fleming<br> Business firm.</h2>
+                        </div>
+                        <div class="btns-box">
+                            <a class="btn-one" href="#" onclick="submitForm('public')" style="padding: 30px 45px; font-size: 25px;">
+                                <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
+                                <span class="txt">PUBLIC<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                            <a class="btn-one style2 marlft15" href="#" onclick="submitForm('private')" style="padding: 30px 45px; font-size: 25px;">
+                                <span class="txt">PRIVATE<i class="flaticon-plus-1 plusicon"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Function to submit the hidden form with the selected sector
+    function submitForm(sector) {
+        document.getElementById('sectorInput').value = sector;
+        document.getElementById('sectorForm').submit();
+    }
+</script>
+
+<script src="{% static 'user/assets/js/jquery.js' %}"></script>
+<script src="{% static 'user/assets/js/aos.js' %}"></script>
+<script src="{% static 'user/assets/js/appear.js' %}"></script>
+<script src="{% static 'user/assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'user/assets/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'user/assets/js/isotope.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.countTo.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.enllax.min.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.fancybox.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery.paroller.min.js' %}"></script>
+<script src="{% static 'user/assets/js/jquery-ui.js' %}"></script>
+<script src="{% static 'user/assets/js/knob.js' %}"></script>
+<script src="{% static 'user/assets/js/map-script.js' %}"></script>
+<script src="{% static 'user/assets/js/owl.js' %}"></script>
+<script src="{% static 'user/assets/js/pagenav.js' %}"></script>
+<script src="{% static 'user/assets/js/parallax.min.js' %}"></script>
+<script src="{% static 'user/assets/js/scrollbar.js' %}"></script>
+<script src="{% static 'user/assets/js/TweenMax.min.js' %}"></script>
+<script src="{% static 'user/assets/js/validation.js' %}"></script>
+<script src="{% static 'user/assets/js/wow.js' %}"></script>
+
+<!-- thm custom script -->
+<script src="{% static 'user/assets/js/custom.js' %}"></script>
+
+</body>
+
+<!-- Mirrored from mehedi.asiandevelopers.com/demo/fleming/index-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 07 Dec 2024 10:47:49 GMT -->
+</html>

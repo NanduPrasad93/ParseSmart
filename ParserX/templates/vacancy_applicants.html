@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.vacancy }} - Applicants</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        p {
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Applicants for {{ data.vacancy }}</h1>
+    <p>Total Applicants: {{ data.applicant_count }}</p>
+
+    {% if data.applicant_count > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Contact</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in data.applicants %}
+            <tr>
+                <td>{{ applicant.name }}</td>
+                <td>{{ applicant.Gender }}</td>
+                <td>{{ applicant.email }}</td>
+                <td>{{ applicant.contact }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No applicants found for this vacancy.</p>
+    {% endif %}
+</body>
+</html>

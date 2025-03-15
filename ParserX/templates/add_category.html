@@ -1,0 +1,10 @@
+<!-- {% extends 'base.html' %}
+{% block content %} -->
+<h2>Add Category</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Category</button>
+</form>
+<a href="{% url 'add_question' %}">Go to Add Questions</a>
+<!-- {% endblock %} -->

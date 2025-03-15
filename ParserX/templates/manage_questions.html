@@ -1,0 +1,17 @@
+<!-- {% extends 'base.html' %}
+{% block content %} -->
+<h2>Manage Questions</h2>
+<table>
+    <tr>
+        <th>Question</th>
+        <th>Category</th>
+    </tr>
+    {% for question in questions %}
+    <tr>
+        <td>{{ question.text }}</td>
+        <td>{{ question.category.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'add_question' %}">Add More Questions</a>
+<!-- {% endblock %} -->

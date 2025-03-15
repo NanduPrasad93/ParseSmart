@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .question-container { margin: 20px auto; max-width: 600px; text-align: left; }
+        .options label { display: block; margin: 5px 0; }
+        button { margin-top: 10px; padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>MCQ Test</h1>
+    <select id="categorySelect">
+        <option value="agniveer-gd">Agniveer GD</option>
+        <option value="bank-ibps">Bank IBPS</option>
+        <option value="ssc-cgl">SSC CGL</option>
+        <!-- Add more categories as needed -->
+    </select>
+    <button onclick="loadQuestions()">Start Test</button>
+
+    <div id="mcqContainer" class="question-container"></div>
+    <button onclick="submitAnswers()">Submit Answers</button>
+
+    <script>
+        let mcqs = [];
+
+        function loadQuestions() {
+            const category = document.getElementById("categorySelect").value;
+            fetch(`/api/mcq/${category}/`)
+                .then(response => response.json())
+                .then(data => {
+                    mcqs = data;
+                    displayQuestions();
+                })
+                .catch(error => console.error("Error loading questions:", error));
+        }
+
+        function displayQuestions() {
+            const container = document.getElementById("mcqContainer");
+            container.innerHTML = "";
+
+            mcqs.forEach((mcq, index) => {
+                container.innerHTML += `
+                    <div class="question">
+                        <p><b>${index + 1}. ${mcq.question}</b></p>
+                        <div class="options">
+                            <label><input type="radio" name="q${index}" value="A"> ${mcq.option_a}</label>
+                            <label><input type="radio" name="q${index}" value="B"> ${mcq.option_b}</label>
+                            <label><input type="radio" name="q${index}" value="C"> ${mcq.option_c}</label>
+                            <label><input type="radio" name="q${index}" value="D"> ${mcq.option_d}</label>
+                        </div>
+                    </div>
+                    <hr>
+                `;
+            });
+        }
+
+        function submitAnswers() {
+            let score = 0;
+            mcqs.forEach((mcq, index) => {
+                const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                if (selected && selected.value === mcq.correct_option) {
+                    score++;
+                }
+            });
+            alert(`Your Score: ${score} / ${mcqs.length}`);
+        }
+    </script>
+
+</body>
+</html>

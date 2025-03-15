@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment</title>
+</head>
+<body>
+    <h1>Book Appointment with {{ expert.name }}</h1>
+
+    <!-- Display messages -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Book Appointment</button>
+    </form>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize Flatpickr on the Time input field
+            flatpickr("input[name='Time']", {
+                enableTime: true,    // Enable time selection
+                noCalendar: true,    // No date selection, just time
+                dateFormat: "H:i",   // Time format (24-hour)
+                minTime: "10:00",    // Minimum time (10 AM)
+                maxTime: "16:00",    // Maximum time (4 PM)
+                step: 30,            // Set the step to 30 minutes (interval)
+                minuteIncrement: 30, // Ensure minute increment is set to 30
+                disableMobile: true, // Disable the mobile version for a consistent UI
+                allowInput: false,   // Disable manual input (typing)
+                onChange: function(selectedDates, dateStr, instance) {
+                    // Custom validation on time change to ensure it's a 30-minute interval
+                    let regex = /^([0-9]{2}):([0-9]{2})$/;
+                    if (regex.test(dateStr)) {
+                        let [hours, minutes] = dateStr.split(":").map(Number);
+                        if (minutes % 30 !== 0) {
+                            alert("Please select a valid 30-minute interval (e.g., 10:00, 10:30).");
+                            instance.clear(); // Clear the invalid selection
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>

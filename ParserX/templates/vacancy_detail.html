@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Status</title>
+</head>
+<body>
+
+    {% if has_applied %}
+        <p style="color: green;"><strong>Applied</strong></p>
+    {% else %}
+        <p style="color: red;"><strong>Not Applied</strong></p>
+    {% endif %}
+
+</body>
+</html>

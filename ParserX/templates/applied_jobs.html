@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Jobs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: rgb(239, 102, 18);
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: rgb(17, 1, 1);
+            color: white;
+        }
+        .status-cancelled {
+            color: red;
+            font-weight: bold;
+        }
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
+        .cancel-btn {
+            color: red;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .cancel-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h3>Applied Jobs</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Job Name</th>
+                <th>Job Category</th>
+                <th>Description</th>
+                <th>Applied On</th>
+                <th>Interview Date & Time</th>
+                <th>join</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for job in var %}
+            <tr>
+                <td>{{ job.job_name }}</td>
+                <td>{{ job.job_category }}</td>
+                <td>{{ job.job_description }}</td>
+                <td>{{ job.applied_on }}</td>
+                <td>
+                    {% if job.interview_datetime %}
+                        {{ job.interview_datetime }}
+                    {% else %}
+                        Not Announced
+                    {% endif %}
+                </td>
+                <td>
+                    {% if job.interview_url %}
+            <a href="{{ job.interview_url }}" target="_blank">Join Interview</a>
+        {% else %}
+            <p>No Interview Available</p>
+        {% endif %}                                                                                             
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

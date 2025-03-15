@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacancies</title>
+</head>
+<body>
+    <h1>Available Vacancies</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Description</th>
+                <th>Salary</th>
+                <th>Last Date</th>
+                <th>Apply</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vacancy in vacancies %}
+            <tr>
+                <td>{{ vacancy.Job_Title }}</td>
+                <td>{{ vacancy.Description }}</td>
+                <td>{{ vacancy.Salary }}</td>
+                <td>{{ vacancy.Last_date_of_application }}</td>
+                <td>
+                    <form method="post" action="{% url 'apply_vacancy' vacancy.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Apply</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

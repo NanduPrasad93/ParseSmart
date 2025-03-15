@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applied Jobs</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #444;
+            background-image: url('https://as2.ftcdn.net/v2/jpg/10/31/77/29/1000_F_1031772996_LGQ7tJ9LtYotTgvScxQ0h9cNvxreg6vZ.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            padding: 30px;
+            background-color: rgba(68, 68, 68, 0.9); /* #444 with 90% opacity */
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        /* Table Container */
+        .table-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #444;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: rgba(230, 168, 0, 0.1); /* Light gold hover effect */
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(244, 244, 249, 0.7); /* Light gray for even rows */
+        }
+
+        /* Status Styles */
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-cancelled {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Cancel Link */
+        a.cancel-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #e6a800;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        a.cancel-link:hover {
+            background-color: #d18f00; /* Darker gold on hover */
+        }
+
+        /* No Applications Message */
+        .no-applications {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .table-container {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Jobs You've Applied For</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Salary</th>
+                    <th>Date of Application</th>
+                    <th>Status</th>
+                    <th>Cancel Application</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applied_jobs %}
+                    <tr>
+                        <td>{{ application.vaccancy_id.Job_Title }}</td>
+                        <td>{{ application.vaccancy_id.Description }}</td>
+                        <td>{{ application.vaccancy_id.Salary }}</td>
+                        <td>{{ application.current_date }}</td>
+                        <td>
+                            {% if application.status == 1 %}
+                                <span class="status-cancelled">Cancelled</span>
+                            {% else %}
+                                <span class="status-active">Active</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if application.status != 1 %}
+                                <a href="{% url 'cancel_application' application.id %}" class="cancel-link">Cancel</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="no-applications">You have not applied for any jobs yet.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

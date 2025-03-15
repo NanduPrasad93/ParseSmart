@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Selection</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #1a1a1a; /* Fallback background */
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        /* Background Image with Animated Gradient */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url({% static 'user/assets/images/slides/slide-v1-1.jpg' %}) no-repeat center center/cover;
+            opacity: 0.7; /* Adjust opacity for better readability */
+            z-index: -1;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(230, 168, 0, 0.1), rgba(40, 167, 69, 0.1));
+            animation: gradientAnimation 10s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e6a800; /* Main color */
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links a {
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #e6a800; /* Main color */
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 0 10%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #e6a800; /* Main color */
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+        }
+
+        /* Sector Selection Section */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            width: 90%;
+            max-width: 1000px;
+        }
+
+        .box {
+            flex: 1;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease-in-out;
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .box::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(230, 168, 0, 0.1), transparent); /* Main color */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .box:hover::before {
+            opacity: 1;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(230, 168, 0, 0.8), 10px 10px 30px rgba(0, 0, 0, 0.3); /* Glow effect */
+            border-color: rgba(230, 168, 0, 0.8); /* Main color */
+        }
+
+        .box i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #e6a800;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+            border-top: 2px solid transparent;
+            border-image: linear-gradient(135deg, #e6a800, #28a745);
+            border-image-slice: 1;
+        }
+
+        .footer p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 5%;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .box {
+                height: 200px;
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">SectorSelect</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Choose Your Sector</h1>
+        <p>Select the sector that best aligns with your goals and aspirations.</p>
+        <div class="container">
+            <form method="post" action="{% url 'ppage' %}">
+                {% csrf_token %}
+                <input type="hidden" name="sector" value="public">
+                <div class="box public" onclick="this.parentNode.submit()">
+                    <i class="fas fa-rocket"></i>
+                    Public Sector
+                </div>
+            </form>
+
+            <form method="post" action="{% url 'ppage' %}">
+                {% csrf_token %}
+                <input type="hidden" name="sector" value="private">
+                <div class="box private" onclick="this.parentNode.submit()">
+                    <i class="fas fa-briefcase"></i>
+                    Private Sector
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2023 SectorSelect. All rights reserved.</p>
+    </footer>
+
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

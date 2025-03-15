@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --gray: #95a5a6;
+            --dark: #34495e;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 2rem;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--secondary);
+            color: white;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: rgba(236, 240, 241, 0.5);
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-icon {
+            margin-right: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-disabled {
+            background-color: var(--gray);
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tag-new {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
+        }
+
+        .tag-replied {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--primary);
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        .empty-text {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 400px;
+        }
+
+        .truncate {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+
+        .complaint-text {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            th, td {
+                padding: 0.75rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 0.4rem 0.75rem;
+                font-size: 0.8rem;
+            }
+            
+            .complaint-text {
+                max-width: 150px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <div class="dashboard-header fade-in">
+            <div>
+                <h1 class="title">Complaints Dashboard</h1>
+                <p class="subtitle">Manage your complaints</p>
+            </div>
+        </div>
+        
+        <div class="search-container fade-in delay-1">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Search complaints...">
+        </div>
+        
+        <div class="card fade-in delay-2">
+            <div class="table-responsive">
+                <table id="complaintsTable">
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Complaint</th>
+                            <th>Reply</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for var in var %}
+                        <tr class="complaint-row">
+                            <td class="truncate">{{ var.Complaint_Subject }}</td>
+                            <td>
+                                <div class="complaint-text">{{ var.complaint }}</div>
+                            </td>
+                            <td>
+                                <div class="complaint-text">{{ var.reply }}</div>
+                            </td>
+                            <td>
+                                {% if var.view_status == 0 %}
+                                <span class="tag tag-new">New</span>
+                                {% else %}
+                                <span class="tag tag-replied">Replied</span>
+                                {% endif %}
+                            </td>
+                            <td class="actions">
+                                <a href="{% url 'delete_complaints' id=var.com_id %}" class="btn btn-danger">
+                                    <i class="fas fa-trash btn-icon"></i>Delete
+                                </a>
+                                {% if var.view_status == 0 %}
+                                <a href="{% url 'edit_complaints' id=var.com_id %}" class="btn btn-primary">
+                                    <i class="fas fa-edit btn-icon"></i>Edit
+                                </a>
+                                {% else %}
+                                <button class="btn btn-disabled" disabled>
+                                    <i class="fas fa-edit btn-icon"></i>Edit
+                                </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox empty-icon"></i>
+                                    <p class="empty-text">No complaints found. When users submit complaints, they will appear here.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const table = document.getElementById('complaintsTable');
+            const rows = table.querySelectorAll('.complaint-row');
+            
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+                
+                rows.forEach(row => {
+                    const subject = row.cells[0].textContent.toLowerCase();
+                    const complaint = row.cells[1].textContent.toLowerCase();
+                    
+                    if (subject.includes(searchTerm) || complaint.includes(searchTerm)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Add click event to show full complaint text
+            rows.forEach(row => {
+                const complaintCell = row.cells[1];
+                const replyCell = row.cells[2];
+                
+                complaintCell.addEventListener('click', function() {
+                    const complaintDiv = this.querySelector('.complaint-text');
+                    if (complaintDiv.style.webkitLineClamp === 'unset') {
+                        complaintDiv.style.webkitLineClamp = '2';
+                        complaintDiv.style.maxWidth = '300px';
+                    } else {
+                        complaintDiv.style.webkitLineClamp = 'unset';
+                        complaintDiv.style.maxWidth = 'none';
+                    }
+                });
+                
+                replyCell.addEventListener('click', function() {
+                    const replyDiv = this.querySelector('.complaint-text');
+                    if (replyDiv.style.webkitLineClamp === 'unset') {
+                        replyDiv.style.webkitLineClamp = '2';
+                        replyDiv.style.maxWidth = '300px';
+                    } else {
+                        replyDiv.style.webkitLineClamp = 'unset';
+                        replyDiv.style.maxWidth = 'none';
+                    }
+                });
+            });
+            
+            // Confirm delete
+            const deleteButtons = document.querySelectorAll('.btn-danger');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!confirm('Are you sure you want to delete this complaint?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>

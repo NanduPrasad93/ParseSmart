@@ -1,0 +1,43 @@
+{% extends 'admin_header.html' %}
+{% load static %} 
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Central Government Jobs</title>
+</head>
+<body>
+    <h2>List of Central Government Jobs</h2>
+    <table border="1">
+        <tr>
+            <th>Job Title</th>
+            <th>Department</th>
+            <th>Field</th>
+            <th>Age Limit (General)</th>
+            <th>Vacancies</th>
+            <th>Success Rate</th>
+            <th>Physical Fitness</th>
+            <th>Actions</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.job_title }}</td>
+            <td>{{ job.department }}</td>
+            <td>{{ job.field }}</td>
+            <td>{{ job.age_limit_general }}</td>
+            <td>{{ job.vacancies|default:"N/A" }}</td>
+            <td>{{ job.success_rate|floatformat:2 }}%</td>
+            <td>{{ job.requires_physical_fitness|yesno:"Yes,No" }}</td>
+            <td>
+                <a href="{% url 'edit_central_gov_job' job.id %}">Edit</a> | 
+                <a href="{% url 'delete_central_gov_job' job.id %}" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
+
+{% endblock %}

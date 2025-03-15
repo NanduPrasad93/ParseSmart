@@ -1,0 +1,143 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Candidate Profile</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'cview/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'cview/css/style.css' %}">
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #444;
+            background: url("https://images.unsplash.com/photo-1472289065668-ce650ac443d2?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") 
+                        no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better readability */
+        }
+
+        .signup-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            border: 3px solid #e6a800;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e6a800;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table td:first-child {
+            font-weight: 600;
+            color: #444;
+            width: 40%;
+        }
+
+        table td:last-child {
+            color: #666;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #e6a800;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #d18f00;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-content {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <section class="signup">
+            <div class="signup-content">
+                <h2 class="form-title">Candidate Profile</h2>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Candidate Name:</td>
+                            <td>{{ var.Name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Gender:</td>
+                            <td>{{ var.Gender }}</td>
+                        </tr>
+                        <tr>
+                            <td>Contact:</td>
+                            <td>{{ var.Contact }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td>{{ var.Email }}</td>
+                        </tr>
+                    </table>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    
+    <!-- JS -->
+    <script src="{% static 'cview/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'cview/js/main.js' %}"></script>
+</body>
+</html>

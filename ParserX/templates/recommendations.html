@@ -1,0 +1,230 @@
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recommended Jobs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .container {
+            padding: 30px;
+            max-width: 95%;
+            margin: 30px auto;
+        }
+        .card {
+            background-color: #34495e;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            border: none;
+        }
+        .card-header {
+            background-color: #2c3e50;
+            border-bottom: 2px solid #e67e22;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #ecf0f1;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        h3 {
+            color: #e67e22;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .profile-info {
+            background-color: #2c3e50;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e67e22;
+        }
+        .profile-info p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .profile-label {
+            font-weight: bold;
+            color: #3498db;
+            margin-right: 5px;
+        }
+        .jobs-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 20px auto;
+            background-color: #34495e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border: 1px solid #2c3e50;
+        }
+        th {
+            background-color: #e67e22;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+        tr {
+            transition: background-color 0.3s ease;
+        }
+        tr:nth-child(even) {
+            background-color: #2c3e50;
+        }
+        tr:hover {
+            background-color: #3d5a73;
+        }
+        .error-message {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #e74c3c;
+            margin-bottom: 20px;
+        }
+        .no-jobs {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+            margin-top: 20px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .fitness-yes {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        .fitness-no {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fas fa-briefcase mr-2"></i> Job Recommendations</h2>
+        
+        {% if error %}
+        <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% else %}
+        
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-user mr-2"></i> Candidate Profile</h3>
+            </div>
+            <div class="card-body">
+                <div class="profile-info">
+                    <p><span class="profile-label"><i class="fas fa-user-circle"></i> Name:</span> {{ candidate.Candidate_name }}</p>
+                    <p><span class="profile-label"><i class="fas fa-graduation-cap"></i> Qualification:</span> {{ candidate.Highest_qua }}</p>
+                    <p><span class="profile-label"><i class="fas fa-users"></i> Caste:</span> {{ candidate.Caste }}</p>
+                    <p><span class="profile-label"><i class="fas fa-heartbeat"></i> Physical Fitness:</span> 
+                        {% if requires_physical_fitness %}
+                            <span class="fitness-yes"><i class="fas fa-check-circle"></i> Yes</span>
+                        {% else %}
+                            <span class="fitness-no"><i class="fas fa-times-circle"></i> No</span>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        {% if jobs %}
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-list mr-2"></i> Matching Jobs</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="jobs-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-briefcase"></i> Job Title</th>
+                                <th><i class="fas fa-building"></i> Department</th>
+                                <th><i class="fas fa-layer-group"></i> Field</th>
+                                <th><i class="fas fa-graduation-cap"></i> Qualifications</th>
+                                <th><i class="fas fa-birthday-cake"></i> Age Limit</th>
+                                <th><i class="fas fa-heartbeat"></i> Physical Fitness</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for job in jobs %}
+                            <tr>
+                                <td>{{ job.job_title }}</td>
+                                <td>{{ job.department }}</td>
+                                <td>{{ job.field }}</td>
+                                <td>{{ job.required_qualifications }}</td>
+                                <td>
+                                    {% if candidate.Caste == "SC" or candidate.Caste == "ST" %}
+                                        {{ job.age_limit_sc_st }} years
+                                    {% elif candidate.Caste == "OBC" %}
+                                        {{ job.age_limit_obc }} years
+                                    {% else %}
+                                        {{ job.age_limit_general }} years
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if job.requires_physical_fitness %}
+                                        <span class="fitness-yes"><i class="fas fa-check-circle"></i> Yes</span>
+                                    {% else %}
+                                        <span class="fitness-no"><i class="fas fa-times-circle"></i> No</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="no-jobs">
+            <i class="fas fa-info-circle"></i> No jobs currently match your profile. Please check back later or update your profile information.
+        </div>
+        {% endif %}
+        
+        {% endif %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

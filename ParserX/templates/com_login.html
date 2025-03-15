@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Company Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: #000000;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container-login100 {
+            background: #222;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 187, 0, 0.5);
+            text-align: center;
+        }
+        .login100-form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFBB00;
+        }
+        .wrap-input100 {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            font-size: 14px;
+            color: #FFBB00;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #FFBB00;
+            border-radius: 5px;
+            background: black;
+            color: white;
+        }
+        .login100-form-btn {
+            background-color: #FFBB00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+        }
+        .login100-form-btn:hover {
+            background-color: #e6a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <span class="login100-form-title">Company Account Login</span>
+            <form method="post" class="login100-form">
+                {% csrf_token %}
+                <div class="wrap-input100">
+                    <label for="email">Email</label>
+                    {{ form.Email }}
+                </div>
+                <div class="wrap-input100">
+                    <label for="password">Password</label>
+                    {{ form.password }}
+                </div>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends 'admin_header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Central Gov Job</title>
+</head>
+<body>
+    <h2>Add a Central Government Job</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
+
+{% endblock %}

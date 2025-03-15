@@ -1,0 +1,30 @@
+{%extends 'admin_header.html'%}
+{% block content %}
+<html>
+    <head>
+        <title>Notification</title>
+    </head>
+    <body>
+        <center>
+        <table border="1" class="table table-responsive">
+            <tr>
+                <th>Date</th>
+                <th>Notification</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for var in var %}
+            <tr>
+                <td>{{var.current_date}}</td>
+                <td>{{var.Notifications}}</td>
+                <td><a href="{% url 'edit_notification' var.n_id %}">Edit</a></td>
+                <td><a href="{% url 'remove_notification' var.n_id %}">Remove</a></td>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </center>
+    </body>
+</html>
+{% endblock %}

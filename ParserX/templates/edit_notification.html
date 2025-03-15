@@ -1,0 +1,27 @@
+{% extends 'admin_header.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Notification</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Edit Notification</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-footer">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+{% endblock %}

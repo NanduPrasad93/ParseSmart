@@ -1,0 +1,262 @@
+{% extends 'admin_header.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<!doctype html>
+<html lang="en" data-bs-theme="blue-theme">
+
+
+<!-- Mirrored from codervent.com/maxton/demo/vertical-menu/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 08 Dec 2024 05:34:35 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maxton | Bootstrap 5 Admin Dashboard Template</title>
+  <!--favicon-->
+  <link rel="icon" href="{% static 'admin/assets/images/favicon-32x32.png' %}" type="image/png">
+  <!-- loader-->
+  <link href="{% static 'admin/assets/css/pace.min.css' %}" rel="stylesheet">
+  <script src="{% static 'admin/assets/js/pace.min.js' %}"></script>
+
+  <!--plugins-->
+  <link href="{% static 'admin/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin/assets/plugins/metismenu/metisMenu.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin/assets/plugins/metismenu/mm-vertical.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'admin/assets/plugins/simplebar/css/simplebar.css' %}">
+  <!--bootstrap css-->
+  <link href="{% static 'admin/assets/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/assets/plugins/datatable/css/dataTables.bootstrap5.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'admin/https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&amp;display=swap' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+  <!--main css-->
+  <link href="{% static 'admin/assets/css/bootstrap-extended.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/main.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/dark-theme.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/blue-theme.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/semi-dark.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/bordered-theme.css' %}" rel="stylesheet">
+  <link href="{% static 'admin/sass/responsive.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+				<!--end breadcrumb-->
+                <h6 class="mb-0 text-uppercase">Experts</h6>
+                <hr>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Field</th>
+                            <th scope="col">Year of experience</th>
+                            <th scope="col">Profile Picture</th>
+                            <th scope="col">LinkedIn</th>
+                            <th scope="col">Achievements</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% if users %}
+                            {% for user in users %}
+                              <tr>
+                                <td>{{ user.Name }}</td>
+                                <td>{{ user.Contact }}</td>
+                                <td>{{ user.Email }}</td>
+                                <td>{{ user.Designation}}</td>
+                                <td>{{ user.Field }}</td>
+                                <td>{{ user.Year_of_experience}}</td>
+                                <td>{{ user.Profile_Picture}}</td>
+                                <td>{{ user.LinkedIn}}</td>
+                                <td>{{ user.Achievements}}</td>
+                                <td>
+                                  {% if user.status == 0 %}
+                                    <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                    <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                  {% elif user.status == 1 %}
+                                    <p>Approved</p>
+                                    <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                  {% else %}
+                                    <p>Rejected</p>
+                                    <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                  {% endif %}
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          {% else %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
+                          {% endif %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <h6 class="mb-0 text-uppercase">Candidates</h6>
+                <hr>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">E-mail</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in var %}
+                              <tr>
+                                <td>{{ user.Name }}</td>
+                                <td>{{ user.Gender }}</td>
+                                <td>{{ user.Contact }}</td>
+                                <td>{{ user.Email }}</td>
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+                <h6 class="mb-0 text-uppercase">Complaints</h6>
+                <hr>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Complaint Subject</th>
+                            <th scope="col">Complaint</th>
+                            <th scope="col">Reply</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for com in com %}
+                              <tr>
+                                <td>{{ com.created_datetime }}</td>
+                                <td>{{ com.login_id.Name }}</td>
+                                <td>{{ com.login_id.Contact }}</td>
+                                <td>{{ com.Complaint_Subject }}</td>
+                                <td>{{ com.complaint }}</td>
+                                <td><a href="{% url 'Response' id=com.com_id %}">Reply</a></td>
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+
+                <h6 class="mb-0 text-uppercase">Companies</h6>
+                <hr>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th scope="col">Business Category</th>
+                            <th scope="col">Business Name</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in company %}
+                              <tr>
+                                <td>{{ company.Business_category }}</td>
+                                <td>{{ company.Business_name }}</td>
+                                <td>{{ company.Contact }}</td>
+                                <td>{{ company.Email }}</td>
+                                
+                                <td>
+
+                                  {% if company.com_status == 0 %}
+
+                                  <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                  <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                  {% elif company.com_status == 1 %}
+                                    <p>Approved</p>
+                                    <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                  {% else %}
+                                    <p>Rejected</p>
+                                    <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                  {% endif %}
+                                </td>
+
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+ 
+
+ 
+      
+
+
+
+
+  <!--bootstrap js-->
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+  <!--plugins-->
+  <script src="assets/js/jquery.min.js"></script>
+  <!--plugins-->
+  <script src="{% static 'admin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+  <script src="{% static 'admin/assets/plugins/metismenu/metisMenu.min.js' %}"></script>
+  <script src="{% static 'admin/assets/plugins/datatable/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'admin/assets/plugins/datatable/js/dataTables.bootstrap5.min.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			$('#example').DataTable();
+		  } );
+	</script>
+	<script>
+		$(document).ready(function() {
+			var table = $('#example2').DataTable( {
+				lengthChange: false,
+				buttons: [ 'copy', 'excel', 'pdf', 'print']
+			} );
+		 
+			table.buttons().container()
+				.appendTo( '#example2_wrapper .col-md-6:eq(0)' );
+		} );
+	</script>
+  <script src="{% static 'admin/assets/plugins/simplebar/js/simplebar.min.js' %}"></script>
+  <script src="{% static 'admin/assets/js/main.js' %}"></script>
+
+
+</body>
+
+
+<!-- Mirrored from codervent.com/maxton/demo/vertical-menu/table-datatable.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 08 Dec 2024 05:34:36 GMT -->
+</html>
+
+{% endblock %}

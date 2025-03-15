@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Login</title>
+    
+    <style>
+        body {
+            background-color: #000000;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #222;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 187, 0, 0.5);
+            text-align: center;
+            width: 350px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFBB00;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: 14px;
+            color: #FFBB00;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #FFBB00;
+            border-radius: 5px;
+            background: black;
+            color: white;
+        }
+        .authorize-btn {
+            background-color: #FFBB00;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .authorize-btn:hover {
+            background-color: #e6a800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CANDIDATE LOGIN</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email</label>
+                {{ form.Email }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.Password }}
+            </div>
+            <button type="submit" class="authorize-btn">Authorize</button>
+        </form>
+    </div>
+</body>
+</html>

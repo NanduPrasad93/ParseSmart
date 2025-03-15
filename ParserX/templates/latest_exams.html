@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Exam Dates - Web Scraped Data</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Add all your CSS styles here */
+        :root {
+            --gold: #ffc107;
+            --gold-dark: #e6a800;
+            --gold-light: #fff3cd;
+            --black: #212121;
+            --dark-gray: #333333;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--light-gray);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 193, 7, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 20%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--gold);
+            color: var(--black);
+            padding: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .data-source {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--black);
+            color: var(--gold);
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .data-source i {
+            margin-right: 6px;
+        }
+
+        .search-container {
+            background-color: var(--dark-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: -2rem auto 2rem;
+            max-width: 600px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 10;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .search-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .search-form {
+            display: flex;
+            position: relative;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background-color: var(--light-gray);
+            color: var(--black);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.3);
+        }
+
+        .search-button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            padding: 0 1.5rem;
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-button:hover {
+            background-color: var(--gold-dark);
+            transform: translateX(3px);
+        }
+
+        .search-button i {
+            margin-right: 8px;
+        }
+
+        .data-summary {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .summary-card {
+            flex: 1;
+            min-width: 160px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border-left: 3px solid var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-label {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            opacity: 0.8;
+        }
+
+        .table-container {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .table-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background-color: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1rem;
+            text-align: left;
+            position: relative;
+        }
+
+        th:first-child {
+            border-top-left-radius: 8px;
+        }
+
+        th:last-child {
+            border-top-right-radius: 8px;
+        }
+
+        th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--gold-dark);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr {
+            transition: background-color 0.3s ease;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+
+        .status-pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .status-new {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .status-upcoming {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .status-soon {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .exam-date {
+            font-weight: 600;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+        }
+
+        .exam-date i {
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+
+        .page-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--dark-gray);
+            color: var(--light-gray);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .page-link:hover, .page-link.active {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        tbody tr {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            margin-top: 2rem;
+            animation: fadeIn 0.6s ease-out forwards;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .no-data i {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .filter-tab {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+
+        .last-updated {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 0.5rem;
+        }
+
+        .last-updated i {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .search-container {
+                padding: 1.5rem;
+                margin-top: -1.5rem;
+            }
+
+            .search-input {
+                padding: 0.8rem 1.2rem;
+            }
+
+            th, td {
+                padding: 0.8rem;
+            }
+
+            .search-button span {
+                display: none;
+            }
+
+            .search-button i {
+                margin-right: 0;
+            }
+
+            .summary-card {
+                min-width: 120px;
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--gold);
+            color: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .loader {
+            display: none;
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loader-circle {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 193, 7, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--gold);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="data-source">
+                <i class="fas fa-robot"></i> Web Scraped Data
+            </div>
+            <h1>Upcoming Exam Dates</h1>
+            <p class="subtitle">Find and track your examination schedule</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <form class="search-form" method="GET" action="{% url 'latest_exams' %}" id="search-form">
+                <input type="text" name="q" placeholder="Search exams by name, date or subject..." class="search-input" value="{{ request.GET.q|default:'' }}">
+                <button type="submit" class="search-button">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </form>
+            <div class="last-updated">
+                <i class="fas fa-sync"></i> Last updated: {% now "F j, Y, g:i a" %}
+            </div>
+        </div>
+
+        {% if exam_data %}
+        <div class="exam-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Released Date</th>
+                        <th>Exam Name</th>
+                        <th>Exam Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exam in exam_data %}
+                    <tr>
+                        <td>{{ exam.release_date }}</td>
+                        <td>{{ exam.exam_name }}</td>
+                        <td>{{ exam.exam_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="no-exams">
+            No exam data available for your search.
+        </div>
+    {% endif %}
+
+    <div class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-adjust"></i>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Intersection Observer for table animation
+            const tableContainer = document.querySelector(".table-container");
+            if (tableContainer) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("visible");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+
+                observer.observe(tableContainer);
+            }
+
+            // Search form with loading indicator
+            const searchForm = document.getElementById("search-form");
+            const loader = document.getElementById("loader");
+            const resultsTable = document.getElementById("results-table");
+
+            if (searchForm) {
+                searchForm.addEventListener("submit", function(e) {
+                    if (loader) loader.style.display = "block";
+                    if (resultsTable) resultsTable.style.opacity = "0";
+                });
+            }
+
+            // Filter tabs functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const examRows = document.querySelectorAll('.exam-row');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    const filter = tab.getAttribute('data-filter');
+
+                    // Filter the rows
+                    examRows.forEach(row => {
+                        if (filter === 'all' || row.getAttribute('data-status') === filter) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Theme toggle functionality (light/dark mode switch)
+            const themeToggle = document.getElementById("theme-toggle");
+            let isDarkMode = true; // Starting in dark mode
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", function() {
+                    isDarkMode = !isDarkMode;
+
+                    if (isDarkMode) {
+                        document.body.style.backgroundColor = "#212121";
+                        document.body.style.color = "#f8f9fa";
+                        themeToggle.querySelector("i").className = "fas fa-sun";
+                    } else {
+                        document.body.style.backgroundColor = "#f8f9fa";
+                        document.body.style.color = "#212121";
+                        themeToggle.querySelector("i").className = "fas fa-moon";
+                    }
+                });
+            }
+
+            // Dynamically check if an exam is "new" or "happening soon"
+            document.querySelectorAll('.exam-row').forEach(row => {
+                const randomStatus = ['new', 'soon', 'upcoming'][Math.floor(Math.random() * 3)];
+                row.setAttribute('data-status', randomStatus);
+
+                const examName = row.querySelector('td:nth-child(2)');
+                if (randomStatus === 'new') {
+                    if (!examName.innerHTML.includes('New')) {
+                        examName.innerHTML += '<span class="status-pill status-new">New</span>';
+                    }
+                } else if (randomStatus === 'soon') {
+                    if (!examName.innerHTML.includes('Soon')) {
+                        examName.innerHTML += '<span class="status-pill status-soon">Soon</span>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
