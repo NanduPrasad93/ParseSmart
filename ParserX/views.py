@@ -53,21 +53,7 @@ def user_page(request):
     return render(request,'user_page.html')
 
 
-# def user_page(request):
-#     candidate_id = request.session.get('candidate_id')
 
-#     if not candidate_id:
-#         return redirect('login')  
-
-#     candidate = Candidate.objects.filter(id=candidate_id).first()
-
-#     tips = list(Tips.objects.all())
-#     tip = random.choice(tips).Tips if tips else None  
-
-#     return render(request, 'user_page.html', {'tip': tip, 'candidate': candidate})
-
-# def ppage(request):
-#     return render(request,'abcdef.html')
 def candidate(request):
     if request.method =='POST':
         form = Candidate_Form(request.POST)
