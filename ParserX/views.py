@@ -1368,39 +1368,3 @@ def mcq_test(request):
 
 
 
-import whisper
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import os
-
-# Load Whisper model once (outside the view function)
-model = whisper.load_model("small")
-
-@csrf_exempt
-def transcribe_audio(request):
-    if request.method == 'POST' and request.FILES.get('audio'):
-        audio_file = request.FILES['audio']
-
-        # Save the uploaded file temporarily
-        file_path = f"temp_{audio_file.name}"
-        try:
-            with open(file_path, 'wb') as f:
-                for chunk in audio_file.chunks():
-                    f.write(chunk)
-
-            # Transcribe the audio file
-            result = model.transcribe(file_path)
-
-            # Return the transcription result
-            return JsonResponse({"transcription": result["text"]})
-
-        except Exception as e:
-            # Handle errors during transcription
-            return JsonResponse({"error": str(e)}, status=500)
-
-        finally:
-            # Remove temporary file
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
-    return JsonResponse({"error": "No audio file provided"}, status=400)
