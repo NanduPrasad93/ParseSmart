@@ -617,21 +617,16 @@ def delete_special_profile(request, id):
 
 from django.db.models import Q
 from django.shortcuts import render
-from .models import SpecialRegistration, CentralGovJob, Candidate
-
 def recommend_jobs(request):
-    # Retrieve candidate_id from session
     candidate_id = request.session.get('user_id')
     print(candidate_id)
 
-    # Fetch the Candidate instance using the ID stored in the session
     try:
         candid = Candidate.objects.get(id=candidate_id)
         print(candid)
     except Candidate.DoesNotExist:
         return render(request, 'recommendations.html', {'error': 'Candidate not found'})
 
-    # Fetch SpecialRegistration for the candidate
     candidate_registration = SpecialRegistration.objects.filter(candidate_id=candid).first()
     if not candidate_registration:
         return render(request, 'recommendations.html', {
@@ -642,11 +637,28 @@ def recommend_jobs(request):
 
     qualification = candidate_registration.Highest_qua
     caste = candidate_registration.Caste
-    requires_physical_fitness = candidate_registration.Height >= 160 and candidate_registration.Weight >= 50
 
-    print(f"Candidate's Qualification: {qualification}, Caste: {caste}, Requires Physical Fitness: {requires_physical_fitness}")
+    # Calculate BMI and determine physical fitness
+    height_in_meters = candidate_registration.Height / 100  
+    bmi = candidate_registration.Weight / (height_in_meters ** 2)
 
+    # Categorize BMI
+    if bmi < 18.5:
+        fitness_category = "Underweight"
+        requires_physical_fitness = False  # Underweight candidates may not meet physical fitness requirements
+    elif 18.5 <= bmi < 24.9:
+        fitness_category = "Normal weight"
+        requires_physical_fitness = True  # Normal weight candidates are considered fit
+    elif 25 <= bmi < 29.9:
+        fitness_category = "Overweight"
+        requires_physical_fitness = False  # Overweight candidates may not meet physical fitness requirements
+    else:
+        fitness_category = "Obese"
+        requires_physical_fitness = False  # Obese candidates may not meet physical fitness requirements
 
+    print(f"Candidate's Qualification: {qualification}, Caste: {caste}, Fitness Category: {fitness_category}, Requires Physical Fitness: {requires_physical_fitness}")
+
+    # Build filters for job recommendations
     filters = Q(required_qualifications__icontains=qualification)
 
     if caste == 'SC' or caste == 'ST':
@@ -658,15 +670,17 @@ def recommend_jobs(request):
 
     if requires_physical_fitness:
         filters &= Q(requires_physical_fitness=True)
-
+     #fetch eligible jobs
     eligible_jobs = CentralGovJob.objects.filter(filters)
 
     if not eligible_jobs:
         print("No eligible jobs found.")
 
-    return render(request, 'recommendations.html', {'candidate': candidate_registration, 'jobs': eligible_jobs})
-
-
+    return render(request, 'recommendations.html', {
+        'candidate': candidate_registration,
+        'jobs': eligible_jobs,
+        'fitness_category': fitness_category  
+    })
 # def recommend_jobs(request):
 #     # Retrieve candidate_id from session
 #     candidate_id = request.session.get('user_id')
