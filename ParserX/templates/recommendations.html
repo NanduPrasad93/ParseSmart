@@ -174,53 +174,109 @@
         </div>
         
         {% if jobs %}
-        <div class="card">
-            <div class="card-header">
-                <h3><i class="fas fa-list mr-2"></i> Matching Jobs</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="jobs-table">
-                        <thead>
-                            <tr>
-                                <th><i class="fas fa-briefcase"></i> Job Title</th>
-                                <th><i class="fas fa-building"></i> Department</th>
-                                <th><i class="fas fa-layer-group"></i> Field</th>
-                                <th><i class="fas fa-graduation-cap"></i> Qualifications</th>
-                                <th><i class="fas fa-birthday-cake"></i> Age Limit</th>
-                                <th><i class="fas fa-heartbeat"></i> Physical Fitness</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for job in jobs %}
-                            <tr>
-                                <td>{{ job.job_title }}</td>
-                                <td>{{ job.department }}</td>
-                                <td>{{ job.field }}</td>
-                                <td>{{ job.required_qualifications }}</td>
-                                <td>
-                                    {% if candidate.Caste == "SC" or candidate.Caste == "ST" %}
-                                        {{ job.age_limit_sc_st }} years
-                                    {% elif candidate.Caste == "OBC" %}
-                                        {{ job.age_limit_obc }} years
-                                    {% else %}
-                                        {{ job.age_limit_general }} years
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if job.requires_physical_fitness %}
-                                        <span class="fitness-yes"><i class="fas fa-check-circle"></i> Yes</span>
-                                    {% else %}
-                                        <span class="fitness-no"><i class="fas fa-times-circle"></i> No</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list mr-2"></i> Matching Jobs</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="jobs-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-briefcase"></i> Job Title</th>
+                                    <th><i class="fas fa-building"></i> Department</th>
+                                    <th><i class="fas fa-layer-group"></i> Field</th>
+                                    <th><i class="fas fa-graduation-cap"></i> Qualifications</th>
+                                    <th><i class="fas fa-birthday-cake"></i> Age Limit</th>
+                                    <th><i class="fas fa-heartbeat"></i> Physical Fitness</th>
+                                    <th><i class="fas fa-tasks"></i> Selection Process</th>
+                                    <th><i class="fas fa-money-bill-wave"></i> Salary Range</th>
+                                    <th><i class="fas fa-users"></i> Vacancies</th>
+                                    <th><i class="fas fa-calendar-alt"></i> Exam Frequency</th>
+                                    <th><i class="fas fa-briefcase"></i> Work Type</th>
+                                    <th><i class="fas fa-laptop"></i> Application Mode</th>
+                                    <th><i class="fas fa-chart-line"></i> Success Rate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in jobs %}
+                                <tr>
+                                    <td>{{ job.job_title }}</td>
+                                    <td>{{ job.department }}</td>
+                                    <td>{{ job.field }}</td>
+                                    <td>{{ job.required_qualifications }}</td>
+                                    <td>
+                                        {% if candidate.Caste == "SC" or candidate.Caste == "ST" %}
+                                            {{ job.age_limit_sc_st }} years
+                                        {% elif candidate.Caste == "OBC" %}
+                                            {{ job.age_limit_obc }} years
+                                        {% else %}
+                                            {{ job.age_limit_general }} years
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.requires_physical_fitness %}
+                                            <span class="fitness-yes"><i class="fas fa-check-circle"></i> Yes</span>
+                                        {% else %}
+                                            <span class="fitness-no"><i class="fas fa-times-circle"></i> No</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.selection_process %}
+                                            <pre>{{ job.selection_process }}</pre>
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.salary_range %}
+                                            {{ job.salary_range }}
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.vacancies %}
+                                            {{ job.vacancies }}
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.exam_frequency %}
+                                            {{ job.exam_frequency }}
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.work_type %}
+                                            {{ job.work_type }}
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.application_mode %}
+                                            {{ job.application_mode }}
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if job.success_rate %}
+                                            {{ job.success_rate }}%
+                                        {% else %}
+                                            <span class="text-muted">Not specified</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
         {% else %}
         <div class="no-jobs">
             <i class="fas fa-info-circle"></i> No jobs currently match your profile. Please check back later or update your profile information.

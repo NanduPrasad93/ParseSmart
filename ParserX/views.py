@@ -642,23 +642,23 @@ def recommend_jobs(request):
     height_in_meters = candidate_registration.Height / 100  
     bmi = candidate_registration.Weight / (height_in_meters ** 2)
 
-    # Categorize BMI
+
     if bmi < 18.5:
         fitness_category = "Underweight"
-        requires_physical_fitness = False  # Underweight candidates may not meet physical fitness requirements
+        requires_physical_fitness = False 
     elif 18.5 <= bmi < 24.9:
         fitness_category = "Normal weight"
-        requires_physical_fitness = True  # Normal weight candidates are considered fit
+        requires_physical_fitness = True  
     elif 25 <= bmi < 29.9:
         fitness_category = "Overweight"
-        requires_physical_fitness = False  # Overweight candidates may not meet physical fitness requirements
+        requires_physical_fitness = False  
     else:
         fitness_category = "Obese"
-        requires_physical_fitness = False  # Obese candidates may not meet physical fitness requirements
+        requires_physical_fitness = False  
 
     print(f"Candidate's Qualification: {qualification}, Caste: {caste}, Fitness Category: {fitness_category}, Requires Physical Fitness: {requires_physical_fitness}")
 
-    # Build filters for job recommendations
+
     filters = Q(required_qualifications__icontains=qualification)
 
     if caste == 'SC' or caste == 'ST':
@@ -670,7 +670,8 @@ def recommend_jobs(request):
 
     if requires_physical_fitness:
         filters &= Q(requires_physical_fitness=True)
-     #fetch eligible jobs
+
+    # Fetch eligible jobs
     eligible_jobs = CentralGovJob.objects.filter(filters)
 
     if not eligible_jobs:
@@ -679,7 +680,8 @@ def recommend_jobs(request):
     return render(request, 'recommendations.html', {
         'candidate': candidate_registration,
         'jobs': eligible_jobs,
-        'fitness_category': fitness_category  
+        'fitness_category': fitness_category,
+        'requires_physical_fitness': requires_physical_fitness  
     })
 # def recommend_jobs(request):
 #     # Retrieve candidate_id from session
