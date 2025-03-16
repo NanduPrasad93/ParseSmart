@@ -12,6 +12,7 @@
         .timer { font-size: 1.5em; font-weight: bold; margin: 20px; }
         .loading { font-size: 1.2em; color: #555; }
         .error { color: red; font-weight: bold; }
+        .result { margin-top: 20px; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; text-align: left; }
     </style>
 </head>
 <body>
@@ -27,6 +28,12 @@
         <p class="loading">Select a category and click "Start Test" to begin.</p>
     </div>
     <button onclick="submitAnswers()">Submit Answers</button>
+
+    <div id="resultContainer" class="result" style="display: none;">
+        <h2>Test Results</h2>
+        <p id="score"></p>
+        <div id="detailedResults"></div>
+    </div>
 
     <script>
         let mcqs = [];
@@ -86,64 +93,65 @@
         function displayQuestions() {
             const container = document.getElementById("mcqContainer");
             container.innerHTML = "";
-
+        
             mcqs.forEach((mcq, index) => {
                 container.innerHTML += `
                     <div class="question">
                         <p><b>${index + 1}. ${mcq.question}</b></p>
                         <div class="options">
-                            <label><input type="radio" name="q${index}" value="A"> ${mcq.option_a}</label>
-                            <label><input type="radio" name="q${index}" value="B"> ${mcq.option_b}</label>
-                            <label><input type="radio" name="q${index}" value="C"> ${mcq.option_c}</label>
-                            <label><input type="radio" name="q${index}" value="D"> ${mcq.option_d}</label>
+                            <label><input type="radio" name="q${index}" value="${mcq.option_a}"> ${mcq.option_a}</label>
+                            <label><input type="radio" name="q${index}" value="${mcq.option_b}"> ${mcq.option_b}</label>
+                            <label><input type="radio" name="q${index}" value="${mcq.option_c}"> ${mcq.option_c}</label>
+                            <label><input type="radio" name="q${index}" value="${mcq.option_d}"> ${mcq.option_d}</label>
                         </div>
                     </div>
                     <hr>
                 `;
             });
         }
+        
 
-        // Function to submit answers
         function submitAnswers() {
             clearInterval(timerInterval); // Stop the timer
             let score = 0;
-            let results = [];
             let unanswered = 0;
-
+            let resultsHTML = "";
+        
             mcqs.forEach((mcq, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
+                let selectedOption = "Unanswered";
+                let correctOption = mcq.correct_option.trim().toUpperCase();
+                let isCorrect = false;
+        
                 if (selected) {
-                    const isCorrect = selected.value === mcq.correct_option;
-                    if (isCorrect) {
-                        score++;
-                    }
-                    results.push({
-                        question: mcq.question,
-                        selected: selected.value,
-                        correct: mcq.correct_option,
-                        isCorrect: isCorrect
-                    });
+                    selectedOption = selected.value.trim().toUpperCase();
+                    isCorrect = selectedOption === correctOption;
+                    if (isCorrect) score++;
                 } else {
                     unanswered++;
                 }
+        
+                // Display only the selected answer and whether it was correct
+                resultsHTML += `
+                    <p><b>Q${index + 1}:</b> ${mcq.question}</p>
+                    <p><b>Your Answer:</b> ${selectedOption}</p>
+                    <p><b>Correct Answer:</b> ${correctOption}</p>
+                    <p><b>Status:</b> ${isCorrect ? "<span style='color:green;'>Correct ✅</span>" : "<span style='color:red;'>Incorrect ❌</span>"}</p>
+                    <hr>
+                `;
             });
-
-            let resultMessage = `Your Score: ${score} / ${mcqs.length}\n\n`;
-            results.forEach((result, index) => {
-                resultMessage += `Q${index + 1}: ${result.question}\n`;
-                resultMessage += `Your Answer: ${result.selected || "Unanswered"}\n`;
-                resultMessage += `Correct Answer: ${result.correct}\n`;
-                resultMessage += `Status: ${result.isCorrect ? "Correct" : "Incorrect"}\n\n`;
-            });
-
+        
+            // Display results
+            document.getElementById("score").innerHTML = `<b>Your Score: ${score} / ${mcqs.length}</b>`;
+            document.getElementById("detailedResults").innerHTML = resultsHTML;
+        
             if (unanswered > 0) {
-                resultMessage += `You left ${unanswered} questions unanswered.\n`;
+                document.getElementById("detailedResults").innerHTML += `<p><b>You left ${unanswered} questions unanswered.</b></p>`;
             }
-
-            alert(resultMessage);
+        
+            document.getElementById("resultContainer").style.display = "block";
         }
-
-        // Load categories when the page loads
+               // Load categories when the page loads
         window.onload = loadCategories;
     </script>
 

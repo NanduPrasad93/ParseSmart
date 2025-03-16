@@ -1356,7 +1356,7 @@ from .models import MCQ
 
 # Fetch 60 random MCQs by category
 def get_mcqs(request, category):
-    mcqs = MCQ.objects.filter(category=category).order_by('?')[:60].values(
+    mcqs = MCQ.objects.filter(category=category).order_by('?')[:10].values(
         "question", "option_a", "option_b", "option_c", "option_d", "correct_option"
     )
     return JsonResponse(list(mcqs), safe=False)

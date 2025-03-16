@@ -260,7 +260,7 @@ class Subject(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
 class MCQ(models.Model):
-    category = models.CharField(max_length=100)  # SSC, Bank, etc.
+    category = models.CharField(max_length=100)  
     question = models.TextField()
     option_a = models.CharField(max_length=255)
     option_b = models.CharField(max_length=255)
