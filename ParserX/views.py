@@ -642,7 +642,6 @@ def recommend_jobs(request):
     height_in_meters = candidate_registration.Height / 100  
     bmi = candidate_registration.Weight / (height_in_meters ** 2)
 
-
     if bmi < 18.5:
         fitness_category = "Underweight"
         requires_physical_fitness = False 
@@ -658,7 +657,7 @@ def recommend_jobs(request):
 
     print(f"Candidate's Qualification: {qualification}, Caste: {caste}, Fitness Category: {fitness_category}, Requires Physical Fitness: {requires_physical_fitness}")
 
-
+    # Base filters for qualification and caste
     filters = Q(required_qualifications__icontains=qualification)
 
     if caste == 'SC' or caste == 'ST':
@@ -668,22 +667,25 @@ def recommend_jobs(request):
     else:  
         filters &= Q(age_limit_general__isnull=False)
 
-    if requires_physical_fitness:
-        filters &= Q(requires_physical_fitness=True)
+    # Fetch all eligible jobs (both physically fit and non-physically fit)
+    all_eligible_jobs = CentralGovJob.objects.filter(filters)
 
-    # Fetch eligible jobs
-    eligible_jobs = CentralGovJob.objects.filter(filters)
+    # Separate jobs into physically fit and non-physically fit categories
+    physically_fit_jobs = all_eligible_jobs.filter(requires_physical_fitness=True)
+    non_physically_fit_jobs = all_eligible_jobs.filter(requires_physical_fitness=False)
 
-    if not eligible_jobs:
+    if not all_eligible_jobs:
         print("No eligible jobs found.")
 
     return render(request, 'recommendations.html', {
         'candidate': candidate_registration,
-        'jobs': eligible_jobs,
+        'physically_fit_jobs': physically_fit_jobs,
+        'non_physically_fit_jobs': non_physically_fit_jobs,
         'fitness_category': fitness_category,
         'requires_physical_fitness': requires_physical_fitness  
     })
-# def recommend_jobs(request):
+    
+    # def recommend_jobs(request):
 #     # Retrieve candidate_id from session
 #     candidate_id = request.session.get('user_id')
 #     print(candidate_id)
@@ -1368,39 +1370,3 @@ def mcq_test(request):
 
 
 
-import whisper
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-import os
-
-# Load Whisper model once (outside the view function)
-model = whisper.load_model("small")
-
-@csrf_exempt
-def transcribe_audio(request):
-    if request.method == 'POST' and request.FILES.get('audio'):
-        audio_file = request.FILES['audio']
-
-        # Save the uploaded file temporarily
-        file_path = f"temp_{audio_file.name}"
-        try:
-            with open(file_path, 'wb') as f:
-                for chunk in audio_file.chunks():
-                    f.write(chunk)
-
-            # Transcribe the audio file
-            result = model.transcribe(file_path)
-
-            # Return the transcription result
-            return JsonResponse({"transcription": result["text"]})
-
-        except Exception as e:
-            # Handle errors during transcription
-            return JsonResponse({"error": str(e)}, status=500)
-
-        finally:
-            # Remove temporary file
-            if os.path.exists(file_path):
-                os.remove(file_path)
-
-    return JsonResponse({"error": "No audio file provided"}, status=400)

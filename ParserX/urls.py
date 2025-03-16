@@ -130,7 +130,6 @@ urlpatterns=[
     path('mcq-test/', views.mcq_test, name='mcq_test'),
 
     # path('clear-tip/', views.clear_tip, name='clear_tip'),
-    path('transcribe/', views.transcribe_audio, name='transcribe_audio'),
     
 ]
 

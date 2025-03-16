@@ -74,8 +74,6 @@ class SpecialRegistration(models.Model):
         qualification_order = {'10th': 1, '12th': 2, 'UG': 3, 'PG': 4}
         jobs = [job for job in jobs if qualification_order[job.required_qualifications] <= qualification_order[self.Highest_qua]]
 
-        # Filter by physical eligibility
-        jobs = [job for job in jobs if not job.requires_physical_fitness or (self.Height >= 160 and self.Weight >= 50)]
 
         return jobs
 
