@@ -126,11 +126,13 @@ urlpatterns=[
 
 
     # path("mcq_view/",views.mcq_view, name="mcq_view"),
-    path('api/mcq/<str:category>/', views.get_mcqs, name='get_mcqs'),
-    path('mcq-test/', views.mcq_test, name='mcq_test'),
+    # path('api/mcq/<str:category>/', views.get_mcqs, name='get_mcqs'),
+    # path('mcq-test/', views.mcq_test, name='mcq_test'),
 
     # path('clear-tip/', views.clear_tip, name='clear_tip'),
-    
+    path("api/mcq/<str:category>/", views.get_mcqs, name="get_mcqs"),
+    path("api/categories/", views.get_categories, name="get_categories"),
+    path("mcq-test/", views.mcq_test, name="mcq_test"),
 ]
 
 

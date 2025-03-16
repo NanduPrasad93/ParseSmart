@@ -1350,21 +1350,25 @@ def defence_exams(request):
 
 
 
+from django.http import JsonResponse
+from django.shortcuts import render
+from .models import MCQ
+
+# Fetch 60 random MCQs by category
 def get_mcqs(request, category):
-    mcqs = MCQ.objects.filter(category=category).values("question", "option_a", "option_b", "option_c", "option_d")
+    mcqs = MCQ.objects.filter(category=category).order_by('?')[:60].values(
+        "question", "option_a", "option_b", "option_c", "option_d", "correct_option"
+    )
     return JsonResponse(list(mcqs), safe=False)
 
+# Fetch all categories
+def get_categories(request):
+    categories = MCQ.objects.values_list("category", flat=True).distinct()
+    return JsonResponse(list(categories), safe=False)
+
+# Render the MCQ test page
 def mcq_test(request):
     return render(request, 'mcq_test.html')
-
-
-
-
-
-
-
-
-
 
 
 
