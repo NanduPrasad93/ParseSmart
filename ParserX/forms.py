@@ -33,7 +33,8 @@ class SpecialRegistrationForm(forms.ModelForm):
         model = SpecialRegistration
         fields = [
             'Candidate_name', 'Fathers_name', 'Phone_no', 'Email_id',
-            'Highest_qua', 'Dob', 'Gender', 'Caste', 'Height', 'Weight', 'profile_photo'
+            'Highest_qua', 'Dob', 'Gender', 'Caste', 'Height', 'Weight',
+             'nationality', 'marital_status', 'languages_known', 'disability_status'
         ]
         widgets = {
             'Candidate_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Candidate Name'}),
@@ -45,7 +46,10 @@ class SpecialRegistrationForm(forms.ModelForm):
             'Caste': forms.Select(attrs={'class': 'form-control'}, choices=SpecialRegistration.Caste),
             'Height': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Height (in cm)'}),
             'Weight': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Weight (in kg)'}),
-            'profile_photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'nationality': forms.Select(attrs={'class': 'form-control'}, choices=SpecialRegistration.NATIONALITY_CHOICES),
+            'marital_status': forms.Select(attrs={'class': 'form-control'}, choices=SpecialRegistration.MARITAL_CHOICES),
+            'languages_known': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., English, Hindi, Tamil'}),
+            'disability_status': forms.Select(attrs={'class': 'form-control'}, choices=SpecialRegistration.DISABILITY_CHOICES),
         }
 
 class Edit_Form(forms.ModelForm):

@@ -14,7 +14,7 @@
             background-image: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
             min-height: 100vh;
         }
-        
+
         h1 {
             text-align: center;
             color: #ecf0f1;
@@ -27,7 +27,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         h1:after {
             content: '';
             position: absolute;
@@ -38,24 +38,24 @@
             background: linear-gradient(90deg, transparent, #e67e22, transparent);
             animation: shimmer 2s infinite;
         }
-        
+
         @keyframes shimmer {
             0% { transform: translateX(-100%); }
             100% { transform: translateX(100%); }
         }
-        
+
         .container {
             max-width: 800px;
             margin: 30px auto;
             padding: 0 20px;
             animation: fadeIn 0.8s ease-out;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         h2 {
             color: #ecf0f1;
             text-align: center;
@@ -67,7 +67,7 @@
             left: 50%;
             transform: translateX(-50%);
         }
-        
+
         h2:after {
             content: '';
             position: absolute;
@@ -79,7 +79,7 @@
             transform: translateX(-50%);
             border-radius: 2px;
         }
-        
+
         .form-container {
             background-color: rgba(52, 73, 94, 0.9);
             padding: 30px;
@@ -90,12 +90,12 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .form-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
-        
+
         .form-container::before {
             content: '';
             position: absolute;
@@ -105,19 +105,19 @@
             height: 5px;
             background: linear-gradient(90deg, #e67e22, #f39c12, #d35400);
         }
-        
+
         form {
             display: grid;
             grid-template-columns: 1fr;
             grid-gap: 20px;
             width: 100%;
         }
-        
+
         form p {
             margin: 0;
             position: relative;
         }
-        
+
         form label {
             display: block;
             margin-bottom: 8px;
@@ -126,7 +126,7 @@
             transition: all 0.3s ease;
             transform-origin: left;
         }
-        
+
         input, textarea, select {
             width: 100%;
             padding: 12px 15px;
@@ -138,19 +138,19 @@
             box-sizing: border-box;
             font-size: 16px;
         }
-        
+
         input:focus, textarea:focus, select:focus {
             border-color: #e67e22;
             box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.25);
             outline: none;
             background-color: rgba(44, 62, 80, 0.9);
         }
-        
+
         input:focus + label, textarea:focus + label, select:focus + label {
             color: #e67e22;
             transform: scale(1.05);
         }
-        
+
         .helptext {
             display: block;
             font-size: 14px;
@@ -160,11 +160,11 @@
             border-left: 2px solid #3498db;
             transition: all 0.3s ease;
         }
-        
+
         input:focus ~ .helptext, textarea:focus ~ .helptext, select:focus ~ .helptext {
             border-left-color: #e67e22;
         }
-        
+
         .errorlist {
             color: #e74c3c;
             list-style-type: none;
@@ -175,7 +175,7 @@
             border-radius: 0 4px 4px 0;
             animation: fadeIn 0.3s ease-out;
         }
-        
+
         button[type="submit"] {
             background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
             color: white;
@@ -194,17 +194,17 @@
             justify-self: center;
             min-width: 180px;
         }
-        
+
         button[type="submit"]:hover {
             background: linear-gradient(135deg, #d35400 0%, #e67e22 100%);
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
-        
+
         button[type="submit"]:active {
             transform: translateY(1px);
         }
-        
+
         button[type="submit"]::after {
             content: '';
             position: absolute;
@@ -218,11 +218,11 @@
             transform: scale(1, 1) translate(-50%);
             transform-origin: 50% 50%;
         }
-        
+
         button[type="submit"]:focus:not(:active)::after {
             animation: ripple 1s ease-out;
         }
-        
+
         @keyframes ripple {
             0% {
                 transform: scale(0, 0);
@@ -237,7 +237,7 @@
                 transform: scale(40, 40);
             }
         }
-        
+
         /* Checkbox and Radio Inputs */
         input[type="checkbox"], input[type="radio"] {
             width: auto;
@@ -246,45 +246,45 @@
             position: relative;
             top: 2px;
         }
-        
+
         /* Checkbox label styling */
         form p label[for] {
             display: inline-flex;
             align-items: center;
         }
-        
+
         /* Responsive layouts */
         @media (min-width: 768px) {
             form {
                 grid-template-columns: 1fr 1fr;
                 grid-gap: 25px;
             }
-            
+
             .full-width {
                 grid-column: 1 / 3;
             }
-            
+
             button[type="submit"] {
                 grid-column: 1 / 3;
             }
         }
-        
+
         @media (max-width: 767px) {
             .form-container {
                 padding: 20px;
             }
-            
+
             button[type="submit"] {
                 width: 100%;
             }
         }
-        
+
         /* Custom field styling - simulate focus animation */
         form p:hover label {
             color: #3498db;
             transform: scale(1.02);
         }
-        
+
         /* For select arrow customization */
         select {
             appearance: none;
@@ -298,13 +298,12 @@
     </style>
 </head>
 <body>
-    {% comment %} {% extends 'user_header.html' %} {% endcomment %}
-    {% load static %}
+{% comment %} {% extends 'user_header.html' %} {% endcomment %}
     {% block content %}
     <div class="container">
         <h2>Special Registration</h2>
         <div class="form-container">
-            <form method="post" id="registration-form">
+            <form method="post" id="registration-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 {% for field in form %}
@@ -328,7 +327,7 @@
             </form>
         </div>
     </div>
-    
+        
     <script>
         // Add animation classes to form elements with a delay
         document.addEventListener('DOMContentLoaded', function() {

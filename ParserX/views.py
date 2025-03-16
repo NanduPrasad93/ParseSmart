@@ -563,6 +563,7 @@ def SpecialRegistration_view(request):
     
     return render(request, 'SpecialRegForm.html', {'form': form})
 
+    
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import SpecialRegistration, Candidate
 from .forms import SpecialRegistrationForm

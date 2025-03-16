@@ -39,6 +39,10 @@ class SpecialRegistration(models.Model):
         ('UG','UG'),
         ('PG','PG'),
     ]
+    NATIONALITY_CHOICES = [('IND', 'Indian'), ('OTH', 'Other')]
+    MARITAL_CHOICES = [('S', 'Single'), ('M', 'Married'), ('W', 'Widowed'), ('D', 'Divorced')]
+    DISABILITY_CHOICES = [('No', 'No Disability'), ('Yes', 'Person with Disability (PwD)')]
+
 
     Candidate_name = models.CharField(max_length=100)
     Fathers_name = models.CharField(max_length=100)
@@ -51,7 +55,12 @@ class SpecialRegistration(models.Model):
     Height = models.FloatField(help_text="Height in cm")
     Weight = models.FloatField(help_text="Weight in kg")
     candidate_id = models.ForeignKey("Candidate", on_delete=models.CASCADE, null=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True, help_text="Upload your profile photo")
+    NATIONALITY_CHOICES = [('IND', 'Indian'), ('OTH', 'Other')]
+    nationality = models.CharField(max_length=3, choices=NATIONALITY_CHOICES, default='IND')
+    marital_status = models.CharField(max_length=1, choices=MARITAL_CHOICES, default='S')
+    languages_known = models.CharField(max_length=200, help_text="Enter languages known, separated by commas (e.g., English, Hindi, Tamil)",default="English")
+    disability_status = models.CharField(max_length=3, choices=DISABILITY_CHOICES, default='No')
+
 
     def get_age(self):
         today = date.today()
