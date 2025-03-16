@@ -4,24 +4,203 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MCQ Test</title>
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        .question-container { margin: 20px auto; max-width: 600px; text-align: left; }
-        .options label { display: block; margin: 5px 0; }
-        button { margin-top: 10px; padding: 10px 20px; cursor: pointer; }
-        .timer { font-size: 1.5em; font-weight: bold; margin: 20px; }
-        .loading { font-size: 1.2em; color: #555; }
-        .error { color: red; font-weight: bold; }
-        .result { margin-top: 20px; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd; text-align: left; }
+        :root {
+            --gold: #FFD700;
+            --gold-dark: #E6C200;
+            --gold-light: #FFF0AA;
+            --black: #121212;
+            --dark-gray: #2A2A2A;
+            --medium-gray: #444444;
+            --light-gray: #EEEEEE;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
+            color: var(--light-gray);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1, h2, h3 {
+            color: var(--gold);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .timer {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px;
+            color: var(--gold);
+            background-color: var(--dark-gray);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        select, button {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        select {
+            background-color: var(--dark-gray);
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            appearance: none;
+            padding-right: 35px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+        }
+        
+        select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+        }
+        
+        button {
+            background-color: var(--gold);
+            color: var(--black);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            background-color: var(--gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .question-container {
+            margin: 30px auto;
+            max-width: 700px;
+            text-align: left;
+            background-color: var(--dark-gray);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            border-left: 5px solid var(--gold);
+        }
+        
+        .question {
+            margin-bottom: 25px;
+        }
+        
+        .options label {
+            display: block;
+            margin: 12px 0;
+            padding: 12px 15px;
+            background-color: var(--medium-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+        
+        .options label:hover {
+            background-color: var(--dark-gray);
+            border-left: 3px solid var(--gold);
+            transform: translateX(5px);
+        }
+        
+        .options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--gold);
+        }
+        
+        .loading, .error {
+            font-size: 1.2em;
+            margin: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .loading {
+            background-color: var(--medium-gray);
+            color: var(--gold);
+        }
+        
+        .error {
+            background-color: #3D0000;
+            color: #FF6B6B;
+            border-left: 4px solid #FF6B6B;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: var(--dark-gray);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            margin: 30px auto;
+            border-top: 5px solid var(--gold);
+        }
+        
+        canvas {
+            max-width: 100%;
+            margin: 30px auto;
+            background-color: var(--medium-gray);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        #detailedResults {
+            margin-top: 25px;
+            text-align: left;
+            padding: 15px;
+            background-color: var(--medium-gray);
+            border-radius: 10px;
+        }
+        
+        #detailedResults p {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--gold-light);
+            opacity: 0.3;
+            margin: 20px 0;
+        }
+        
+        /* Custom colors for charts */
+        #scoreChart, #categoryChart {
+            --chart-correct: var(--gold);
+            --chart-incorrect: #FF6B6B;
+        }
     </style>
 </head>
 <body>
 
-    <h1>MCQ Test</h1>
+    <h1>✨ MCQ Test Challenge ✨</h1>
     <div class="timer" id="timer">Time Left: 10:00</div>
-    <select id="categorySelect">
-        <!-- Categories will be populated dynamically -->
-    </select>
+    <select id="categorySelect"></select>
     <button onclick="loadQuestions()">Start Test</button>
 
     <div id="mcqContainer" class="question-container">
@@ -30,8 +209,10 @@
     <button onclick="submitAnswers()">Submit Answers</button>
 
     <div id="resultContainer" class="result" style="display: none;">
-        <h2>Test Results</h2>
+        <h2>✨ Test Results ✨</h2>
         <p id="score"></p>
+        <canvas id="scoreChart"></canvas>
+        <canvas id="categoryChart"></canvas>
         <div id="detailedResults"></div>
     </div>
 
@@ -40,14 +221,13 @@
         let timeLeft = 600; // 10 minutes in seconds
         let timerInterval;
 
-        // Function to start the timer
+        // Start the timer
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeLeft--;
                 const minutes = Math.floor(timeLeft / 60);
                 const seconds = timeLeft % 60;
                 document.getElementById("timer").textContent = `Time Left: ${minutes}:${seconds.toString().padStart(2, '0')}`;
-
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
                     submitAnswers();
@@ -55,7 +235,7 @@
             }, 1000);
         }
 
-        // Function to load categories dynamically
+        // Load categories dynamically
         function loadCategories() {
             fetch("/api/categories/")
                 .then(response => response.json())
@@ -66,7 +246,7 @@
                 .catch(error => console.error("Error loading categories:", error));
         }
 
-        // Function to load questions
+        // Load questions for the selected category
         function loadQuestions() {
             const category = document.getElementById("categorySelect").value;
             const container = document.getElementById("mcqContainer");
@@ -81,15 +261,15 @@
                     }
                     mcqs = data;
                     displayQuestions();
-                    startTimer(); // Start the timer when questions are loaded
+                    startTimer();
                 })
                 .catch(error => {
                     console.error("Error loading questions:", error);
-                    container.innerHTML = "<p class='error'>Failed to load questions. Please try again.</p>";
+                    container.innerHTML = "<p class='error'>Failed to load questions.</p>";
                 });
         }
 
-        // Function to display questions
+        // Display questions
         function displayQuestions() {
             const container = document.getElementById("mcqContainer");
             container.innerHTML = "";
@@ -99,59 +279,139 @@
                     <div class="question">
                         <p><b>${index + 1}. ${mcq.question}</b></p>
                         <div class="options">
-                            <label><input type="radio" name="q${index}" value="${mcq.option_a}"> ${mcq.option_a}</label>
-                            <label><input type="radio" name="q${index}" value="${mcq.option_b}"> ${mcq.option_b}</label>
-                            <label><input type="radio" name="q${index}" value="${mcq.option_c}"> ${mcq.option_c}</label>
-                            <label><input type="radio" name="q${index}" value="${mcq.option_d}"> ${mcq.option_d}</label>
+                            <label><input type="radio" name="q${index}" value="A"> ${mcq.option_a}</label>
+                            <label><input type="radio" name="q${index}" value="B"> ${mcq.option_b}</label>
+                            <label><input type="radio" name="q${index}" value="C"> ${mcq.option_c}</label>
+                            <label><input type="radio" name="q${index}" value="D"> ${mcq.option_d}</label>
                         </div>
                     </div>
                     <hr>
                 `;
             });
         }
-        
 
+        // Submit answers and display results
         function submitAnswers() {
-            clearInterval(timerInterval); // Stop the timer
+            clearInterval(timerInterval);
             let score = 0;
-            let unanswered = 0;
-            let resultsHTML = "";
-        
+            let incorrect = 0;
+            let resultsHTML = "<h3>Detailed Results</h3>";
+
             mcqs.forEach((mcq, index) => {
                 const selected = document.querySelector(`input[name="q${index}"]:checked`);
-                let selectedOption = "Unanswered";
-                let correctOption = mcq.correct_option.trim().toUpperCase();
-                let isCorrect = false;
-        
-                if (selected) {
-                    selectedOption = selected.value.trim().toUpperCase();
-                    isCorrect = selectedOption === correctOption;
-                    if (isCorrect) score++;
+                let correctOption = mcq.correct_option.trim(); // Example: "A"
+                let correctAnswerText = mcq[`option_${correctOption.toLowerCase()}`]; // Example: mcq.option_a
+
+                let userAnswer = selected ? selected.value.trim() : "No Answer";
+                let isCorrect = userAnswer.toUpperCase() === correctOption.toUpperCase();
+
+                if (isCorrect) {
+                    score++;
                 } else {
-                    unanswered++;
+                    incorrect++;
                 }
-        
-                // Display only the selected answer and whether it was correct
+
+                // Show correct answer and user's choice
                 resultsHTML += `
-                    <p><b>Q${index + 1}:</b> ${mcq.question}</p>
-                    <p><b>Your Answer:</b> ${selectedOption}</p>
-                    <p><b>Correct Answer:</b> ${correctOption}</p>
-                    <p><b>Status:</b> ${isCorrect ? "<span style='color:green;'>Correct ✅</span>" : "<span style='color:red;'>Incorrect ❌</span>"}</p>
-                    <hr>
+                    <div>
+                        <p><b>${index + 1}. ${mcq.question}</b></p>
+                        <p style="color: ${isCorrect ? '#FFD700' : '#FF6B6B'};">
+                            Your Answer: ${userAnswer === "No Answer" ? "<i>Not Answered</i>" : mcq[`option_${userAnswer.toLowerCase()}`]} (${userAnswer})
+                        </p>
+                        ${!isCorrect ? `<p style="color: #FFD700;">Correct Answer: ${correctAnswerText} (${correctOption})</p>` : ""}
+                        <hr>
+                    </div>
                 `;
             });
-        
-            // Display results
+
             document.getElementById("score").innerHTML = `<b>Your Score: ${score} / ${mcqs.length}</b>`;
             document.getElementById("detailedResults").innerHTML = resultsHTML;
-        
-            if (unanswered > 0) {
-                document.getElementById("detailedResults").innerHTML += `<p><b>You left ${unanswered} questions unanswered.</b></p>`;
-            }
-        
             document.getElementById("resultContainer").style.display = "block";
+
+            generateScoreChart(score, incorrect);
+            loadCategoryChart();
         }
-               // Load categories when the page loads
+
+        // Generate the score chart
+        function generateScoreChart(correct, incorrect) {
+            new Chart(document.getElementById("scoreChart"), {
+                type: "bar",
+                data: {
+                    labels: ["Correct", "Incorrect"],
+                    datasets: [{ 
+                        data: [correct, incorrect], 
+                        backgroundColor: ["#FFD700", "#FF6B6B"],
+                        borderColor: ["#E6C200", "#CC5555"],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#EEEEEE'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#EEEEEE'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load category-wise performance chart
+        function loadCategoryChart() {
+            fetch("/api/performance/")
+                .then(response => response.json())
+                .then(data => {
+                    let categories = data.map(d => d.category);
+                    let values = data.map(d => d.total);
+                    new Chart(document.getElementById("categoryChart"), {
+                        type: "pie",
+                        data: { 
+                            labels: categories, 
+                            datasets: [{ 
+                                data: values, 
+                                backgroundColor: ["#FFD700", "#E6B800", "#CCA000", "#B38600"],
+                                borderColor: "#121212",
+                                borderWidth: 2
+                            }] 
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        color: '#EEEEEE',
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+        }
+
+        // Load categories when the page loads
         window.onload = loadCategories;
     </script>
 

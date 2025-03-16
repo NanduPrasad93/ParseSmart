@@ -1367,9 +1367,18 @@ def get_categories(request):
     categories = MCQ.objects.values_list("category", flat=True).distinct()
     return JsonResponse(list(categories), safe=False)
 
+# Fetch user performance data (for visualization)
+def get_performance_data(request):
+    category_counts = (
+        MCQ.objects.values("category")
+        .annotate(total=Count("category"))
+        .order_by("-total")
+    )
+    return JsonResponse(list(category_counts), safe=False)
+
 # Render the MCQ test page
 def mcq_test(request):
-    return render(request, 'mcq_test.html')
+    return render(request, "mcq_test.html")
 
 
 
