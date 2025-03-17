@@ -148,27 +148,22 @@
                                         </ul>
                                     </li>
                                     <li><a href="About.html">About</a></li>
-                                    <li class="dropdown"><a href="#">Services</a>
+                                    <li class="dropdown"><a href="#">Company</a>
                                         <ul>
                                             <li><a href="{% url 'company' %}">Register Your Company</a></li>
+                                            <li><a href="{% url 'com_login' %}">Company Login</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown"><a href="#">Expert</a>
+                                        <ul>
+                                            <li><a href="{% url 'expert_login' %}">expert login</a></li>
                                             <li><a href="{% url 'experts' %}">Expert Registration</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Pages</a>
+                                    <li class="dropdown"><a href="#">Candidate</a>
                                         <ul>
                                             <li><a href="{% url 'candidate' %}">Candidate Registration</a></li>
-                                            <li><a href="{% url 'com_login' %}">Company Login</a></li> 
-                                            <li><a href="#">#</a></li>
-                                            <li><a href="#">#</a></li>
-                                            <li><a href="#">#</a></li>
-                                            <li><a href="error.html">404 Error page</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown"><a href="#">Blog</a>
-                                        <ul>
-                                            <li><a href="blog.html">Blog Arcive</a></li>
-                                            <li><a href="blog-2.html">Blog Grid View</a></li>
-                                            <li><a href="blog-single.html">News Details</a></li>
+                                            <li><a href="{% url 'login' %}">Candidate login</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>
