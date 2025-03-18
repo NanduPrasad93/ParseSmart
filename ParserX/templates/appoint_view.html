@@ -80,7 +80,7 @@
             <td>Not Available</td>
             {% else %}
             <td>Available</td>  
-            {% comment %} <td><a href="{% url 'video_conference' var.id %}">Start Video Conference</a></td> {% endcomment %}
+            <td><a href="{% url 'video_conference' var.pk %}">Start Video Conference</a></td>
             {% endif %}
             <td><a href="{% url 'chat_temp' var.c_id.id %}">Chat</a></td>
         </tr>
