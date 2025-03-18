@@ -1029,6 +1029,7 @@ def remove_com_vaccancy(request,id):
     obj.delete()
     return redirect('private_vaccancy_view')
 
+
 def private_can_vaccancy(request):
     var = Company_vaccancy.objects.all().order_by('Last_date_for_apply')
     return render(request, 'private_can_vaccancy.html', {'var': var})  
@@ -1062,7 +1063,12 @@ def private_apply(request, id):
     existing_application = private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=pvacancy).exists()
     if existing_application:
         messages.warning(request, "You have already applied for this job.")
-        return redirect('vacancy_detail', id=id) 
+        return redirect('vacancy_detail', id=id)  
+
+ 
+    private_Apply_vaccancy.objects.create(private_can_id=user, private_vaccancy_id=pvacancy)
+    messages.success(request, "You have successfully applied for this job.")
+    return redirect('private_apply', id=id)
 
 def vacancy_detail(request, id):
     user_id = request.session.get('user_id')
@@ -1098,7 +1104,6 @@ def view_applicants(request, id):
 
     return render(request, 'view_applicants.html', {'vacancy': vacancy, 'applicants': applicants})
 
-
 from datetime import datetime
 
 def view_applied_jobs(request):
@@ -1124,6 +1129,7 @@ def view_applied_jobs(request):
         })
 
     return render(request, 'applied_jobs.html', {'var': job_details})
+
 
 
 # def view_applied_jobs(request):
