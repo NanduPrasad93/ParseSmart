@@ -1,9 +1,54 @@
 {% extends 'com_header.html' %}
-
 {% block content %}
   <div class="container mt-5">
-    <h2 class="mb-4">Add Company Vacancy</h2>
-    <form method="POST" class="shadow p-4 rounded bg-light">
+    <style>
+      /* Custom styling with golden yellow and black */
+      .vacancy-form {
+        background-color: #ffffff;
+        border: 2px solid #FFD700; /* Golden yellow border */
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      
+      .vacancy-form h2 {
+        color: #000000; /* Black text */
+        font-weight: 600;
+        border-bottom: 3px solid #FFD700; /* Golden yellow underline */
+        padding-bottom: 10px;
+        margin-bottom: 25px;
+      }
+      
+      .vacancy-form label {
+        color: #000000; /* Black text */
+        font-weight: 500;
+      }
+      
+      .vacancy-form .form-control:focus {
+        border-color: #FFD700; /* Golden yellow border on focus */
+        box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25);
+      }
+      
+      .vacancy-form .btn-submit {
+        background-color: #FFD700; /* Golden yellow button */
+        border: none;
+        color: #000000; /* Black text */
+        font-weight: 600;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+      }
+      
+      .vacancy-form .btn-submit:hover {
+        background-color: #000000; /* Black background on hover */
+        color: #FFD700; /* Golden yellow text on hover */
+      }
+      
+      .form-label {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+    
+    <h2 class="mb-4 text-center">Add Company Vacancy</h2>
+    <form method="POST" class="vacancy-form shadow p-4 rounded">
       {% csrf_token %}
       
       <div class="mb-3">
@@ -31,7 +76,9 @@
         <input type="text" name="Qualification" class="form-control" id="id_Qualification">
       </div>
       
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <div class="text-center">
+        <button type="submit" class="btn btn-submit">Submit</button>
+      </div>
     </form>
   </div>
 {% endblock %}

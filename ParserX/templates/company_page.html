@@ -120,32 +120,34 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li class="dropdown"><a href="#">Services</a>
-                                        <ul>
-                                            <li><a href="{% url 'com_vaccancy' %}">Add new vaccancy</a></li>
-                                            <li><a href="{% url 'company_profile' %}">Your Profile</a></li>
-                                        </ul>
+                                    <li><a href="{% url 'company_profile' %}">Profile</a></li>
+                                    <li class="dropdown"><a href="{% url 'com_vaccancy' %}">Add New Vacancy</a>
+                                        <!-- <ul> -->
+                                            <!-- <li><a href="{% url 'com_vaccancy' %}">Add new vaccancy</a></li> -->
+                                            <!-- <li><a href="{% url 'company_profile' %}">Your Profile</a></li> -->
+                                        <!-- </ul> -->
                                     </li>
-                                    <li class="dropdown"><a href="#">Pages</a>
-                                        <ul>
+                                    <li class="dropdown"><a href="{% url 'private_vaccancy_view' %}">Your Vaccancy</a>
+                                        <!-- <ul>
                                             <li><a href="#">#</a></li>
                                             <li><a href="{% url 'private_vaccancy_view' %}">Your vaccancy</a></li>
                                             <li><a href="portfolio-details.html">Portfolio Details</a></li>
                                             <li><a href="team.html">Our Team</a></li>
                                             <li><a href="testimonials.html">Testimonials</a></li>
                                             <li><a href="error.html">404 Error page</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
-                                    <li class="dropdown"><a href="#">Blog</a>
+                                    <!-- <li class="dropdown"><a href="#">Blog</a>
                                         <ul>
                                             <li><a href="blog.html">Blog Arcive</a></li>
                                             <li><a href="blog-2.html">Blog Grid View</a></li>
                                             <li><a href="blog-single.html">News Details</a></li>
                                         </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    </li> -->
+                                    
+                                    <li><a href="{% url 'complaint' %}">Complaint</a></li>
                                 </ul>
+                                
                             </div>
                         </nav>                        
                         <!-- Main Menu End-->
@@ -776,7 +778,7 @@
 <!--End Portfolio Style2 Area-->
 
 <!--Start Working process area -->
-<section class="working-process-area">
+<!-- <section class="working-process-area">
     <div class="auto-container">
         <div class="working-process-bg" style="background-image: url(assets/images/parallax-background/working-process-bg.jpg);"></div>
         <div class="row">
@@ -826,13 +828,13 @@
             </div>
         </div>
     </div>
-</section>  
+</section>   -->
 <!--End Working process area --> 
 
 
 
 <!--Start Testimonial style2 Area-->
-<section class="testimonial-style2-area"> 
+<!-- <section class="testimonial-style2-area"> 
     <div class="container">
         <div class="sec-title text-center">
             <div class="sub-title">
@@ -843,10 +845,10 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="testimonial-style2-content">
-                    <div class="testimonial-style2-carousel owl-carousel owl-theme">
+                    <div class="testimonial-style2-carousel owl-carousel owl-theme"> -->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -866,10 +868,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static 'user/assets/images/icon/quote-border-2.png' %}')"></td>                                </div>
@@ -888,10 +890,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -911,11 +913,11 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -935,10 +937,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -958,10 +960,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -981,11 +983,11 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -1005,10 +1007,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>
@@ -1029,10 +1031,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -1052,7 +1054,7 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
 
@@ -1067,7 +1069,7 @@
 
 
 <!--Start Fact Counter Area-->
-<section class="fact-counter-area">
+<!-- <section class="fact-counter-area">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">
@@ -1122,7 +1124,7 @@
             </div>
         </div>
     </div>
-</section>   
+</section>    -->
 <!--End Fact Counter Area-->
 
 <!--Start Blog Style1 Area-->

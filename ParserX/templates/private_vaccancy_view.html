@@ -21,12 +21,17 @@
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #FFD700; /* Golden yellow border */
         }
  
         .heading {
             text-align: center;
-            color: #333;
+            color: #000000; /* Black text */
+            font-weight: 600;
+            border-bottom: 3px solid #FFD700; /* Golden yellow underline */
+            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
 
         .category-header {
@@ -36,7 +41,7 @@
 
         .category-title {
             font-size: 1.8rem;
-            color: #007bff;
+            color: #000000; /* Black text */
             font-weight: bold;
         }
 
@@ -61,27 +66,62 @@
         }
 
         .vacancy-table th {
-            background-color:  rgb(239, 102, 18);
-            color: white;
+            background-color: #FFD700; /* Golden yellow header */
+            color: #000000; /* Black text */
+            font-weight: bold;
         }
 
         .vacancy-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #fffdf0; /* Very light yellow */
         }
 
         .vacancy-table tr:hover {
-            background-color:rgb(17, 1, 1);
+            background-color: #000000; /* Black background on hover */
+            color: #FFD700; /* Golden yellow text on hover */
+        }
+
+        .vacancy-table tr:hover a {
+            color: #FFD700; /* Golden yellow links on row hover */
         }
 
         .vacancy-table a {
             text-decoration: none;
-            color: #007bff;
+            color: #000000; /* Black link text */
+            font-weight: 500;
         }
 
         .vacancy-table a:hover {
-            color: #0056b3;
+            color: #FFD700; /* Golden yellow on hover */
         }
-
+        
+        /* Button Styles */
+        button[type="submit"] {
+            background-color: #FFD700; /* Golden yellow button */
+            color: #000000; /* Black text */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #000000; /* Black background on hover */
+            color: #FFD700; /* Golden yellow text on hover */
+        }
+        
+        input[type="datetime-local"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px;
+            margin-right: 5px;
+        }
+        
+        input[type="datetime-local"]:focus {
+            border-color: #FFD700; /* Golden yellow border on focus */
+            outline: none;
+        }
     </style>
 </head>
 <body>
@@ -107,7 +147,6 @@
                         <th>Applicants</th>
                         <th>Interview Date & Time</th>
                         <th>Set Interview</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -141,11 +180,9 @@
                                 <button type="submit">Save</button>
                             </form>
                         </td>
-                        
                     </tr>
                     {% endfor %}
                 </tbody>
-                
             </table>
         </div>
     </div>

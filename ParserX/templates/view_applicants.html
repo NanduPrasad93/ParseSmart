@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +18,16 @@
             padding: 20px;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #FFD700; /* Golden yellow border */
         }
         h2 {
             text-align: center;
-            color: #333;
+            color: #000000; /* Black text */
+            font-weight: 600;
+            border-bottom: 3px solid #FFD700; /* Golden yellow underline */
+            padding-bottom: 10px;
+            margin-bottom: 25px;
         }
         table {
             width: 100%;
@@ -37,30 +41,65 @@
             border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: rgb(239, 102, 18);
-            color: white;
+            background-color: #FFD700; /* Golden yellow header */
+            color: #000000; /* Black text */
+            font-weight: bold;
         }
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #fffdf0; /* Very light yellow */
         }
         tr:hover {
-            background-color: rgb(17, 1, 1);
-            color: white;
+            background-color: #000000; /* Black background on hover */
+            color: #FFD700; /* Golden yellow text on hover */
+        }
+        tr:hover a {
+            color: #FFD700; /* Golden yellow links on row hover */
+        }
+        a {
+            text-decoration: none;
+            color: #000000; /* Black link text */
+            font-weight: 500;
+        }
+        a:hover {
+            color: #FFD700; /* Golden yellow on hover */
         }
         .status-active {
-            color: green;
+            color: #008000; /* Green */
             font-weight: bold;
         }
         .status-cancelled {
-            color: red;
+            color: #FF0000; /* Red */
             font-weight: bold;
+        }
+        tr:hover .status-active,
+        tr:hover .status-cancelled {
+            color: #FFD700; /* Golden yellow on row hover */
+        }
+        button {
+            background-color: #FFD700; /* Golden yellow button */
+            color: #000000; /* Black text */
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #000000; /* Black background on hover */
+            color: #FFD700; /* Golden yellow text on hover */
+        }
+        .no-applicants {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Applicants for {{ vacancy.Job_name }}</h2>
-
         {% if applicants %}
         <table>
             <thead>
