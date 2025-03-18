@@ -133,7 +133,7 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="dropdown current"><a href="#">Home</a>
-                                        <ul>
+                                        <!-- <ul>
                                             <li><a href="#">Home Page 01</a></li>
                                             <li><a href="#">Home Page 02</a></li>
                                             <li><a href="qwesdfg">Home Page 03</a></li>
@@ -145,31 +145,30 @@
                                                     <li><a href="index-3.html">Header Style Three</a></li>
                                                 </ul>    
                                             </li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <li><a href="About.html">About</a></li>
                                     <li class="dropdown"><a href="#">Services</a>
                                         <ul>
                                             <li><a href="{% url 'chat_list' %}">my chat</a></li>
-                                            <li><a href="#">My Applications</a></li>
+                                            <li><a href="{% url 'user_appoint' %}">Appoinments</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Pages</a>
+                                    <li class="dropdown"><a href="#">Profile</a>
                                         <ul>
-                                            <li><a href="{% url 'edit_profile' %}">Profile</a></li>
+                                            <li><a href="{% url 'edit_profile' %}">Modify Your Profile</a></li>
 
                                             <li><a href="{% url 'Sprofile_view' %}">Special Profile</a></li>
-                                            <li><a href="{% url 'user_appoint' %}">Appoinments</a></li>
                                             <li><a href="{% url 'user_complaint' %}">My complaints</a></li>
                                         </ul>
                                     </li>
-                                    <li class="dropdown"><a href="#">Blog</a>
+                                    <li class="dropdown"><a href="#">Study Vault</a>
                                         <ul>
                                             <li><a href="{% url 'ct_view' %}">Daily Tips</a></li>
                                             <li><a href="{% url 'study_materials_display' %}">study materials</a></li>
                                             <!-- <li><a href="{% url 'chat_list' %}">Chat</a></li>                                        </ul> -->
                                     </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <!-- <li><a href="contact.html">Contact</a></li> -->
                                 </ul>
                             </div>
                         </nav>                        
@@ -266,7 +265,7 @@
                             </a>
                             <a class="btn-one style2 marlft15" href="{% url 'search' %}">
                                 <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
-                                <span class="txt">Experts<i class="flaticon-plus-1 plusicon"></i></span>
+                                <span class="txt">Expert Search<i class="flaticon-plus-1 plusicon"></i></span>
                             </a>
                         </div>
                     </div>
