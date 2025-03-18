@@ -1010,6 +1010,8 @@ def private_vaccancy_view(request):
     return render(request, 'private_vaccancy_view.html', {'var': company_vacancies})
  
 
+ 
+
 
 def edit_com_vaccancy(request,id):
     var = get_object_or_404(Company_vaccancy,id=id)
@@ -1031,9 +1033,25 @@ def private_can_vaccancy(request):
     var = Company_vaccancy.objects.all().order_by('Last_date_for_apply')
     return render(request, 'private_can_vaccancy.html', {'var': var})  
 
+# def private_apply(request, id):
+#     user_id = request.session.get('user_id')
+
+#     if not user_id:
+#         messages.error(request, "You need to log in to apply for a job.")
+#         return redirect('login')  
+
+#     user = get_object_or_404(Candidate, id=user_id)
+#     pvacancy = get_object_or_404(Company_vaccancy, id=id)
+
+#     if private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=pvacancy).exists():
+#         messages.warning(request, "You have already applied for this job.")
+#     else:
+#         private_Apply_vaccancy.objects.create(private_can_id=user, private_vaccancy_id=pvacancy)
+#         messages.success(request, "You have successfully applied for this job.")
+
+#     return redirect('vacancy_detail', id=id)
 def private_apply(request, id):
     user_id = request.session.get('user_id')
-
     if not user_id:
         messages.error(request, "You need to log in to apply for a job.")
         return redirect('login')  
@@ -1041,25 +1059,22 @@ def private_apply(request, id):
     user = get_object_or_404(Candidate, id=user_id)
     pvacancy = get_object_or_404(Company_vaccancy, id=id)
 
-    if private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=pvacancy).exists():
+    existing_application = private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=pvacancy).exists()
+    if existing_application:
         messages.warning(request, "You have already applied for this job.")
-    else:
-        private_Apply_vaccancy.objects.create(private_can_id=user, private_vaccancy_id=pvacancy)
-        messages.success(request, "You have successfully applied for this job.")
-
-    return redirect('vacancy_detail', id=id)
+        return redirect('vacancy_detail', id=id) 
 
 def vacancy_detail(request, id):
     user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('login')  
+
+    user = get_object_or_404(Candidate, id=user_id)
     vacancy = get_object_or_404(Company_vaccancy, id=id)
-    applied = False
 
-    if user_id:
-        user = get_object_or_404(Candidate, id=user_id)
-        applied = private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=vacancy).exists()
+    has_applied = private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=vacancy).exists()
 
-    return render(request, 'vacancy_detail.html', {'var': vacancy, 'applied': applied})
-                   
+    return render(request, 'vacancy_detail.html', {'has_applied': has_applied})                    
 
 def view_applicants(request, id):
     vacancy = get_object_or_404(Company_vaccancy, id=id)
@@ -1268,13 +1283,13 @@ def chat_list(request):
 #video-conference
 
 
-def video_conference_company(request, pk):
-    var_a = get_object_or_404(Company_vaccancy, pk=pk)
+def video_conference_company(request, id):
+    var_a = get_object_or_404(Company_vaccancy, id=id)
     return render(request, 'video_conference_company.html', {'var': var_a})
 
 
 @csrf_exempt  
-def interview_url(request, pk):
+def interview_url(request, id):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
@@ -1283,7 +1298,7 @@ def interview_url(request, pk):
             if not url:
                 return JsonResponse({'success': False, 'message': 'No URL provided'}, status=400)
 
-            job = get_object_or_404(Company_vaccancy, pk=pk)
+            job = get_object_or_404(Company_vaccancy, id=id)
             job.videocon_url = url  
             job.conferencing_status = 1  
             job.save()

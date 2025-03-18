@@ -115,8 +115,8 @@ urlpatterns=[
     #interview video conferece
     # path('video-conference/<int:pk>/', views.video_conference_company, name='video_conference_company'),
     # path('interview-url/<int:pk>/', views.interview_url, name='interview_url'),
-    path('video-conference/<int:pk>/', views.video_conference_company, name='video_conference_company'),
-    path('interview-url/<int:pk>/', views.interview_url, name='interview_url'),
+    path('video_conference_company/<int:id>/', views.video_conference_company, name='video_conference_company'),
+    path('interview-url/<int:id>/', views.interview_url, name='interview_url'),
 
 
     path("latest-exams/", views.fetch_exam_dates, name="latest_exams"),
