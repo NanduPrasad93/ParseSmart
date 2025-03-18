@@ -106,7 +106,7 @@
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
                                     <li class="dropdown current"><a href="#">Home</a>
-                                        <ul>
+                                        <!-- <ul>
                                             <li><a href="index.html">Home Page 01</a></li>
                                             <li><a href="index-2.html">Home Page 02</a></li>
                                             <li><a href="index-3.html">Home Page 03</a></li>
@@ -118,31 +118,31 @@
                                                     <li><a href="index-3.html">Header Style Three</a></li>
                                                 </ul>    
                                             </li>
+                                        </ul> -->
+                                    </li>
+                                    <li><a href="{% url 'edit_profile' %}">Profile</a></li>
+                                    <li class="dropdown"><a href="{% url 'private_can_vaccancy' %}">New Vaccancy</a>
+                                        <ul>
+                                            <!-- <li><a href="{% url 'upload_resume' %}">Upload Your Resume</a></li> -->
+                                            <!-- <li><a href="{% url 'private_can_vaccancy' %}">New Vaccancy</a></li> -->
                                         </ul>
                                     </li>
-                                    <li><a href="about.html">About</a></li>
-                                    <li class="dropdown"><a href="#">Services</a>
-                                        <ul>
-                                            <li><a href="{% url 'upload_resume' %}">Upload Your Resume</a></li>
-                                            <li><a href="{% url 'private_can_vaccancy' %}">New Vaccancy</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown"><a href="#">Pages</a>
-                                        <ul>
-                                            <li><a href="{% url 'view_applied_jobs' %}">My Applications</a></li>
-                                            <li><a href="portfolio-2.html">Portfolio Grid</a></li>
+                                    <li class="dropdown"><a href="{% url 'view_applied_jobs' %}">My Applications</a>
+                                        <!-- <ul>
+                                            <li><a href="{% url 'view_applied_jobs' %}">My Applications</a></li> -->
+                                            <!-- <li><a href="portfolio-2.html">Portfolio Grid</a></li>
                                             <li><a href="portfolio-details.html">Portfolio Details</a></li>
                                             <li><a href="team.html">Our Team</a></li>
                                             <li><a href="testimonials.html">Testimonials</a></li>
-                                            <li><a href="error.html">404 Error page</a></li>
-                                        </ul>
+                                            <li><a href="error.html">404 Error page</a></li> -->
+                                        <!-- </ul> -->
                                     </li>
-                                    <li class="dropdown"><a href="#">Blog</a>
-                                        <ul>
+                                    <li class="dropdown"><a href="{% url 'upload_resume' %}">Upload Resume</a>
+                                        <!-- <ul>
                                             <li><a href="blog.html">Blog Arcive</a></li>
                                             <li><a href="blog-2.html">Blog Grid View</a></li>
                                             <li><a href="blog-single.html">News Details</a></li>
-                                        </ul>
+                                        </ul> -->
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
@@ -241,11 +241,10 @@
                 <div class="auto-container">
                     <div class="content">
                         <div class="sub-title">
-                            <h5>Most Successful</h5>
+                            <h5>Transforming Recruitment</h5>
                         </div>
                         <div class="big-title">
-                            <h2>Our Fleming<br> Business firm.</h2>
-                        </div>
+                            <h2>Our Platform<br> Simplifying Recruitment Smartly.</h2>                        </div>
                         <div class="btns-box">
                             <a class="btn-one" href="about.html">
                                 <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
@@ -266,11 +265,10 @@
                 <div class="auto-container">
                     <div class="content">
                         <div class="sub-title">
-                            <h5>Most Successful</h5>
+                            <h5>Driving Innovation</h5>
                         </div>
                         <div class="big-title">
-                            <h2>Our Fleming<br> Business firm.</h2>
-                        </div>
+                            <h2>Our Platform<br> Your Gateway to Career Success.</h2>                        </div>
                         <div class="btns-box">
                             <a class="btn-one" href="about.html">
                                 <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
@@ -291,11 +289,10 @@
                 <div class="auto-container">
                     <div class="content">
                         <div class="sub-title">
-                            <h5>Most Successful</h5>
+                            <h5>Empowering Careers</h5>
                         </div>
                         <div class="big-title">
-                            <h2>Our Fleming<br> Business firm.</h2>
-                        </div>
+                            <h2>Our Platform<br> Bridging Talent with Opportunity.</h2>                        </div>
                         <div class="btns-box">
                             <a class="btn-one" href="about.html">
                                 <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
@@ -477,7 +474,7 @@
 <!--End About Style1 Area-->
 
 <!--Start Video gallery Area-->
-<section class="video-gallery-area">
+<!-- <section class="video-gallery-area">
     <div class="video-gallery-area_bg" style="background-image: url("{% static 'user/assets/images/parallax-background/video-gallery-area-bg.jpg' %}");"></div>
     <div class="shape1">
         <img class="zoom-fade" src="{% static 'user/assets/images/shape/thm-shape-1.png' %}" alt="">
@@ -499,7 +496,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <!--End Video gallery Area-->
 
 
@@ -832,7 +829,7 @@
 
 
 <!--Start Testimonial style2 Area-->
-<section class="testimonial-style2-area"> 
+<!-- <section class="testimonial-style2-area"> 
     <div class="container">
         <div class="sec-title text-center">
             <div class="sub-title">
@@ -843,10 +840,10 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="testimonial-style2-content">
-                    <div class="testimonial-style2-carousel owl-carousel owl-theme">
+                    <div class="testimonial-style2-carousel owl-carousel owl-theme"> -->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -866,10 +863,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static 'user/assets/images/icon/quote-border-2.png' %}')"></td>                                </div>
@@ -888,10 +885,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -911,11 +908,11 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -935,10 +932,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -958,10 +955,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -981,11 +978,11 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -1005,10 +1002,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>
@@ -1029,10 +1026,10 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
                         <!--Start Single Testimonial Style2-->
-                        <div class="single-testimonial-style2-outer-box">
+                        <!-- <div class="single-testimonial-style2-outer-box">
                             <div class="single-testimonial-style1 single-testimonial-style2">
                                 <div class="quote-box">
                                     <div class="quote-border" style="background-image: url('{% static "user/assets/images/icon/quote-border-2.png" %}');"></div>                                    <span class="flaticon-right-quote"></span>
@@ -1052,7 +1049,7 @@
                                     </div>
                                 </div> 
                             </div>
-                        </div>
+                        </div> -->
                         <!--End Single Testimonial Style2-->
 
 

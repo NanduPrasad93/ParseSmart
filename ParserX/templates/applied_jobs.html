@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,101 +6,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Applied Jobs</title>
     <style>
+        :root {
+            --gold: #FFD700;
+            --gold-dark: #D4AF37;
+            --gold-light: #FFF0AA;
+            --black: #121212;
+            --dark-gray: #1E1E1E;
+            --medium-gray: #333333;
+            --light-gray: #555555;
+            --white: #FFFFFF;
+            --off-white: #F5F5F5;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
             margin: 0;
             padding: 0;
+            color: var(--off-white);
         }
+        
         .container {
-            width: 80%;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border-top: 4px solid var(--gold);
         }
-        h2 {
+        
+        h2, h3 {
             text-align: center;
-            color: #333;
+            padding: 20px;
+            color: var(--gold);
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--gold-dark);
+            margin-bottom: 20px;
+            position: relative;
         }
+        
+        h3 {
+            font-size: 28px;
+            text-align: center;
+            padding: 25px;
+            background-color: var(--black);
+            color: var(--gold);
+            margin: 0;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2::after, h3::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: var(--gold);
+        }
+        
         table {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px auto;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+        
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
         }
+        
         th {
-            background-color: rgb(239, 102, 18);
-            color: white;
+            background-color: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            position: relative;
         }
+        
+        td {
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--off-white);
+            font-size: 15px;
+        }
+        
+        tr {
+            background-color: var(--medium-gray);
+            transition: all 0.3s ease;
+        }
+        
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: #2A2A2A;
         }
+        
         tr:hover {
-            background-color: rgb(17, 1, 1);
-            color: white;
+            background-color: var(--light-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
         .status-cancelled {
-            color: red;
+            color: #FF6B6B;
             font-weight: bold;
         }
+        
         .status-active {
-            color: green;
+            color: #4ecf4e;
             font-weight: bold;
         }
+        
         .cancel-btn {
-            color: red;
+            color: #FF6B6B;
             text-decoration: none;
             font-weight: bold;
+            transition: all 0.2s ease;
         }
+        
         .cancel-btn:hover {
+            color: #ff3333;
             text-decoration: underline;
+        }
+        
+        .not-announced {
+            color: #FF6B6B;
+            font-style: italic;
+        }
+        
+        .join-interview {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .join-interview:hover {
+            background-color: var(--gold);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+        }
+        
+        .no-interview {
+            color: #999;
+            font-style: italic;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            h3 {
+                font-size: 22px;
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px;
+            }
+        }
+        
+        /* Additional animation for join button */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .join-interview {
+            animation: pulse 2s infinite;
         }
     </style>
 </head>
 <body>
     <h3>Applied Jobs</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Job Name</th>
-                <th>Job Category</th>
-                <th>Description</th>
-                <th>Applied On</th>
-                <th>Interview Date & Time</th>
-                <th>join</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for job in var %}
-            <tr>
-                <td>{{ job.job_name }}</td>
-                <td>{{ job.job_category }}</td>
-                <td>{{ job.job_description }}</td>
-                <td>{{ job.applied_on }}</td>
-                <td>
-                    {% if job.interview_datetime %}
-                        {{ job.interview_datetime }}
-                    {% else %}
-                        Not Announced
-                    {% endif %}
-                </td>
-                <td>
-                    {% if job.interview_url %}
-            <a href="{{ job.interview_url }}" target="_blank">Join Interview</a>
-        {% else %}
-            <p>No Interview Available</p>
-        {% endif %}                                                                                             
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Job Category</th>
+                    <th>Description</th>
+                    <th>Applied On</th>
+                    <th>Interview Date & Time</th>
+                    <th>Join</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in var %}
+                <tr>
+                    <td>{{ job.job_name }}</td>
+                    <td>{{ job.job_category }}</td>
+                    <td>{{ job.job_description }}</td>
+                    <td>{{ job.applied_on }}</td>
+                    <td>
+                        {% if job.interview_datetime %}
+                            <span class="status-active">{{ job.interview_datetime }}</span>
+                        {% else %}
+                            <span class="not-announced">Not Announced</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if job.interview_url %}
+                            <a href="{{ job.interview_url }}" target="_blank" class="join-interview">Join Interview</a>
+                        {% else %}
+                            <span class="no-interview">No Interview Available</span>
+                        {% endif %}                                                                                             
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Add animation to highlight upcoming interviews
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const rows = document.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const interviewDateCell = row.querySelector('td:nth-child(5)');
+                const interviewDateText = interviewDateCell.textContent.trim();
+                
+                if (interviewDateText !== 'Not Announced') {
+                    try {
+                        // This is a simplified date parsing - adjust according to your actual date format
+                        const interviewDate = new Date(interviewDateText);
+                        const timeDiff = interviewDate - today;
+                        const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+                        
+                        // If interview is within the next 3 days, highlight the row
+                        if (daysDiff >= 0 && daysDiff <= 3) {
+                            row.style.borderLeft = '4px solid var(--gold)';
+                            row.style.backgroundColor = 'rgba(255, 215, 0, 0.1)';
+                        }
+                    } catch (e) {
+                        console.log('Date parsing error:', e);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

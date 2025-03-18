@@ -5,96 +5,280 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vacancy Details</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
+        :root {
+            --gold: #FFD700;
+            --gold-dark: #D4AF37;
+            --gold-light: #FFF0AA;
+            --black: #121212;
+            --dark-gray: #1E1E1E;
+            --medium-gray: #333333;
+            --light-gray: #555555;
+            --white: #FFFFFF;
+            --off-white: #F5F5F5;
         }
         
-        h1 {
-            text-align: center;
-            color: #333;
-            padding: 20px;
-            background-color: #0056b3;
-            color: white;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--black);
             margin: 0;
+            padding: 0;
+            color: var(--off-white);
         }
-
+        
+        h1, h3 {
+            text-align: center;
+            padding: 25px;
+            background-color: var(--black);
+            color: var(--gold);
+            margin: 0;
+            border-bottom: 3px solid var(--gold);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        
+        h3 {
+            font-size: 28px;
+        }
+        
         .table-container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            border-top: 4px solid var(--gold);
         }
-
+        
         table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            overflow: hidden;
         }
-
+        
         th, td {
             text-align: left;
-            padding: 12px;
-            border: 1px solid #ddd;
+            padding: 15px;
         }
-
+        
         th {
-            background-color: #0056b3;
-            color: white;
+            background-color: var(--gold);
+            color: var(--black);
+            font-weight: 600;
+            position: relative;
+            border: none;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
         }
-
+        
+        td {
+            border-bottom: 1px solid var(--light-gray);
+            color: var(--off-white);
+            font-size: 15px;
+        }
+        
+        tr {
+            background-color: var(--medium-gray);
+            transition: background-color 0.2s ease;
+        }
+        
+        tr:hover {
+            background-color: var(--light-gray);
+        }
+        
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #2A2A2A;
         }
-
-        a.download-link {
-            color: #0056b3;
+        
+        tr:nth-child(even):hover {
+            background-color: #3A3A3A;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        a.apply-link {
+            display: inline-block;
+            color: var(--gold);
             text-decoration: none;
             font-weight: bold;
+            cursor: pointer;
+            padding: 8px 16px;
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-align: center;
+            background-color: transparent;
         }
-
-        a.download-link:hover {
-            text-decoration: underline;
+        
+        a.apply-link:hover {
+            background-color: var(--gold);
+            color: var(--black);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+        }
+        
+        a.apply-link.applied {
+            color: var(--black);
+            background-color: var(--gold);
+            border-color: var(--gold);
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+        
+        .not-announced {
+            color: #FF6B6B;
+            font-style: italic;
+        }
+        
+        /* Add animation for the apply button */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        a.apply-link:not(.applied) {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .table-container {
+                padding: 15px;
+                max-width: 95%;
+            }
+            
+            h3 {
+                font-size: 22px;
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <h3>Vacancy Details</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Job Name</th>
-                <th>Job Category</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Qualification</th>
-                <th>Interview Date</th>
-                <th>Apply</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for var in var %}
-            <tr>
-                <td>{{ var.Job_name }}</td>
-                <td>{{ var.Job_category }}</td>
-                <td>{{ var.Job_description }}</td>
-                <td>{{ var.Last_date_for_apply }}</td>
-                <td>{{ var.Qualification }}</td>
-                <td>
-                    {% if var.interview_date %}
-                        {{ var.interview_date }}
-                    {% else %}
-                        Not Announced
-                    {% endif %}
-                </td>
-                <td><a href="{% url 'private_apply' var.id %}">Apply Now</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Job Category</th>
+                    <th>Description</th>
+                    <th>Last Date</th>
+                    <th>Qualification</th>
+                    <th>Interview Date</th>
+                    <th>Apply</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for var in var %}
+                <tr>
+                    <td>{{ var.Job_name }}</td>
+                    <td>{{ var.Job_category }}</td>
+                    <td>{{ var.Job_description }}</td>
+                    <td>{{ var.Last_date_for_apply }}</td>
+                    <td>{{ var.Qualification }}</td>
+                    <td>
+                        {% if var.interview_date %}
+                            {{ var.interview_date }}
+                        {% else %}
+                            <span class="not-announced">Not Announced</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="#" class="apply-link" data-job-id="{{ var.id }}">Apply Now</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Track applied jobs
+        const appliedJobs = new Set();
         
-    </table>
+        // Apply button functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const applyLinks = document.querySelectorAll('.apply-link');
+            
+            // Check local storage for previously applied jobs
+            const storedAppliedJobs = localStorage.getItem('appliedJobs');
+            if (storedAppliedJobs) {
+                const parsedJobs = JSON.parse(storedAppliedJobs);
+                parsedJobs.forEach(jobId => appliedJobs.add(jobId));
+                
+                // Update UI for previously applied jobs
+                applyLinks.forEach(link => {
+                    const jobId = link.getAttribute('data-job-id');
+                    if (appliedJobs.has(jobId)) {
+                        link.textContent = 'Applied';
+                        link.classList.add('applied');
+                    }
+                });
+            }
+            
+            applyLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default link behavior
+                    const jobId = this.getAttribute('data-job-id');
+                    
+                    if (!appliedJobs.has(jobId)) {
+                        // Mark job as applied
+                        appliedJobs.add(jobId);
+                        this.textContent = 'Applied';
+                        this.classList.add('applied');
+                        
+                        // Store in local storage
+                        localStorage.setItem('appliedJobs', JSON.stringify([...appliedJobs]));
+                        
+                        // Show success message
+                        const successMessage = document.createElement('div');
+                        successMessage.style.position = 'fixed';
+                        successMessage.style.top = '20px';
+                        successMessage.style.left = '50%';
+                        successMessage.style.transform = 'translateX(-50%)';
+                        successMessage.style.backgroundColor = 'rgba(18, 18, 18, 0.9)';
+                        successMessage.style.color = '#FFD700';
+                        successMessage.style.padding = '15px 25px';
+                        successMessage.style.borderRadius = '8px';
+                        successMessage.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                        successMessage.style.zIndex = '1000';
+                        successMessage.style.border = '1px solid #FFD700';
+                        successMessage.textContent = 'You have successfully applied for this job!';
+                        
+                        document.body.appendChild(successMessage);
+                        
+                        // Remove the message after 3 seconds
+                        setTimeout(() => {
+                            successMessage.style.opacity = '0';
+                            successMessage.style.transition = 'opacity 0.5s ease';
+                            setTimeout(() => {
+                                document.body.removeChild(successMessage);
+                            }, 500);
+                        }, 3000);
+                    } else {
+                        alert('You have already applied for this job.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
