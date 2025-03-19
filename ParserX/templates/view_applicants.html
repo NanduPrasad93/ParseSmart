@@ -91,19 +91,7 @@
                             <span class="status-cancelled">Cancelled</span>
                         {% endif %}
                     </td>
-                    <td>
-                        {% if applicant.private_vaccancy_id and applicant.private_vaccancy_id.videocon_url %}
-                            <a href="{{ applicant.private_vaccancy_id.videocon_url }}" target="_blank">Join Meeting</a>
-                        {% elif applicant.private_vaccancy_id and applicant.private_vaccancy_id.pk %}
-                            <form method="post" action="{% url 'interview_url' applicant.private_vaccancy_id.pk %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="url" value="GENERATE_MEETING_LINK_HERE">
-                                <button type="submit">Generate Meeting</button>
-                            </form>
-                        {% else %}
-                            <p>No Interview ID Available</p>
-                        {% endif %}
-                    </td>
+                    <td><a href="{% url 'video_conference_company' vacancy.id %}">Start Video Conference</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

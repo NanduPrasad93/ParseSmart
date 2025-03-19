@@ -9,15 +9,33 @@
             width: 100vw;
             height: 100vh;
         }
+        #joinNowBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+        #joinNowBtn:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
+    <button id="joinNowBtn" type="button">Save Conference URL</button>
 
     <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
     <script>
         function getUrlParams(url) {
             let urlStr = url.split('?')[1];
+            if (!urlStr) return {};
             const urlSearchParams = new URLSearchParams(urlStr);
             return Object.fromEntries(urlSearchParams.entries());
         }
@@ -36,7 +54,7 @@
                 container: document.querySelector("#root"),
                 sharedLinks: [{
                     name: 'Personal link',
-                    url: window.location.protocol + '//' + window.location.host  + window.location.pathname + '?roomID=' + roomID,
+                    url: window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID,
                 }],
                 scenario: {
                     mode: ZegoUIKitPrebuilt.VideoConference,
@@ -54,36 +72,40 @@
                 showLayoutButton: false,
             });
 
-            // Send the generated link to the server to store for later use
+            // Save the conference URL when button is clicked
             document.getElementById("joinNowBtn").onclick = function () {
-            // Get the generated URL
-            const generatedUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID;
+                // Get the generated URL
+                const generatedUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID;
 
-            // Get the appointment ID passed from the view (assuming it's embedded in the page as a data attribute)
-            const appointmentId = {{ var.id }};  // Django variable for the appointment's pk (ID)
+                // Get the appointment ID passed from the view
+                const appointmentId = {{ var.id }};  // Django variable for the appointment's pk (ID)
 
-            // Send an AJAX request to Django backend to save the URL
-            fetch(`/interview-url/${appointmentId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for security
-                },
-                body: JSON.stringify({
-                    url: generatedUrl,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log("URL saved successfully!");
-                } else {
-                    console.error("Error saving URL");
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+                // Send an AJAX request to Django backend to save the URL
+                fetch(`/interview-url/${appointmentId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for security
+                    },
+                    body: JSON.stringify({
+                        url: generatedUrl,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("URL saved successfully! Candidates can now join using this link.");
+                        console.log("URL saved successfully!");
+                    } else {
+                        alert("Error saving URL: " + data.message);
+                        console.error("Error saving URL");
+                    }
+                })
+                .catch(error => {
+                    alert("Error saving URL. Please try again.");
+                    console.error("Error:", error);
+                });
+            };
         };
     </script>
 </body>

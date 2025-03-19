@@ -1113,23 +1113,30 @@ def view_applied_jobs(request):
         return render(request, 'applied_jobs.html', {'var': []})  
 
     candidate = get_object_or_404(Candidate, id=candidate_id)
-    applied_jobs = private_Apply_vaccancy.objects.filter(private_can_id=candidate).select_related('private_vaccancy_id')
+    
+    # Using select_related to get all related data in a single query
+    applied_jobs = private_Apply_vaccancy.objects.filter(
+        private_can_id=candidate
+    ).select_related('private_vaccancy_id').order_by('-current_date')
 
-   
     job_details = []
     for app in applied_jobs:
         job = app.private_vaccancy_id
+        
+        # Debug print to check values
+        print(f"Job ID: {job.id}, URL: {job.videocon_url}, Status: {job.conferencing_status}")
+        
         job_details.append({
             'job_name': job.Job_name,
             'job_category': job.Job_category,
             'job_description': job.Job_description,
             'applied_on': app.current_date,
             'interview_datetime': job.interview_datetime,
-            'interview_url': job.videocon_url
+            'interview_url': job.videocon_url,  # Ensure this value is not None
+            'conferencing_status': job.conferencing_status  # Add this field to check status
         })
 
     return render(request, 'applied_jobs.html', {'var': job_details})
-
 
 
 # def view_applied_jobs(request):

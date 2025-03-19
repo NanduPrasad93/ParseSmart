@@ -21,9 +21,10 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h2 {
+        h2, h3 {
             text-align: center;
             color: #333;
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
@@ -47,6 +48,9 @@
             background-color: rgb(17, 1, 1);
             color: white;
         }
+        tr:hover a {
+            color: white;
+        }
         .status-cancelled {
             color: red;
             font-weight: bold;
@@ -63,45 +67,67 @@
         .cancel-btn:hover {
             text-decoration: underline;
         }
+        .interview-btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .interview-btn:hover {
+            background-color: #45a049;
+        }
+        .no-interview {
+            color: #888;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-    <h3>Applied Jobs</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Job Name</th>
-                <th>Job Category</th>
-                <th>Description</th>
-                <th>Applied On</th>
-                <th>Interview Date & Time</th>
-                <th>join</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for job in var %}
-            <tr>
-                <td>{{ job.job_name }}</td>
-                <td>{{ job.job_category }}</td>
-                <td>{{ job.job_description }}</td>
-                <td>{{ job.applied_on }}</td>
-                <td>
-                    {% if job.interview_datetime %}
-                        {{ job.interview_datetime }}
-                    {% else %}
-                        Not Announced
-                    {% endif %}
-                </td>
-                <td>
-                    {% if job.interview_url %}
-            <a href="{{ job.interview_url }}" target="_blank">Join Interview</a>
+    <div class="container">
+        <h3>Applied Jobs</h3>
+        {% if var %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Job Category</th>
+                    <th>Description</th>
+                    <th>Applied On</th>
+                    <th>Interview Date & Time</th>
+                    <th>Interview</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for job in var %}
+                <tr>
+                    <td>{{ job.job_name }}</td>
+                    <td>{{ job.job_category }}</td>
+                    <td>{{ job.job_description }}</td>
+                    <td>{{ job.applied_on }}</td>
+                    <td>
+                        {% if job.interview_datetime %}
+                            {{ job.interview_datetime }}
+                        {% else %}
+                            <span class="no-interview">Not Scheduled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if job.interview_url and job.conferencing_status == 1 %}
+                            <a href="{{ job.interview_url }}" target="_blank" class="interview-btn">Join Interview</a>
+                        {% else %}
+                            <span class="no-interview">No Interview Available</span>
+                        {% endif %}                                                                                             
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         {% else %}
-            <p>No Interview Available</p>
-        {% endif %}                                                                                             
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <p style="text-align: center;">You have not applied for any jobs yet.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
