@@ -10,7 +10,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-color: #222222;
             margin: 0;
             padding: 20px;
         }
@@ -18,16 +18,19 @@
         .container {
             width: 60%;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #2b2b2b;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            border: 1px solid #ffd700;
         }
 
         h2 {
             text-align: center;
-            color: #333;
+            color: #ffd700;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         form {
@@ -39,44 +42,64 @@
         .form-footer {
             display: flex;
             justify-content: center;
+            margin-top: 10px;
         }
 
         button {
             padding: 12px 25px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ffd700;
+            color: #000000;
             font-size: 16px;
+            font-weight: bold;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #ffeb3b;
+            box-shadow: 0 0 10px #ffd700;
         }
 
         .form-group label {
             font-weight: bold;
             margin-bottom: 5px;
+            color: #ffd700;
         }
 
         input,
         textarea {
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ffd700;
             border-radius: 5px;
             font-size: 14px;
             width: 100%;
+            background-color: #333333;
+            color: #ffffff;
         }
 
         input:focus,
         textarea:focus {
-            border-color: #4CAF50;
+            border-color: #ffeb3b;
+            box-shadow: 0 0 5px #ffd700;
+            outline: none;
         }
 
         .form-group {
             margin-bottom: 15px;
+        }
+
+        /* Style for Django form elements */
+        label {
+            color: #ffd700;
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 0 0 15px;
         }
     </style>
 </head>
