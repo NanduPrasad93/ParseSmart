@@ -1,40 +1,313 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources for {{ field_name }}</title>
     <style>
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #f2f2f2; }
-        tr:hover { background-color: #f9f9f9; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #e6a800;
+            --primary-dark: #d19a00;
+            --primary-light: #ffcd4c;
+            --primary-transparent: rgba(230, 168, 0, 0.1);
+            --white: #ffffff;
+            --light-gray: #f8f8f8;
+            --border-color: #eaeaea;
+            --text-dark: #333333;
+            --text-medium: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background-color: var(--white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px 80px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-top: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .resource-container {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+            border-top: 4px solid var(--primary);
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .resource-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .resource-table th {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .resource-table th:first-child {
+            border-top-left-radius: 4px;
+        }
+        
+        .resource-table th:last-child {
+            border-top-right-radius: 4px;
+        }
+        
+        .resource-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .resource-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .resource-table tr:hover td {
+            background-color: var(--primary-transparent);
+        }
+        
+        .resource-title {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .resource-description {
+            color: var(--text-medium);
+        }
+        
+        .resource-type {
+            border-radius: 20px;
+            padding: 6px 12px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background-color: var(--primary-transparent);
+            color: var(--primary-dark);
+        }
+        
+        .resource-link {
+            text-decoration: none;
+            color: var(--white);
+            background-color: var(--primary);
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .resource-link:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 168, 0, 0.2);
+        }
+        
+        .no-resources {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            color: var(--text-medium);
+            margin-bottom: 30px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--white);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .back-link:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .back-container {
+            text-align: center;
+        }
+        
+        .wave-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            transform: rotate(180deg);
+            z-index: -1;
+        }
+
+        .wave-top svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 50px;
+        }
+
+        .wave-top .shape-fill {
+            fill: rgba(230, 168, 0, 0.1);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(230, 168, 0, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(230, 168, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(230, 168, 0, 0);
+            }
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .resource-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Resources for {{ field_name }}</h1>
-    {% if resources %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Type</th>
-                    <th>Link</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for resource in resources %}
+    <div class="wave-top">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Resources for {{ field_name }}</h1>
+        </header>
+        
+        {% if resources %}
+        <div class="resource-container">
+            <table class="resource-table">
+                <thead>
                     <tr>
-                        <td>{{ resource.title }}</td>
-                        <td>{{ resource.description }}</td>
-                        <td>{{ resource.resource_type }}</td>
-                        <td><a href="{{ resource.link }}" target="_blank">Access</a></td>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Access</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No resources available for this field yet.</p>
-    {% endif %}
-    <p><a href="{% url 'select_field' %}">Back to Field Selection</a></p>
+                </thead>
+                <tbody>
+                    {% for resource in resources %}
+                        <tr>
+                            <td class="resource-title">{{ resource.title }}</td>
+                            <td class="resource-description">{{ resource.description }}</td>
+                            <td><span class="resource-type">{{ resource.resource_type }}</span></td>
+                            <td><a href="{{ resource.link }}" target="_blank" class="resource-link">Access</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-resources">
+            <p>No resources available for this field yet.</p>
+        </div>
+        {% endif %}
+        
+        <div class="back-container">
+            <a href="{% url 'select_field' %}" class="back-link">Back to Field Selection</a>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add staggered fade-in effect for table rows
+            const rows = document.querySelectorAll('.resource-table tbody tr');
+            rows.forEach((row, index) => {
+                row.style.opacity = '0';
+                setTimeout(() => {
+                    row.style.animation = `fadeIn 0.5s ease forwards`;
+                }, 100 + (index * 50));
+            });
+            
+            // Add hover effect for access buttons
+            const accessButtons = document.querySelectorAll('.resource-link');
+            accessButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.animation = 'pulse 1s';
+                });
+                button.addEventListener('animationend', function() {
+                    this.style.animation = '';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
