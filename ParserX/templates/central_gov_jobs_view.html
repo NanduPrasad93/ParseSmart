@@ -198,6 +198,7 @@
                         <th>Success Rate</th>
                         <th>Physical Fitness</th>
                         <th>Actions</th>
+                        <th>Site</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -219,6 +220,7 @@
                             <a href="{% url 'edit_central_gov_job' job.id %}" class="edit-link">Edit</a>
                             <a href="{% url 'delete_central_gov_job' job.id %}" onclick="return confirm('Are you sure you want to delete this job listing?')" class="delete-link">Delete</a>
                         </td>
+                        <td>{% if job.site %}<a href="{{ job.site }}" target="_blank">{{ job.site }}</a>{% else %}N/A{% endif %}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
