@@ -227,6 +227,7 @@
                                 <th>Department</th>
                                 <th>Field</th>
                                 <th>Qualifications</th>
+                                <th>Website</th>
                                 <th>Age Limit</th>
                             </tr>
                         </thead>
@@ -246,6 +247,7 @@
                                         {{ job.age_limit_general }} years
                                     {% endif %}
                                 </td>
+                                <td><a href="{{ job.site }}" target="_blank">{{ job.site }}</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
