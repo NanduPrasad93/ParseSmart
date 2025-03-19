@@ -7,7 +7,7 @@
     <style>
         #root {
             width: 100vw;
-            height: 100vh;
+            height: 90vh;
         }
         #joinNowBtn {
             position: fixed;
@@ -25,11 +25,31 @@
         #joinNowBtn:hover {
             background-color: #45a049;
         }
+        #statusMessage {
+            position: fixed;
+            bottom: 70px;
+            right: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 1000;
+        }
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
     </style>
 </head>
 <body>
     <div id="root"></div>
     <button id="joinNowBtn" type="button">Save Conference URL</button>
+    <div id="statusMessage"></div>
 
     <script src="https://unpkg.com/@zegocloud/zego-uikit-prebuilt/zego-uikit-prebuilt.js"></script>
     <script>
@@ -38,6 +58,17 @@
             if (!urlStr) return {};
             const urlSearchParams = new URLSearchParams(urlStr);
             return Object.fromEntries(urlSearchParams.entries());
+        }
+
+        function showMessage(message, isSuccess) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = isSuccess ? 'success' : 'error';
+            statusDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
         }
 
         window.onload = function () {
@@ -76,34 +107,37 @@
             document.getElementById("joinNowBtn").onclick = function () {
                 // Get the generated URL
                 const generatedUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?roomID=' + roomID;
-
+                console.log("Generated URL:", generatedUrl);
+                
                 // Get the appointment ID passed from the view
-                const appointmentId = {{ var.id }};  // Django variable for the appointment's pk (ID)
+                const appointmentId = {{ var.id }};
+                console.log("Appointment ID:", appointmentId);
 
                 // Send an AJAX request to Django backend to save the URL
                 fetch(`/interview-url/${appointmentId}/`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}',  // Include CSRF token for security
                     },
                     body: JSON.stringify({
                         url: generatedUrl,
                     }),
                 })
-                .then(response => response.json())
+                .then(response => {
+                    console.log("Response status:", response.status);
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("Response data:", data);
                     if (data.success) {
-                        alert("URL saved successfully! Candidates can now join using this link.");
-                        console.log("URL saved successfully!");
+                        showMessage("URL saved successfully! Candidates can now join using this link.", true);
                     } else {
-                        alert("Error saving URL: " + data.message);
-                        console.error("Error saving URL");
+                        showMessage("Error saving URL: " + data.message, false);
                     }
                 })
                 .catch(error => {
-                    alert("Error saving URL. Please try again.");
                     console.error("Error:", error);
+                    showMessage("Error saving URL. Please try again.", false);
                 });
             };
         };

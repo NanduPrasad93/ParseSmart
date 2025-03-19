@@ -1305,22 +1305,50 @@ def video_conference_company(request, id):
 def interview_url(request, id):
     if request.method == 'POST':
         try:
+            print(f"Received POST request for interview URL for job ID: {id}")
+            print(f"Request body: {request.body}")
+            
             data = json.loads(request.body)
             url = data.get('url')
 
+            print(f"Parsed URL: {url}")
+
             if not url:
+                print("No URL provided in request")
                 return JsonResponse({'success': False, 'message': 'No URL provided'}, status=400)
 
-            job = get_object_or_404(Company_vaccancy, id=id)
+            # Get the job object
+            try:
+                job = Company_vaccancy.objects.get(id=id)
+                print(f"Found job with ID {id}")
+            except Company_vaccancy.DoesNotExist:
+                print(f"Job with ID {id} not found")
+                return JsonResponse({'success': False, 'message': 'Job not found'}, status=404)
+            
+            # Update the job fields
             job.videocon_url = url  
             job.conferencing_status = 1  
             job.save()
+            
+            # Verify the save was successful
+            updated_job = Company_vaccancy.objects.get(id=id)
+            print(f"Updated job - URL: {updated_job.videocon_url}, Status: {updated_job.conferencing_status}")
+            
+            return JsonResponse({
+                'success': True, 
+                'message': 'URL saved successfully', 
+                'url': updated_job.videocon_url,
+                'status': updated_job.conferencing_status
+            })
 
-            return JsonResponse({'success': True, 'message': 'URL saved successfully', 'url': job.videocon_url})
+        except json.JSONDecodeError as e:
+            print(f"JSON decode error: {str(e)}")
+            return JsonResponse({'success': False, 'message': f'Invalid JSON: {str(e)}'}, status=400)
+        except Exception as e:
+            print(f"Unexpected error: {str(e)}")
+            return JsonResponse({'success': False, 'message': f'Error: {str(e)}'}, status=500)
 
-        except json.JSONDecodeError:
-            return JsonResponse({'success': False, 'message': 'Invalid JSON'}, status=400)
-
+    print(f"Received non-POST request: {request.method}")
     return JsonResponse({'success': False, 'message': 'Invalid request method'}, status=405)
 
 
