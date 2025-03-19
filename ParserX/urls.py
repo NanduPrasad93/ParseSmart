@@ -8,6 +8,7 @@ urlpatterns=[
     path('login/',views.login,name='login'),
     path('user_page/',views.user_page,name='user_page'),
     path('candidate/',views.candidate,name='candidate'),
+    path('dashboard/',views.dashboard,name='dashboard'),
     path('user_header/',views.user_header,name='user_header'),
     path('edit_profile/',views.edit_profile,name='edit_profile'),
     path('special_register/',views.SpecialRegistration_view, name='SpecialRegistration_view'),
@@ -133,6 +134,7 @@ urlpatterns=[
     path("api/mcq/<str:category>/", views.get_mcqs, name="get_mcqs"),
     path("api/categories/", views.get_categories, name="get_categories"),
     path("mcq-test/", views.mcq_test, name="mcq_test"),
+
 ]
 
 

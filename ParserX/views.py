@@ -51,7 +51,8 @@ def admin1(request):
     return render(request,'admin.html')
 def user_page(request):
     return render(request,'user_page.html')
-
+def dashboard(request):
+    return render(request,'dashbordadmin.html')
 
 
 def candidate(request):
