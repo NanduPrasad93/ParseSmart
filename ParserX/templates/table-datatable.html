@@ -1,3 +1,9 @@
+{% load static %}
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -519,24 +525,38 @@
               </tr>
             </thead>
             <tbody>
-              {% for expert in experts %}
-              <tr>
-                <td>{{ expert.name }}</td>
-                <td>{{ expert.contact }}</td>
-                <td>{{ expert.email }}</td>
-                <td>{{ expert.designation }}</td>
-                <td>{{ expert.field }}</td>
-                <td>{{ expert.years_of_experience }}</td>
-                <td>{{ expert.profile_picture }}</td>
-                <td>{{ expert.linkedin }}</td>
-                <td>{{ expert.achievements }}</td>
-                <td>
-                  <a href="#">Accept</a>
-                  <a href="#">Reject</a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
+                {% if users %}
+                  {% for user in users %}
+                    <tr>
+                      <td>{{ user.Name }}</td>
+                      <td>{{ user.Contact }}</td>
+                      <td>{{ user.Email }}</td>
+                      <td>{{ user.Designation}}</td>
+                      <td>{{ user.Field }}</td>
+                      <td>{{ user.Year_of_experience}}</td>
+                      <td>{{ user.Profile_Picture}}</td>
+                      <td>{{ user.LinkedIn}}</td>
+                      <td>{{ user.Achievements}}</td>
+                      <td>
+                        {% if user.status == 0 %}
+                          <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                          <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                        {% elif user.status == 1 %}
+                          <p>Approved</p>
+                          <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                        {% else %}
+                          <p>Rejected</p>
+                          <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                {% else %}
+                  <tr>
+                    <td colspan="5" class="text-center">No users found.</td>
+                  </tr>
+                {% endif %}
+              </tbody>
           </table>
         </div>
       </div>
@@ -557,14 +577,16 @@
               </tr>
             </thead>
             <tbody>
-              {% for candidate in candidates %}
-              <tr>
-                <td>{{ candidate.name }}</td>
-                <td>{{ candidate.gender }}</td>
-                <td>{{ candidate.contact }}</td>
-                <td>{{ candidate.email }}</td>
-              </tr>
-              {% endfor %}
+              {% for user in var %}
+                              <tr>
+                                <td>{{ user.Name }}</td>
+                                <td>{{ user.Gender }}</td>
+                                <td>{{ user.Contact }}</td>
+                                <td>{{ user.Email }}</td>
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
             </tbody>
           </table>
         </div>
@@ -588,16 +610,18 @@
               </tr>
             </thead>
             <tbody>
-              {% for complaint in complaints %}
-              <tr>
-                <td>{{ complaint.date }}</td>
-                <td>{{ complaint.name }}</td>
-                <td>{{ complaint.contact }}</td>
-                <td>{{ complaint.subject }}</td>
-                <td>{{ complaint.complaint }}</td>
-                <td><a href="#">Reply</a></td>
-              </tr>
-              {% endfor %}
+              {% for com in com %}
+                              <tr>
+                                <td>{{ com.created_datetime }}</td>
+                                <td>{{ com.login_id.Name }}</td>
+                                <td>{{ com.login_id.Contact }}</td>
+                                <td>{{ com.Complaint_Subject }}</td>
+                                <td>{{ com.complaint }}</td>
+                                <td><a href="{% url 'Response' id=com.com_id %}">Reply</a></td>
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
             </tbody>
           </table>
         </div>
@@ -620,18 +644,32 @@
               </tr>
             </thead>
             <tbody>
-              {% for company in companies %}
-              <tr>
-                <td>{{ company.category }}</td>
-                <td>{{ company.name }}</td>
-                <td>{{ company.contact }}</td>
-                <td>{{ company.email }}</td>
-                <td>
-                  <a href="#">Accept</a>
-                  <a href="#">Reject</a>
-                </td>
-              </tr>
-              {% endfor %}
+              {% for company in company %}
+                              <tr>
+                                <td>{{ company.Business_category }}</td>
+                                <td>{{ company.Business_name }}</td>
+                                <td>{{ company.Contact }}</td>
+                                <td>{{ company.Email }}</td>
+                                
+                                <td>
+
+                                  {% if company.com_status == 0 %}
+
+                                  <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                  <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                  {% elif company.com_status == 1 %}
+                                    <p>Approved</p>
+                                    <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                  {% else %}
+                                    <p>Rejected</p>
+                                    <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                  {% endif %}
+                                </td>
+
+                            {% endfor %}
+                            <tr>
+                              <td colspan="5" class="text-center">No users found.</td>
+                            </tr>
             </tbody>
           </table>
         </div>
@@ -670,3 +708,11 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
