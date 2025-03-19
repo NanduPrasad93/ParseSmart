@@ -9,8 +9,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #333333;
-            color: #ffffff;
+            background-color: #ffffff; /* Changed to white */
+            color: #333333; /* Changed to dark gray for better contrast */
         }
         .container {
             padding: 30px;
@@ -18,48 +18,50 @@
             margin: 30px auto;
         }
         .card {
-            background-color: #444444;
+            background-color: #ffffff; /* Changed to white */
             border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             margin-bottom: 30px;
-            border: none;
+            border: 1px solid #e6a800; /* Added border for contrast */
         }
         .card-header {
-            background-color: #333333;
-            border-bottom: 2px solid #e6a800;
+            background-color: #e6a800; /* Changed to orange */
+            border-bottom: 2px solid #ffffff; /* Changed to white */
             padding: 15px 20px;
             border-radius: 10px 10px 0 0 !important;
+            color: #ffffff; /* Changed to white */
         }
         .card-body {
             padding: 20px;
         }
         h2 {
             text-align: center;
-            color: #ffffff;
+            color: #e6a800; /* Changed to orange */
             margin-bottom: 30px;
             font-size: 32px;
             font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Lighter shadow */
         }
         h3 {
-            color: #e6a800;
+            color: #e6a800; /* Changed to orange */
             font-weight: bold;
             margin-bottom: 20px;
         }
         .profile-info {
-            background-color: #333333;
+            background-color: #f9f9f9; /* Light gray background */
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 20px;
-            border-left: 4px solid #e6a800;
+            border-left: 4px solid #e6a800; /* Changed to orange */
         }
         .profile-info p {
             margin-bottom: 10px;
             font-size: 16px;
+            color: #333333; /* Dark gray text */
         }
         .profile-label {
             font-weight: bold;
-            color: #e6a800;
+            color: #e6a800; /* Changed to orange */
             margin-right: 5px;
         }
         .jobs-table {
@@ -67,19 +69,19 @@
             border-collapse: separate;
             border-spacing: 0;
             margin: 20px auto;
-            background-color: #444444;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff; /* Changed to white */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             border-radius: 10px;
             overflow: hidden;
         }
         th, td {
             text-align: left;
             padding: 15px;
-            border: 1px solid #333333;
+            border: 1px solid #e6a800; /* Changed to orange */
         }
         th {
-            background-color: #e6a800;
-            color: #333333;
+            background-color: #e6a800; /* Changed to orange */
+            color: #ffffff; /* Changed to white */
             font-weight: bold;
             text-transform: uppercase;
             font-size: 14px;
@@ -88,10 +90,10 @@
             transition: background-color 0.3s ease;
         }
         tr:nth-child(even) {
-            background-color: #3a3a3a;
+            background-color: #f9f9f9; /* Light gray for even rows */
         }
         tr:hover {
-            background-color: #555555;
+            background-color: #fff3e0; /* Light orange on hover */
         }
         .error-message {
             background-color: rgba(231, 76, 60, 0.2);
@@ -103,10 +105,10 @@
         }
         .no-jobs {
             background-color: rgba(230, 168, 0, 0.2);
-            color: #e6a800;
+            color: #e6a800; /* Changed to orange */
             padding: 15px;
             border-radius: 5px;
-            border-left: 4px solid #e6a800;
+            border-left: 4px solid #e6a800; /* Changed to orange */
             margin-top: 20px;
         }
         .table-responsive {
@@ -121,7 +123,7 @@
             font-weight: bold;
         }
         .fitness-category {
-            color: #e6a800;
+            color: #e6a800; /* Changed to orange */
             font-weight: bold;
         }
         @media (max-width: 768px) {
@@ -180,7 +182,6 @@
                                 <th>Field</th>
                                 <th>Qualifications</th>
                                 <th>Age Limit</th>
-                                <th>Fitness Category</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -209,11 +210,6 @@
                 <p class="no-jobs"><i class="fas fa-info-circle mr-2"></i> No physically demanding jobs matching your profile are currently available.</p>
                 {% endif %}
                 
-                {% if not candidate.PhysicallyFit and physically_fit_jobs %}
-                <div class="error-message mt-3">
-                    <i class="fas fa-exclamation-triangle mr-2"></i> Note: Based on your profile, these physically demanding jobs may not be suitable for your current fitness status.
-                </div>
-                {% endif %}
             </div>
         </div>
 
