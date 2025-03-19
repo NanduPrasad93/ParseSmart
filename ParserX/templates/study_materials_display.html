@@ -12,21 +12,21 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c3e50;
+            background-color: white;
             margin: 0;
             padding: 0;
-            color: #ecf0f1;
+            color: #333;
         }
         
         h1 {
             text-align: center;
-            color: #ecf0f1;
+            color: white;
             padding: 25px;
-            background-color: #34495e;
+            background-color: #e6a800;
             margin: 0;
             font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            border-bottom: 3px solid #e67e22;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            border-bottom: 3px solid white;
         }
         
         .main-container {
@@ -36,11 +36,12 @@
         }
         
         .form-container {
-            background-color: #34495e;
+            background-color: #fff;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(230, 168, 0, 0.2);
             margin-bottom: 30px;
+            border: 1px solid #e6a800;
         }
         
         form {
@@ -59,27 +60,27 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #3498db;
+            color: #e6a800;
         }
         
         select.form-control {
             width: 100%;
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid #4a6885;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            border: 1px solid #e6a800;
+            background-color: white;
+            color: #333;
             transition: all 0.3s ease;
         }
         
         select.form-control:focus {
-            border-color: #e67e22;
-            box-shadow: 0 0 0 0.25rem rgba(230, 126, 34, 0.25);
+            border-color: #e6a800;
+            box-shadow: 0 0 0 0.25rem rgba(230, 168, 0, 0.25);
             outline: none;
         }
         
         button[type="submit"] {
-            background-color: #e67e22;
+            background-color: #e6a800;
             color: white;
             border: none;
             padding: 12px 25px;
@@ -91,17 +92,18 @@
         }
         
         button[type="submit"]:hover {
-            background-color: #d35400;
+            background-color: #d49b00;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
         
         .table-container {
-            background-color: #34495e;
+            background-color: white;
             padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 12px rgba(230, 168, 0, 0.2);
             overflow-x: auto;
+            border: 1px solid #e6a800;
         }
         
         table {
@@ -114,11 +116,11 @@
         th, td {
             text-align: left;
             padding: 15px;
-            border: 1px solid #2c3e50;
+            border: 1px solid #e6e6e6;
         }
         
         th {
-            background-color: #e67e22;
+            background-color: #e6a800;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
@@ -130,11 +132,11 @@
         }
         
         tr:nth-child(even) {
-            background-color: #2c3e50;
+            background-color: #fffaf0;
         }
         
         tr:hover {
-            background-color: #3d5a73;
+            background-color: #fff4d6;
         }
         
         a.view-link, a.download-link {
@@ -147,26 +149,27 @@
         }
         
         a.view-link {
-            background-color: #3498db;
+            background-color: #e6a800;
             color: white;
         }
         
         a.download-link {
-            background-color: #2ecc71;
+            background-color: #e6a800;
             color: white;
         }
         
         a.view-link:hover, a.download-link:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #d49b00;
         }
         
         .no-materials {
-            background-color: rgba(52, 152, 219, 0.2);
-            color: #3498db;
+            background-color: #fff4d6;
+            color: #e6a800;
             padding: 20px;
             border-radius: 6px;
-            border-left: 4px solid #3498db;
+            border-left: 4px solid #e6a800;
             margin-top: 30px;
             text-align: center;
             font-size: 16px;
@@ -176,6 +179,7 @@
             margin-right: 5px;
             width: 20px;
             text-align: center;
+            color: #e6a800;
         }
         
         @media (max-width: 768px) {
