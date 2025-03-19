@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,76 +6,195 @@
     <title>Company Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            color: #333333;
         }
         .container {
             width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .profile-card {
-            width: 50%;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            width: 60%;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
+            border: 2px solid #ffd700;
+            position: relative;
+        }
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 18px;
+            pointer-events: none;
         }
         h2 {
-            color: #333;
-            margin-bottom: 20px;
+            color: #d4af37;
+            margin-bottom: 30px;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #ffd700;
         }
         .profile-details {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            border-radius: 8px;
+            overflow: hidden;
         }
         .profile-details th, .profile-details td {
-            padding: 12px;
+            padding: 16px 20px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             font-size: 16px;
+        }
+        .profile-details tr:last-child th,
+        .profile-details tr:last-child td {
+            border-bottom: none;
         }
         .profile-details th {
             width: 40%;
             font-weight: bold;
-            background-color: #f8f8f8;
+            background-color: rgba(255, 215, 0, 0.1);
+            color: #d4af37;
+        }
+        .profile-details td {
+            background-color: rgba(255, 255, 255, 0.8);
         }
         .status {
             font-weight: bold;
             padding: 8px 15px;
-            border-radius: 5px;
+            border-radius: 50px;
             display: inline-block;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 14px;
         }
         .approved {
-            background-color: #28a745;
-            color: white;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
         }
         .pending {
-            background-color: #dc3545;
-            color: white;
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #c62828;
         }
-        .edit-link a, .remove-link a {
+        .action-link a {
             text-decoration: none;
-            color: #007bff;
             font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
-        .edit-link a:hover, .remove-link a:hover {
-            text-decoration: underline;
+        .edit-link a {
+            color: #333;
+            background-color: #ffd700;
+        }
+        .remove-link a {
+            color: #fff;
+            background-color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+        .edit-link a:hover {
+            background-color: #ffeb3b;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .remove-link a:hover {
+            background-color: #c62828;
+            box-shadow: 0 0 10px rgba(255, 110, 110, 0.5);
         }
         .no-data {
             text-align: center;
-            color: red;
+            color: #c62828;
             font-size: 18px;
             font-weight: bold;
+            padding: 30px;
+            background-color: rgba(255, 0, 0, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 110, 110, 0.3);
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+        }
+        .data-label {
+            color: #d4af37;
+            font-weight: bold;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-card {
+                width: 90%;
+                padding: 20px;
+            }
+            .profile-details {
+                display: block;
+            }
+            .profile-details thead {
+                display: none;
+            }
+            .profile-details tr {
+                margin-bottom: 15px;
+                display: block;
+                border: 1px solid rgba(212, 175, 55, 0.3);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+            .profile-details th, .profile-details td {
+                display: block;
+                text-align: right;
+                border-bottom: none;
+                position: relative;
+                padding-left: 50%;
+            }
+            .profile-details th {
+                display: none;
+            }
+            .data-label {
+                display: inline-block;
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
         }
     </style>
 </head>
@@ -89,37 +207,39 @@
             <table class="profile-details">
                 <tr>
                     <th>Business Category</th>
-                    <td>{{ company.Business_category }}</td>
+                    <td><span class="data-label">Business Category:</span> {{ company.Business_category }}</td>
                 </tr>
                 <tr>
                     <th>Business Name</th>
-                    <td>{{ company.Business_name }}</td>
+                    <td><span class="data-label">Business Name:</span> {{ company.Business_name }}</td>
                 </tr>
                 <tr>
                     <th>Contact</th>
-                    <td>{{ company.Contact }}</td>
+                    <td><span class="data-label">Contact:</span> {{ company.Contact }}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td>{{ company.Email }}</td>
+                    <td><span class="data-label">Email:</span> {{ company.Email }}</td>
                 </tr>
                 <tr>
                     <th>Status</th>
                     <td>
+                        <span class="data-label">Status:</span>
                         <span class="status {% if company.com_status == 1 %} approved {% else %} pending {% endif %}">
                             {% if company.com_status == 1 %} Approved {% else %} Pending {% endif %}
                         </span>
                     </td>
                 </tr>
-                <tr class="edit-link">
-                    <th>Edit</th>
-                    <td><a href="{% url 'edit_company' company.id %}">Edit Your Profile</a></td>
-                </tr>
-                <tr class="remove-link">
-                    <th>Remove</th>
-                    <td><a href="{% url 'remove_company' company.id %}" onclick="return confirm('Are you sure you want to delete this company?')">Remove Your Profile</a></td>
-                </tr>
             </table>
+            
+            <div class="action-buttons">
+                <span class="edit-link action-link">
+                    <a href="{% url 'edit_company' company.id %}">Edit Profile</a>
+                </span>
+                <span class="remove-link action-link">
+                    <a href="{% url 'remove_company' company.id %}" onclick="return confirm('Are you sure you want to delete this company?')">Remove Profile</a>
+                </span>
+            </div>
             {% else %}
                 <p class="no-data">No company details found.</p>
             {% endif %}

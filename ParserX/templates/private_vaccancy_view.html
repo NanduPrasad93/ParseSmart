@@ -9,8 +9,8 @@
     <style>
         /* General Styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
         }
@@ -22,11 +22,29 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffd700;
         }
  
         .heading {
             text-align: center;
             color: #333;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .heading::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #ffd700;
         }
 
         .category-header {
@@ -36,7 +54,7 @@
 
         .category-title {
             font-size: 1.8rem;
-            color: #007bff;
+            color: #d4af37;
             font-weight: bold;
         }
 
@@ -49,37 +67,67 @@
 
         .vacancy-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0;
             margin-top: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .vacancy-table th, .vacancy-table td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
         }
 
         .vacancy-table th {
-            background-color:  rgb(239, 102, 18);
-            color: white;
+            background-color: #ffd700;
+            color: #333;
+            font-weight: bold;
         }
 
         .vacancy-table tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: rgba(255, 215, 0, 0.05);
         }
 
         .vacancy-table tr:hover {
-            background-color:rgb(17, 1, 1);
+            background-color: rgba(255, 215, 0, 0.2);
+            color: #333;
         }
 
         .vacancy-table a {
             text-decoration: none;
-            color: #007bff;
+            color: #d4af37;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         .vacancy-table a:hover {
-            color: #0056b3;
+            color: #b8860b;
+        }
+        
+        button[type="submit"] {
+            background-color: #ffd700;
+            color: #333;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #ffeb3b;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        
+        input[type="datetime-local"] {
+            padding: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 4px;
+            margin-right: 5px;
         }
 
     </style>
@@ -107,7 +155,6 @@
                         <th>Applicants</th>
                         <th>Interview Date & Time</th>
                         <th>Set Interview</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -141,11 +188,9 @@
                                 <button type="submit">Save</button>
                             </form>
                         </td>
-                        
                     </tr>
                     {% endfor %}
                 </tbody>
-                
             </table>
         </div>
     </div>
