@@ -122,45 +122,8 @@ def edit_profile(request):
     else:
         var = Edit_Form(instance=data)
     return render(request,'c_profile.html',{'var':var})  
-# def SpecialRegistration_view(request):
-#     candidate_id = request.session.get('user_id')
-#     can_id = Candidate.objects.get(id = candidate_id)
-#     if request.method == 'POST':
-#         form = SpecialRegistrationForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             frm = form.save(commit=False)  # Save the form data to the database
-#             frm.candidate_id = can_id
-#             frm.save()
-#             return redirect('user_page')  # Redirect to the success page after form submission
-#     else:
-#         form = SpecialRegistrationForm()
-#     # Always return a response with the form, whether POST or GET
-#     return render(request, 'SpecialRegForm.html', {'form': form})
 def success_view(request):
     return render(request, 'success.html')
-# def profile_view(request):
-#     user_data =  request.session.get('user_id')
-#     user_dta = Candidate.objects.get(id = user_data)
-#     user_d = SpecialRegistration.objects.filter(candidate_id = user_dta)
-#     return render(request,'Profile_s.html',{'var':user_d})
-# def edit_special_profile(request):
-#     user_id = request.session.get('user_id')  # Get the user from the session
-#     profile = get_object_or_404(SpecialRegistration, candidate_id=user_id)
-#     if request.method == 'POST':
-#         form = SpecialRegistrationForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('profile_view')  # Redirect to profile view
-#     else:
-#         form = SpecialRegistrationForm(instance=profile)
-#     return render(request, 'edit_special_profile.html', {'form': form})
-# def delete_special_profile(request):
-#     user_id = request.session.get('user_id')  # Get the user from the session
-#     profile = get_object_or_404(SpecialRegistration, candidate_id=user_id)
-#     if request.method == 'POST':
-#         profile.delete()
-#         return redirect('profile_view')  # Redirect to profile view
-#     return render(request, 'confirm_delete.html', {'profile': profile})
 def expert_login(request):
     if request.method == 'POST':
         form = ExpertLoginForm(request.POST)
@@ -338,24 +301,6 @@ def ct_view(request):
     return render(request, 'ct_view.html', {'var': var})
 
 
-
-# @login_required
-# def candidate_dashboard(request):
-#     # Get all tips and select a random one
-#     tips = list(Tips.objects.all())
-#     if tips:
-#         request.session['random_tip'] = random.choice(tips).Tips 
-    
-#     return render(request, 'candidate_dashboard.html')
-
-# @csrf_exempt
-# def clear_tip(request):
-#     if 'random_tip' in request.session:
-#         del request.session['random_tip']
-#     return JsonResponse({'status': 'success'})
-
-
-
 ################################-END-TIP-###############################################
 
 def study_materials(request):
@@ -493,45 +438,6 @@ def delete_central_gov_job(request, id):
     return redirect('central_gov_jobs_view')  # Redirect to job listing
 
 
-
-# def SpecialRegistration_view(request):
-#     candidate_id = request.session.get('user_id')
-#     can_id = Candidate.objects.get(id = candidate_id)
-#     if request.method == 'POST':
-#         form = SpecialRegistrationForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             frm = form.save(commit=False)  # Save the form data to the database
-#             frm.candidate_id = can_id
-#             frm.save()
-#             return redirect('user_page')  # Redirect to the success page after form submission
-#     else:
-#         form = SpecialRegistrationForm()
-#     # Always return a response with the form, whether POST or GET
-#     return render(request, 'SpecialRegForm.html', {'form': form})
-
-
-
-
-# def edit_special_profile(request):
-#     user_id = request.session.get('user_id')  # Get the user from the session
-#     profile = get_object_or_404(SpecialRegistration, candidate_id=user_id)
-#     if request.method == 'POST':
-#         form = SpecialRegistrationForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('profile_view')  # Redirect to profile view
-#     else:
-#         form = SpecialRegistrationForm(instance=profile)
-#     return render(request, 'edit_special_profile.html', {'form': form})
-# def delete_special_profile(request):
-#     user_id = request.session.get('user_id')  # Get the user from the session
-#     profile = get_object_or_404(SpecialRegistration, candidate_id=user_id)
-#     if request.method == 'POST':
-#         profile.delete()
-#         return redirect('profile_view')  # Redirect to profile view
-#     return render(request, 'confirm_delete.html', {'profile': profile})
-
-
 from django.shortcuts import render, redirect
 from .models import SpecialRegistration, Candidate
 from .forms import SpecialRegistrationForm
@@ -569,21 +475,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import SpecialRegistration, Candidate
 from .forms import SpecialRegistrationForm
 
-# def Sprofile_view(request):
-#     candidate_id = request.session.get('user_id')
-#     candidate = get_object_or_404(Candidate, id=candidate_id)
-
-#     if request.method == 'POST':
-#         form = SpecialRegistrationForm(request.POST)
-#         if form.is_valid():
-#             special_reg = form.save(commit=False)
-#             special_reg.candidate_id = candidate
-#             special_reg.save()
-#             return redirect('user_page')
-#     else:
-#         form = SpecialRegistrationForm()
-
-#     return render(request, 'SpecialRegForm.html', {'form': form})
 
 def Sprofile_view(request):
     user_data =  request.session.get('user_id')
@@ -687,29 +578,6 @@ def recommend_jobs(request):
     'requires_physical_fitness': requires_physical_fitness  
 })
     
-    # def recommend_jobs(request):
-#     # Retrieve candidate_id from session
-#     candidate_id = request.session.get('user_id')
-#     print(candidate_id)
-#     # Fetch the Candidate instance using the ID stored in the session
-#     try:
-#         candid = Candidate.objects.get(id=candidate_id)
-#         print(candid)
-#     except Candidate.DoesNotExist:
-#         return render(request, 'recommendations.html', {'error': 'Candidate not found'})
-#     # Fetch SpecialRegistration for the candidate
-#     candidate_registration = SpecialRegistration.objects.filter(candidate_id=candid).first()  # Get the first match or None
-#     if not candidate_registration:
-#         return render(request, 'recommendations.html', {'error': 'You have not created a Special Registration profile. Please complete your registration to view job recommendations.'})
-#     print(candidate_registration)
-#     qualification = candidate_registration.Highest_qua  # Get candidate's qualification
-#     print(f"Candidate's Qualification: {qualification}")
-#     # Fetch jobs matching candidate's qualification from Vaccancy model
-#     eligible_jobs = Vaccancy.objects.filter(Q(Qualification__icontains=qualification))
-#     if not eligible_jobs:
-#         print("No eligible jobs found.")
-#     return render(request, 'recommendations.html', {'candidate': candidate_registration, 'jobs': eligible_jobs})
-
 
 
 def can_vaccancy(request):
@@ -843,28 +711,6 @@ def select_field(request):
         ('Others', 'Others')
     ]
     return render(request, 'select_field.html', {'fields': fields})
-# def recommend_jobs(request):
-#     # Retrieve candidate_id from session
-#     candidate_id = request.session.get('user_id')
-#     print(candidate_id)
-#     # Fetch the Candidate instance using the ID stored in the session
-#     try:
-#         candid = Candidate.objects.get(id=candidate_id)
-#         print(candid)
-#     except Candidate.DoesNotExist:
-#         return render(request, 'recommendations.html', {'error': 'Candidate not found'})
-#     # Fetch SpecialRegistration for the candidate
-#     candidate_registration = SpecialRegistration.objects.filter(candidate_id=candid).first()  # Get the first match or None
-#     if not candidate_registration:
-#         return render(request, 'recommendations.html', {'error': 'You have not created a Special Registration profile. Please complete your registration to view job recommendations.'})
-#     print(candidate_registration)
-#     qualification = candidate_registration.Highest_qua  # Get candidate's qualification
-#     print(f"Candidate's Qualification: {qualification}")
-#     # Fetch jobs matching candidate's qualification from Vaccancy model
-#     eligible_jobs = Vaccancy.objects.filter(Q(Qualification__icontains=qualification))
-#     if not eligible_jobs:
-#         print("No eligible jobs found.")
-#     return render(request, 'recommendations.html', {'candidate': candidate_registration, 'jobs': eligible_jobs})
 # -----------------------------------------------------------------------------------------------------
 def upload_resume(request):
     id=request.session['user_id']
@@ -1044,23 +890,6 @@ def private_can_vaccancy(request):
     return render(request, 'private_can_vaccancy.html', {'var': var, 'applied_jobs': applied_jobs})
   
 
-# def private_apply(request, id):
-#     user_id = request.session.get('user_id')
-
-#     if not user_id:
-#         messages.error(request, "You need to log in to apply for a job.")
-#         return redirect('login')  
-
-#     user = get_object_or_404(Candidate, id=user_id)
-#     pvacancy = get_object_or_404(Company_vaccancy, id=id)
-
-#     if private_Apply_vaccancy.objects.filter(private_can_id=user, private_vaccancy_id=pvacancy).exists():
-#         messages.warning(request, "You have already applied for this job.")
-#     else:
-#         private_Apply_vaccancy.objects.create(private_can_id=user, private_vaccancy_id=pvacancy)
-#         messages.success(request, "You have successfully applied for this job.")
-
-#     return redirect('vacancy_detail', id=id)
 def private_apply(request, id):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -1149,25 +978,6 @@ def view_applied_jobs(request):
     return render(request, 'applied_jobs.html', {'var': job_details})
 
 
-# def view_applied_jobs(request):
-#     user_id = request.session.get('user_id')
-#     if not user_id:
-#         messages.error(request, "You need to log in to view applied jobs.")
-#         return redirect('login')  
-
-#     candidate = get_object_or_404(Candidate, id=user_id)
-#     applied_jobs = private_Apply_vaccancy.objects.filter(private_can_id=candidate).select_related('private_vaccancy_id')
-
-#     jobs = []
-#     for application in applied_jobs:
-#         jobs.append({
-#             'id': application.id,  # Include application ID for canceling
-#             'job': application.private_vaccancy_id,
-#             'applied_on': application.current_date,
-#             'status': application.p_status  # Use `p_status` to track cancellation
-#         })
-
-#     return render(request, 'applied_jobs.html', {'jobs': jobs})
 
 def private_cancel_application(request, application_id):
     application = get_object_or_404(private_Apply_vaccancy, id=application_id)
@@ -1235,11 +1045,6 @@ def chat_temp(request, pk):
         'form': form
     })
 
-# def chats_list(request):
-#     expert = get_object_or_404(Expert, id=request.session.get('expert_id'))
-#     candidates = Candidate.objects.filter(candidatesent_messages__expert_receiver=expert).distinct()
-    
-#     return render(request, 'chatlist_exp.html', {'candidates': candidates})
 
 def chats_list(request):
     id = request.session.get('expert_id')
@@ -1250,46 +1055,6 @@ def chats_list(request):
     
     return render(request, 'chatlist_exp.html', {'var': var})
 
-# def chats_list(request):
-#     id = request.session.get('expert_id')
-    
-#     # Ensure the expert exists
-#     expert = get_object_or_404(Expert, pk=id)  
-
-#     # Get distinct candidates the expert has chatted with
-#     var = Chat.objects.filter(expert_sender=expert).values_list(
-#         'candidate_receiver__Name', 'candidate_receiver_id'
-#     ).distinct()
-
-#     return render(request, 'chatlist_exp.html', {'var': var})
-
-
-
-
-# def chat_list(request):
-#     candidate = get_object_or_404(Candidate, id=request.session.get('user_id'))
-    
-#     experts = Expert.objects.filter(
-#         id__in=Chat.objects.filter(candidate_sender=candidate).values_list('expert_receiver', flat=True)
-#     ).union(
-#         Expert.objects.filter(
-#             id__in=Chat.objects.filter(candidate_receiver=candidate).values_list('expert_sender', flat=True)
-#         )
-#     )
-
-#     return render(request, 'chatlist_can.html', {'experts': experts})
-# def chat_list(request):
-#     candidate = get_object_or_404(Candidate, id=request.session.get('user_id'))
-    
-#     chats = Chat.objects.filter(
-#         candidate_sender=candidate
-#     ).values_list('expert_receiver__Name', 'expert_receiver__id').union(
-#         Chat.objects.filter(
-#             candidate_receiver=candidate
-#         ).values_list('expert_sender__Name', 'expert_sender__id')
-#     )
-
-#     return render(request, 'chatlist_can.html', {'var': chats})
 def chat_list(request):
     id = request.session['user_id']
     can = get_object_or_404(Candidate,pk = id)
@@ -1405,15 +1170,6 @@ def defence_exams(request):
 
 
 ##################-MCQ-#################################
-
-
-
-# def mcq_view(request):
-#     questions = MCQ.objects.order_by('?')[:10]  # Fetch 10 random questions
-#     return render(request, "mcq.html", {"questions": questions})
-
-
-
 
 
 
