@@ -30,25 +30,8 @@
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
             width: 100%;
-            max-width: 600px;
+            max-width: 900px;
             padding: 30px;
-            transition: transform 0.3s ease;
-            animation: slideInFromLeft 0.5s ease-out;
-        }
-        
-        @keyframes slideInFromLeft {
-            0% {
-                transform: translateX(-50px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .container:hover {
-            transform: translateX(5px);
         }
         
         h2 {
@@ -58,18 +41,6 @@
             font-size: 28px;
             position: relative;
             padding-bottom: 10px;
-            animation: slideInFromRight 0.5s ease-out;
-        }
-        
-        @keyframes slideInFromRight {
-            0% {
-                transform: translateX(50px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
         }
         
         h2:after {
@@ -80,18 +51,50 @@
             width: 50%;
             height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            animation: slideInFromLeft 0.8s ease-out;
         }
         
         form {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            flex-wrap: wrap;
+            margin: -10px; /* Compensate for field padding */
         }
         
-        form p {
-            margin: 0;
-            animation: slideInFromRight 0.7s ease-out;
+        .form-group {
+            padding: 10px;
+            width: 50%;
+            box-sizing: border-box;
+            animation-duration: 0.5s;
+            animation-fill-mode: both;
+        }
+        
+        .form-group:nth-child(odd) {
+            animation-name: slideInFromLeft;
+        }
+        
+        .form-group:nth-child(even) {
+            animation-name: slideInFromRight;
+        }
+        
+        @keyframes slideInFromLeft {
+            0% {
+                transform: translateX(-40px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(40px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
         
         label {
@@ -108,13 +111,41 @@
             border-radius: 6px;
             font-size: 16px;
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         
         input:focus, select:focus, textarea:focus {
             outline: none;
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
-            transform: translateX(5px);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .full-width {
+            width: 100%;
+        }
+        
+        .buttons {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+            animation: slideInFromBottom 0.5s ease-out;
+        }
+        
+        @keyframes slideInFromBottom {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
         
         button {
@@ -124,22 +155,20 @@
             font-weight: 600;
             border: none;
             border-radius: 6px;
-            padding: 14px;
+            padding: 14px 30px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 10px;
             position: relative;
             overflow: hidden;
-            animation: slideInFromLeft 0.9s ease-out;
         }
         
         button:hover {
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-            transform: translateX(5px);
+            transform: translateY(-2px);
         }
         
         button:active {
-            transform: translateX(2px);
+            transform: translateY(1px);
         }
         
         button::after {
@@ -157,6 +186,12 @@
         button:hover::after {
             left: 100%;
         }
+        
+        @media (max-width: 768px) {
+            .form-group {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -164,8 +199,98 @@
         <h2>Add a Central Government Job</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit</button>
+            
+            <div class="form-group">
+                <label for="id_job_title">Job Title</label>
+                <input type="text" name="job_title" id="id_job_title" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_department">Department</label>
+                <input type="text" name="department" id="id_department" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_field">Field</label>
+                <input type="text" name="field" id="id_field" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_salary_range">Salary Range</label>
+                <input type="text" name="salary_range" id="id_salary_range">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_age_limit_general">Age Limit (General)</label>
+                <input type="text" name="age_limit_general" id="id_age_limit_general">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_age_limit_obc">Age Limit (OBC)</label>
+                <input type="text" name="age_limit_obc" id="id_age_limit_obc">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_age_limit_sc_st">Age Limit (SC/ST)</label>
+                <input type="text" name="age_limit_sc_st" id="id_age_limit_sc_st">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_vacancies">Vacancies</label>
+                <input type="number" name="vacancies" id="id_vacancies">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_exam_frequency">Exam Frequency</label>
+                <input type="text" name="exam_frequency" id="id_exam_frequency">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_work_type">Work Type</label>
+                <select name="work_type" id="id_work_type">
+                    <option value="">---------</option>
+                    <option value="Permanent">Permanent</option>
+                    <option value="Contract">Contract</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_application_mode">Application Mode</label>
+                <select name="application_mode" id="id_application_mode">
+                    <option value="">---------</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_success_rate">Success Rate (%)</label>
+                <input type="number" step="0.01" name="success_rate" id="id_success_rate">
+            </div>
+            
+            <div class="form-group">
+                <label for="id_requires_physical_fitness">Requires Physical Fitness</label>
+                <input type="checkbox" name="requires_physical_fitness" id="id_requires_physical_fitness">
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="id_description">Description</label>
+                <textarea name="description" id="id_description" required></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="id_required_qualifications">Required Qualifications</label>
+                <textarea name="required_qualifications" id="id_required_qualifications" required></textarea>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="id_selection_process">Selection Process</label>
+                <textarea name="selection_process" id="id_selection_process"></textarea>
+            </div>
+            
+            <div class="buttons">
+                <button type="submit">Submit</button>
+            </div>
         </form>
     </div>
 </body>
