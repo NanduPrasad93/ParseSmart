@@ -679,12 +679,12 @@ def recommend_jobs(request):
         print("No eligible jobs found.")
 
     return render(request, 'recommendations.html', {
-        'candidate': candidate_registration,
-        'physically_fit_jobs': physically_fit_jobs,
-        'non_physically_fit_jobs': non_physically_fit_jobs,
-        'fitness_category': fitness_category,
-        'requires_physical_fitness': requires_physical_fitness  
-    })
+    'candidate': candidate_registration,  # This is the key
+    'physically_fit_jobs': physically_fit_jobs,
+    'non_physically_fit_jobs': non_physically_fit_jobs,
+    'fitness_category': fitness_category,
+    'requires_physical_fitness': requires_physical_fitness  
+})
     
     # def recommend_jobs(request):
 #     # Retrieve candidate_id from session

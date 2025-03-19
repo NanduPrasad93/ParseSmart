@@ -149,12 +149,12 @@
             </div>
             <div class="card-body">
                 <div class="profile-info">
-                    <p><span class="profile-label">Name:</span> {{ candidate.Name }}</p>
-                    <p><span class="profile-label">Age:</span> {{ candidate.Age }} years</p>
+                    <p><span class="profile-label">Name:</span> {{ candidate.Candidate_name }}</p>
+                    <p><span class="profile-label">Age:</span> {{ candidate.Dob|timesince }} years</p>
                     <p><span class="profile-label">Caste Category:</span> {{ candidate.Caste }}</p>
-                    <p><span class="profile-label">Educational Qualification:</span> {{ candidate.Education }}</p>
+                    <p><span class="profile-label">Educational Qualification:</span> {{ candidate.Highest_qua }}</p>
                     <p><span class="profile-label">Physical Fitness Status:</span> 
-                        {% if candidate.PhysicallyFit %}
+                        {% if requires_physical_fitness %}
                         <span class="fitness-yes">Physically Fit</span>
                         {% else %}
                         <span class="fitness-no">Not Physically Fit</span>
