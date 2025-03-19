@@ -579,7 +579,6 @@ def recommend_jobs(request):
 })
     
 
-
 def can_vaccancy(request):
     user_id = request.session.get('user_id')
     applied_vacancies = []
@@ -614,9 +613,6 @@ def apply(request, id):
 def vacancy_applicants_view(request, vaccancy_id):
     data = get_vacancy_applicants(vaccancy_id)
     return JsonResponse(data)
-
-
-
 
 ########################################################################################
 ########################################################################################
@@ -855,11 +851,6 @@ def private_vaccancy_view(request):
             vacancy.save()
     
     return render(request, 'private_vaccancy_view.html', {'var': company_vacancies})
- 
-
- 
-
-
 def edit_com_vaccancy(request,id):
     var = get_object_or_404(Company_vaccancy,id=id)
     if request.method == 'POST':
@@ -1063,9 +1054,6 @@ def chat_list(request):
 
 # ----------------------------------------------------------------------------------------------------
 
-
-
-
 #video conference company
 
 #video-conference
@@ -1157,21 +1145,11 @@ def fetch_exam_dates(request):
 
     return render(request, "latest_exams.html", {"exam_data": exam_data})
 
-
-
-
-
-
 def defence_exams(request):
     exams = fetch_defence_exam_dates()
     return render(request, "defence_exams.html", {"exams": exams})
 
-
-
-
 ##################-MCQ-#################################
-
-
 
 from django.http import JsonResponse
 from django.shortcuts import render

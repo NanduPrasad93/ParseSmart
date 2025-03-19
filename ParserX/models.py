@@ -171,6 +171,7 @@ class CentralGovJob(models.Model):
     application_mode = models.CharField(max_length=50, choices=[('Online', 'Online'), ('Offline', 'Offline')], blank=True, null=True)  # Online/Offline
     requires_physical_fitness = models.BooleanField(default=False)  # True if physical fitness is required
     success_rate = models.FloatField(blank=True, null=True)  # Percentage of candidates who get selected
+    site = models.URLField(blank=True, null=True)  # Official website for more details
 
 
 

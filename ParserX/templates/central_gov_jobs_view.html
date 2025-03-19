@@ -194,6 +194,7 @@
                         <th>Field</th>
                         <th>Age Limit (General)</th>
                         <th>Vacancies</th>
+                        <th>Website</th>
                         <th>Success Rate</th>
                         <th>Physical Fitness</th>
                         <th>Actions</th>
@@ -207,6 +208,7 @@
                         <td>{{ job.field }}</td>
                         <td>{{ job.age_limit_general }}</td>
                         <td>{{ job.vacancies|default:"N/A" }}</td>
+                        <td><a href="{{ job.site }}" target="_blank">{{ job.site }}</a></td>
                         <td>{{ job.success_rate|floatformat:2 }}%</td>
                         <td>
                             <span class="status-badge {% if job.requires_physical_fitness %}yes-badge{% else %}no-badge{% endif %}">
