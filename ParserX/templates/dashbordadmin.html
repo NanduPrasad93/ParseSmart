@@ -201,307 +201,787 @@
     .full-width {
       grid-column: span 2;
     }
+    .sidebar-wrapper {
+            width: 280px;
+            height: 100vh;
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 999;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 1.25rem;
+            border-bottom: 1px solid var(--gray);
+            position: sticky;
+            top: 0;
+            background-color: var(--white);
+            z-index: 2;
+        }
+        
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background-color: var(--primary);
+            margin-right: 12px;
+        }
+        
+        .logo-img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .logo-name h5 {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .sidebar-close {
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.2s ease;
+        }
+        
+        .sidebar-close:hover {
+            color: var(--dark);
+        }
+        
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+        
+        .menu-label {
+            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 1.5rem 1.5rem 0.75rem;
+            margin-top: 0.5rem;
+        }
+        
+        .metismenu {
+            list-style: none;
+        }
+        
+        .metismenu li a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            color: var(--text);
+            transition: all 0.2s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .metismenu li a:hover {
+            color: var(--primary);
+            background-color: var(--gray-light);
+        }
+        
+        .metismenu li a.active {
+            color: var(--primary);
+            background-color: var(--gray-light);
+            border-left: 3px solid var(--primary);
+        }
+        
+        .parent-icon {
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background-color: var(--gray-light);
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+        
+        a:hover .parent-icon {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        a.active .parent-icon {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .menu-title {
+            font-weight: 500;
+            flex-grow: 1;
+        }
+        
+        .has-arrow::after {
+            content: '\e5cf';
+            font-family: 'Material Icons';
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .has-arrow[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+        
+        .metismenu ul {
+            list-style: none;
+            background-color: var(--gray-light);
+            border-radius: 8px;
+            margin: 0.5rem 1.5rem;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+        }
+        
+        .metismenu ul.mm-show {
+            max-height: 500px;
+        }
+        
+        .metismenu ul li a {
+            padding: 0.625rem 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            border-left: none;
+        }
+        
+        .metismenu ul li a i {
+            font-size: 0.75rem;
+            margin-right: 8px;
+            color: var(--text-light);
+        }
+        
+        .metismenu ul li a:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        
+        .metismenu ul li a.active {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            border-left: none;
+        }
+        
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            margin-left: 8px;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .badge-success {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+        
+        /* Status indicator */
+        .status {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background-color: var(--secondary);
+        }
+        
+        /* User profile at bottom */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid var(--gray);
+            position: sticky;
+            bottom: 0;
+            background-color: var(--white);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 12px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+        }
+        
+        .user-info {
+            flex-grow: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        .user-menu {
+            color: var(--text-light);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .user-menu:hover {
+            color: var(--dark);
+        }
+
+        /* Content area */
+        .page-wrapper {
+            margin-left: 280px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.75rem;
+            border: 1px solid var(--gray);
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: var(--gray-light);
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid var(--gray);
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        h6 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--gray);
+            margin: 1rem 0;
+        }
+
+        /* Utility classes */
+        .sidebar-collapsed {
+            width: 70px;
+        }
+
+        .sidebar-collapsed + .page-wrapper {
+            margin-left: 70px;
+        }
+
+        .sidebar-collapsed .menu-title, 
+        .sidebar-collapsed .menu-label,
+        .sidebar-collapsed .user-info {
+            display: none;
+        }
+
+        .sidebar-collapsed .user-profile {
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .sidebar-collapsed .user-avatar {
+            margin-right: 0;
+        }
+
+        .sidebar-collapsed .user-menu {
+            display: none;
+        }
+
+        /* Links styling */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Material Icons */
+        .material-icons-outlined {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
   </style>
 </head>
 <body>
-  <div class="stats-container">
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="card-icon">
-          <i class="fas fa-user-tie"></i>
-        </div>
-        <div class="stat-title">Experts</div>
-      </div>
-      <div class="stat-value">124</div>
-      <div class="stat-footer">
-        <span class="stat-badge positive">+12%</span>
-        <span class="text-muted">vs last month</span>
-      </div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="card-icon secondary">
-          <i class="fas fa-user-graduate"></i>
-        </div>
-        <div class="stat-title">Candidates</div>
-      </div>
-      <div class="stat-value">875</div>
-      <div class="stat-footer">
-        <span class="stat-badge positive">+8%</span>
-        <span class="text-muted">vs last month</span>
-      </div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="card-icon warning">
-          <i class="fas fa-building"></i>
-        </div>
-        <div class="stat-title">Companies</div>
-      </div>
-      <div class="stat-value">42</div>
-      <div class="stat-footer">
-        <span class="stat-badge positive">+5%</span>
-        <span class="text-muted">vs last month</span>
-      </div>
-    </div>
-    
-    <div class="stat-card">
-      <div class="stat-header">
-        <div class="card-icon info">
-          <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <div class="stat-title">Complaints</div>
-      </div>
-      <div class="stat-value">18</div>
-      <div class="stat-footer">
-        <span class="stat-badge negative">+2%</span>
-        <span class="text-muted">vs last month</span>
-      </div>
-    </div>
-  </div>
-  
-  <div class="dashboard-container">
-    <div class="card full-width">
-      <div class="card-header">
-        <h5 class="card-title">User Registration Trends</h5>
-      </div>
-      <div class="card-body">
-        <div class="chart-container">
-          <canvas id="registrationChart"></canvas>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Expert Fields Distribution</h5>
-      </div>
-      <div class="card-body">
-        <div class="chart-container">
-          <canvas id="expertFieldsChart"></canvas>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Experience Distribution</h5>
-      </div>
-      <div class="card-body">
-        <div class="chart-container">
-          <canvas id="experienceChart"></canvas>
-        </div>
-      </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Application Status</h5>
-      </div>
-      <div class="card-body">
-        <div class="status-cards">
-          <div>
-            <div class="status-item">
-              <div class="status-dot approved"></div>
-              <div class="status-label">Approved</div>
-              <div class="status-value">87</div>
+    <aside class="sidebar-wrapper" data-simplebar="true">
+        <div class="sidebar-header">
+            <div class="logo-icon">
+                <img src="/api/placeholder/40/40" class="logo-img" alt="Maxton">
             </div>
-            <div class="status-item">
-              <div class="status-dot pending"></div>
-              <div class="status-label">Pending</div>
-              <div class="status-value">32</div>
+            <div class="logo-name flex-grow-1">
+                <h5 class="mb-0">Maxton</h5>
             </div>
-            <div class="status-item">
-              <div class="status-dot rejected"></div>
-              <div class="status-label">Rejected</div>
-              <div class="status-value">15</div>
+            <div class="sidebar-close">
+                <span class="material-icons-outlined">close</span>
             </div>
+        </div>
+        <div class="sidebar-nav">
+            <ul class="metismenu" id="sidenav">
+                <li>
+                  <a href="dashboard.html">
+                    <div class="parent-icon"><i class="material-icons-outlined">dashboard</i></div>
+                        <div class="menu-title">Dashboard</div>
+                    </a>
+                </li>
+                
+                <li class="menu-label">Data Management</li>
+                <li>
+                    <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                        <div class="parent-icon"><i class="material-icons-outlined">work</i></div>
+                        <div class="menu-title">Job Management</div>
+                    </a>
+                    <ul>
+                        <li><a href="add_central_gov_job.html"><i class="material-icons-outlined">add_circle</i>Add Central Gov Jobs</a></li>
+                        <li><a href="central_gov_jobs_view.html"><i class="material-icons-outlined">visibility</i>View Jobs</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                        <div class="parent-icon"><i class="material-icons-outlined">notifications</i></div>
+                        <div class="menu-title">Notifications</div>
+                        <span class="badge badge-primary">New</span>
+                    </a>
+                    <ul>
+                        <li><a href="add_notification.html"><i class="material-icons-outlined">add_alert</i>Add New Notifications</a></li>
+                        <li><a href="notification_list.html"><i class="material-icons-outlined">list</i>View Notifications</a></li>
+                    </ul>
+                </li>
+                
+                <li>
+                    <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                        <div class="parent-icon"><i class="material-icons-outlined">menu_book</i></div>
+                        <div class="menu-title">Study Materials</div>
+                    </a>
+                    <ul>
+                        <li><a href="study_materials.html"><i class="material-icons-outlined">post_add</i>Add Study Material</a></li>
+                        <li><a href="materials_view.html"><i class="material-icons-outlined">auto_stories</i>View Study Material</a></li>
+                        <li><a href="add_resource.html"><i class="material-icons-outlined">add_box</i>Add New Resources</a></li>
+                    </ul>
+                </li>
+                
+                <li class="menu-label">Analytics</li>
+                <li>
+                    <a href="expert_view.html">
+                        <div class="parent-icon"><i class="material-icons-outlined">analytics</i></div>
+                        <div class="menu-title">Data Reports</div>
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class="material-icons-outlined">insights</i></div>
+                        <div class="menu-title">User Analytics</div>
+                    </a>
+                </li>
+                
+                <li class="menu-label">Settings</li>
+                <li>
+                    <a href="javascript:;">
+                        <div class="parent-icon"><i class="material-icons-outlined">settings</i></div>
+                        <div class="menu-title">System Settings</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- User profile section -->
+        <div class="user-profile">
+            <div class="user-avatar">
+                <span>AD</span>
+            </div>
+            <div class="user-info">
+                <div class="user-name">Admin User</div>
+                <div class="user-role"><span class="status status-online"></span> Administrator</div>
+            </div>
+            <div class="user-menu">
+                <span class="material-icons-outlined">more_vert</span>
+            </div>
+        </div>
+    </aside>
+    
+    <div class="page-wrapper">
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="card-icon">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-title">Experts</div>
           </div>
-          <div class="chart-container" style="height: 150px;">
-            <canvas id="statusChart"></canvas>
+          <div class="stat-value">124</div>
+          <div class="stat-footer">
+            <span class="stat-badge positive">+12%</span>
+            <span class="text-muted">vs last month</span>
           </div>
         </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="card-icon secondary">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-title">Candidates</div>
+          </div>
+          <div class="stat-value">875</div>
+          <div class="stat-footer">
+            <span class="stat-badge positive">+8%</span>
+            <span class="text-muted">vs last month</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="card-icon warning">
+              <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-title">Companies</div>
+          </div>
+          <div class="stat-value">42</div>
+          <div class="stat-footer">
+            <span class="stat-badge positive">+5%</span>
+            <span class="text-muted">vs last month</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <div class="card-icon info">
+              <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div class="stat-title">Complaints</div>
+          </div>
+          <div class="stat-value">18</div>
+          <div class="stat-footer">
+            <span class="stat-badge negative">+2%</span>
+            <span class="text-muted">vs last month</span>
+          </div>
+        </div>
       </div>
-    </div>
-    
-    <div class="card">
-      <div class="card-header">
-        <h5 class="card-title">Gender Distribution</h5>
-      </div>
-      <div class="card-body">
-        <div class="chart-container">
-          <canvas id="genderChart"></canvas>
+      
+      <div class="dashboard-container">
+        <div class="card full-width">
+          <div class="card-header">
+            <h5 class="card-title">User Registration Trends</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="registrationChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Expert Fields Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="expertFieldsChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Experience Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="experienceChart"></canvas>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Application Status</h5>
+          </div>
+          <div class="card-body">
+            <div class="status-cards">
+              <div>
+                <div class="status-item">
+                  <div class="status-dot approved"></div>
+                  <div class="status-label">Approved</div>
+                  <div class="status-value">87</div>
+                </div>
+                <div class="status-item">
+                  <div class="status-dot pending"></div>
+                  <div class="status-label">Pending</div>
+                  <div class="status-value">32</div>
+                </div>
+                <div class="status-item">
+                  <div class="status-dot rejected"></div>
+                  <div class="status-label">Rejected</div>
+                  <div class="status-value">15</div>
+                </div>
+              </div>
+              <div class="chart-container" style="height: 150px;">
+                <canvas id="statusChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Gender Distribution</h5>
+          </div>
+          <div class="card-body">
+            <div class="chart-container">
+              <canvas id="genderChart"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
   
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Registration Trend Chart
-      const registrationCtx = document.getElementById('registrationChart').getContext('2d');
-      const registrationChart = new Chart(registrationCtx, {
-        type: 'line',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-          datasets: [
-            {
-              label: 'Experts',
-              data: [12, 19, 15, 17, 20, 25, 22, 28, 30],
-              borderColor: '#4f46e5',
-              backgroundColor: 'rgba(79, 70, 229, 0.1)',
-              tension: 0.4,
-              fill: true
+        // Registration Trend Chart
+        const registrationCtx = document.getElementById('registrationChart').getContext('2d');
+        const registrationChart = new Chart(registrationCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                datasets: [
+                    {
+                        label: 'Experts',
+                        data: [12, 19, 15, 17, 20, 25, 22, 28, 30],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Candidates',
+                        data: [65, 80, 91, 87, 95, 110, 120, 130, 142],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    },
+                    {
+                        label: 'Companies',
+                        data: [5, 7, 8, 9, 6, 10, 12, 11, 15],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }
+                ]
             },
-            {
-              label: 'Candidates',
-              data: [65, 80, 91, 87, 95, 110, 120, 130, 142],
-              borderColor: '#10b981',
-              backgroundColor: 'rgba(16, 185, 129, 0.1)',
-              tension: 0.4,
-              fill: true
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Expert Fields Distribution Chart
+        const expertFieldsCtx = document.getElementById('expertFieldsChart').getContext('2d');
+        const expertFieldsChart = new Chart(expertFieldsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['IT', 'Finance', 'Marketing', 'HR', 'Engineering', 'Other'],
+                datasets: [{
+                    data: [35, 20, 15, 10, 12, 8],
+                    backgroundColor: [
+                        '#4f46e5',
+                        '#818cf8',
+                        '#10b981',
+                        '#34d399',
+                        '#f59e0b',
+                        '#9ca3af'
+                    ],
+                    borderWidth: 0
+                }]
             },
-            {
-              label: 'Companies',
-              data: [5, 7, 8, 9, 6, 10, 12, 11, 15],
-              borderColor: '#f59e0b',
-              backgroundColor: 'rgba(245, 158, 11, 0.1)',
-              tension: 0.4,
-              fill: true
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
             }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'top',
+        });
+        
+        // Experience Distribution Chart
+        const experienceCtx = document.getElementById('experienceChart').getContext('2d');
+        const experienceChart = new Chart(experienceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['0-2 years', '3-5 years', '6-10 years', '10+ years'],
+                datasets: [{
+                    label: 'Experts',
+                    data: [18, 34, 42, 30],
+                    backgroundColor: '#4f46e5'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
+        });
+        
+        // Status Chart
+        const statusCtx = document.getElementById('statusChart').getContext('2d');
+        const statusChart = new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Approved', 'Pending', 'Rejected'],
+                datasets: [{
+                    data: [87, 32, 15],
+                    backgroundColor: [
+                        '#10b981',
+                        '#f59e0b',
+                        '#ef4444'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                cutout: '70%'
             }
-          }
-        }
-      });
-      
-      // Expert Fields Distribution Chart
-      const expertFieldsCtx = document.getElementById('expertFieldsChart').getContext('2d');
-      const expertFieldsChart = new Chart(expertFieldsCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['IT', 'Finance', 'Marketing', 'HR', 'Engineering', 'Other'],
-          datasets: [{
-            data: [35, 20, 15, 10, 12, 8],
-            backgroundColor: [
-              '#4f46e5',
-              '#818cf8',
-              '#10b981',
-              '#34d399',
-              '#f59e0b',
-              '#9ca3af'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'right',
+        });
+        
+        // Gender Distribution Chart
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        const genderChart = new Chart(genderCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Male', 'Female', 'Other'],
+                datasets: [{
+                    data: [60, 35, 5],
+                    backgroundColor: [
+                        '#4f46e5',
+                        '#10b981',
+                        '#f59e0b'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                }
             }
-          }
-        }
-      });
-      
-      // Experience Distribution Chart
-      const experienceCtx = document.getElementById('experienceChart').getContext('2d');
-      const experienceChart = new Chart(experienceCtx, {
-        type: 'bar',
-        data: {
-          labels: ['0-2 years', '3-5 years', '6-10 years', '10+ years'],
-          datasets: [{
-            label: 'Experts',
-            data: [18, 34, 42, 30],
-            backgroundColor: '#4f46e5'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-      
-      // Status Chart
-      const statusCtx = document.getElementById('statusChart').getContext('2d');
-      const statusChart = new Chart(statusCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['Approved', 'Pending', 'Rejected'],
-          datasets: [{
-            data: [87, 32, 15],
-            backgroundColor: [
-              '#10b981',
-              '#f59e0b',
-              '#ef4444'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              display: false
-            }
-          },
-          cutout: '70%'
-        }
-      });
-      
-      // Gender Distribution Chart
-      const genderCtx = document.getElementById('genderChart').getContext('2d');
-      const genderChart = new Chart(genderCtx, {
-        type: 'pie',
-        data: {
-          labels: ['Male', 'Female', 'Other'],
-          datasets: [{
-            data: [58, 40, 2],
-            backgroundColor: [
-              '#3b82f6',
-              '#ec4899',
-              '#9ca3af'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-            }
-          }
-        }
-      });
+        });
     });
-  </script>
+</script>
 </body>
 </html>
