@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -537,37 +538,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% if users %}
-                                {% for user in users %}
-                                    <tr>
-                                        <td>{{ user.Name }}</td>
-                                        <td>{{ user.Contact }}</td>
-                                        <td>{{ user.Email }}</td>
-                                        <td>{{ user.Designation}}</td>
-                                        <td>{{ user.Field }}</td>
-                                        <td>{{ user.Year_of_experience}}</td>
-                                        <td>{{ user.Profile_Picture}}</td>
-                                        <td>{{ user.LinkedIn}}</td>
-                                        <td>{{ user.Achievements}}</td>
-                                        <td>
-                                            {% if user.status == 0 %}
-                                                <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
-                                                <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
-                                            {% elif user.status == 1 %}
-                                                <p>Approved</p>
-                                                <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
-                                            {% else %}
-                                                <p>Rejected</p>
-                                                <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td colspan="10" class="text-center">No users found.</td>
-                                </tr>
-                            {% endif %}
+                          {% if users %}
+                          {% for user in users %}
+                            <tr>
+                              <td>{{ user.Name }}</td>
+                              <td>{{ user.Contact }}</td>
+                              <td>{{ user.Email }}</td>
+                              <td>{{ user.Designation}}</td>
+                              <td>{{ user.Field }}</td>
+                              <td>{{ user.Year_of_experience}}</td>
+                              <td>{{ user.Profile_Picture}}</td>
+                              <td>{{ user.LinkedIn}}</td>
+                              <td>{{ user.Achievements}}</td>
+                              <td>
+                                {% if user.status == 0 %}
+                                  <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                  <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                {% elif user.status == 1 %}
+                                  <p>Approved</p>
+                                  <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                {% else %}
+                                  <p>Rejected</p>
+                                  <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                {% endif %}
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        {% else %}
+                          <tr>
+                            <td colspan="5" class="text-center">No users found.</td>
+                          </tr>
+                        {% endif %}
                         </tbody>
                     </table>
                 </div>
