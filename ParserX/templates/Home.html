@@ -387,13 +387,13 @@
                         <p>Efficient hiring made simple—register your company, connect with top talent, and grow faster. Our platform streamlines recruitment, ensuring you find the right candidates effortlessly. Build your team with ease, save time, and enhance productivity. Join now and experience seamless hiring like never before.</p>
                     </div>
                     <div class="button-box">
-                        <a class="btn-one" href="about.html">
+                        <a class="btn-one" href="{% url 'company' %}">
                             <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
                             <span class="txt">Register Now<i class="flaticon-plus-1 plusicon"></i></span>
                         </a>
                         <a class="btn-one" href="about.html" style="margin-left: 15px;"></a>
                     <div class="button-box">
-                        <a class="btn-one" href="about.html">
+                        <a class="btn-one" href="{% url 'com_login' %}">
                             <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
                             <span class="txt">Login<i class="flaticon-plus-1 plusicon"></i></span>
                         </a>
@@ -433,13 +433,13 @@
                         <p>Efficient hiring made simple—register your company, connect with top talent, and grow faster. Our platform streamlines recruitment, ensuring you find the right candidates effortlessly. Build your team with ease, save time, and enhance productivity. Join now and experience seamless hiring like never before.</p>
                     </div>
                     <div class="button-box">
-                        <a class="btn-one" href="about.html">
+                        <a class="btn-one" href="{% url 'candidate' %}">
                             <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
                             <span class="txt">Register Now<i class="flaticon-plus-1 plusicon"></i></span>
                         </a>
                         <a class="btn-one" href="about.html" style="margin-left: 15px;"></a>
                     <div class="button-box">
-                        <a class="btn-one" href="about.html">
+                        <a class="btn-one" href="{% url 'login' %}">
                             <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
                             <span class="txt">Login<i class="flaticon-plus-1 plusicon"></i></span>
                         </a>
@@ -473,47 +473,9 @@
         <div class="sec-title text-center">
             <div class="sub-title">
             </div>
-            <h2>if you are an expert <br> register</h2>
+            <h2>If you are an expert <br> register</h2>
         </div>
-        <div class="row text-right-rtl">
-            <!--Start Single blog Style1-->
-            <div class="col-xl-6 col-lg-6">
-                <div class="single-blog-style1 wow fadeInUp" data-wow-duration="1500ms">
-                    <div class="img-holder">
-                        <div class="inner">
-                            <img src="{% static 'user/assets/images/blog/blog-v1-1.jpg' %}" alt="">
-                        </div>
-                        <div class="shape">
-                            <img src="{% static 'user/assets/images/shape/blog-shape-1.png' %}" alt="">
-                        </div>
-                    </div>
-                    <div class="text-holder">
-                        <h3 class="blog-title">
-                            <a href="blog-single.html">Fusce convallis enim non magna pharetra facilisis.<br> Duis lacus nulla dignissim.</a>
-                        </h3>
-                        <div class="text">
-                            <p>Nam mollis turpis sed magna vestibulum, pretium maximus mauris imperdiet. Mauris vehicula pellentesque tortor.</p>
-                        </div>
-                        <div class="bottom-box">
-                            <div class="btns-box">
-                                <a class="btn-one" href="blog-single.html">
-                                    <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
-                                    <div class="left_round"></div>
-                                    <div class="right_round"></div>
-                                    <span class="txt">Read More<i class="flaticon-plus-1 plusicon"></i></span>
-                                </a>
-                            </div>
-                            <div class="meta-box">
-                                <ul class="meta-info">
-                                    <li><i class="fa fa-comments-o" aria-hidden="true"></i><a href="#">No Comments</a></li>
-                                    <li><a href="#">Adrian Eli</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <!--End Single blog Style1-->
+        <div class="row justify-content-center"> <!-- Center the row -->
             <!--Start Single blog Style1-->
             <div class="col-xl-6 col-lg-6">
                 <div class="single-blog-style1 wow fadeInUp" data-wow-duration="1500ms">
@@ -527,38 +489,32 @@
                     </div>
                     <div class="text-holder">
                         <h3 class="blog-title">
-                            <a href="blog-single.html">Fusce convallis enim non magna pharetra facilisis.<br> Duis lacus nulla dignissim.</a>
+                            <a href="blog-single.html">for the experts you can share your knowledge.<br> This platform help to connect to students.</a>
                         </h3>
                         <div class="text">
-                            <p>Nam mollis turpis sed magna vestibulum, pretium maximus mauris imperdiet. Mauris vehicula pellentesque tortor.</p>
+                            <p>You can share your knowledge and experience to hungry ones there is chat option also you can take appointments.</p>
                         </div>
                         <div class="bottom-box">
                             <div class="btns-box">
-                                <a class="btn-one" href="blog-single.html">
+                                <a class="btn-one" href="{% url 'experts' %}">
                                     <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
-                                    <div class="left_round"></div>
-                                    <div class="right_round"></div>
-                                    <span class="txt">Read More<i class="flaticon-plus-1 plusicon"></i></span>
+                                    <span class="txt">Register Now<i class="flaticon-plus-1 plusicon"></i></span>
                                 </a>
                             </div>
-                            <div class="meta-box">
-                                <ul class="meta-info">
-                                    <li><i class="fa fa-comments-o" aria-hidden="true"></i><a href="#">No Comments</a></li>
-                                    <li><a href="#">Adrian Eli</a></li>
-                                </ul>
+                            <div class="btns-box">
+                                <a class="btn-one" href="{% url 'expert_login' %}">
+                                    <div class="border_line"><img src="{% static 'user/assets/images/shape/button-border.png' %}" alt=""></div>
+                                    <span class="txt">Login<i class="flaticon-plus-1 plusicon"></i></span>
+                                </a>
                             </div>
                         </div>
                     </div> 
                 </div>
             </div>
             <!--End Single blog Style1-->
-          
-
         </div>
-
     </div>
-</section>
-<!--End Blog Style1 Area-->
+</section><!--End Blog Style1 Area-->
 
 <!--Start footer area -->  
 <footer class="footer-area">

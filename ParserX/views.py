@@ -1032,7 +1032,16 @@ def remove_com_vaccancy(request,id):
 
 def private_can_vaccancy(request):
     var = Company_vaccancy.objects.all().order_by('Last_date_for_apply')
-    return render(request, 'private_can_vaccancy.html', {'var': var})  
+
+    user_id = request.session.get('user_id')  # Get logged-in candidate
+    applied_jobs = []
+
+    if user_id:
+        user = get_object_or_404(Candidate, id=user_id)
+        applied_jobs = private_Apply_vaccancy.objects.filter(private_can_id=user).values_list('private_vaccancy_id', flat=True)
+
+    return render(request, 'private_can_vaccancy.html', {'var': var, 'applied_jobs': applied_jobs})
+  
 
 # def private_apply(request, id):
 #     user_id = request.session.get('user_id')

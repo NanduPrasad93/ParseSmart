@@ -106,7 +106,14 @@
                             Not Announced
                         {% endif %}
                     </td>
-                    <td><a class="apply-link" href="{% url 'private_apply' var.id %}">Apply Now</a></td>
+                    <td>
+                        {% if var.id in applied_jobs %}
+                            <span style="color: green; font-weight: bold;">Applied</span>
+                        {% else %}
+                            <a class="apply-link" href="{% url 'private_apply' var.id %}">Apply Now</a>
+                        {% endif %}
+                    </td>
+                    
                 </tr>
                 {% endfor %}
             </tbody>
