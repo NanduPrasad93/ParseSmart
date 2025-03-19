@@ -7,25 +7,25 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #fff; /* White background */
             margin: 0;
             padding: 0;
         }
         
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff; /* White text */
             padding: 20px;
-            background-color: #0056b3;
-            color: white;
+            background-color: #FFD700; /* Golden yellow background */
             margin: 0;
+            font-size: 2em;
         }
 
         .table-container {
             max-width: 800px;
             margin: 40px auto;
             padding: 20px;
-            background-color: #fff;
+            background-color: #fff; /* White background */
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -42,16 +42,21 @@
         }
 
         th {
-            background-color: #0056b3;
-            color: white;
+            background-color: #FFD700; /* Golden yellow background */
+            color: #000; /* Black text for contrast */
+            font-weight: bold;
         }
 
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f9f9f9; /* Light gray for even rows */
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; /* Slightly darker gray on hover */
         }
 
         a.download-link {
-            color: #0056b3;
+            color: #FFD700; /* Golden yellow for links */
             text-decoration: none;
             font-weight: bold;
         }
@@ -59,42 +64,53 @@
         a.download-link:hover {
             text-decoration: underline;
         }
+
+        a.apply-link {
+            color: #FFD700; /* Golden yellow for apply links */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.apply-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <h3>Vacancy Details</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Job Name</th>
-                <th>Job Category</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Qualification</th>
-                <th>Interview Date</th>
-                <th>Apply</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for var in var %}
-            <tr>
-                <td>{{ var.Job_name }}</td>
-                <td>{{ var.Job_category }}</td>
-                <td>{{ var.Job_description }}</td>
-                <td>{{ var.Last_date_for_apply }}</td>
-                <td>{{ var.Qualification }}</td>
-                <td>
-                    {% if var.interview_date %}
-                        {{ var.interview_date }}
-                    {% else %}
-                        Not Announced
-                    {% endif %}
-                </td>
-                <td><a href="{% url 'private_apply' var.id %}">Apply Now</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        
-    </table>
+    <h1>Vacancy Details</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Name</th>
+                    <th>Job Category</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Qualification</th>
+                    <th>Interview Date</th>
+                    <th>Apply</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for var in var %}
+                <tr>
+                    <td>{{ var.Job_name }}</td>
+                    <td>{{ var.Job_category }}</td>
+                    <td>{{ var.Job_description }}</td>
+                    <td>{{ var.Last_date_for_apply }}</td>
+                    <td>{{ var.Qualification }}</td>
+                    <td>
+                        {% if var.interview_date %}
+                            {{ var.interview_date }}
+                        {% else %}
+                            Not Announced
+                        {% endif %}
+                    </td>
+                    <td><a class="apply-link" href="{% url 'private_apply' var.id %}">Apply Now</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
