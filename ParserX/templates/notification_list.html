@@ -1,28 +1,98 @@
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Notification</title>
+        <style>
+            body {
+                background-color: #1a1a1a;
+                color: #ffffff;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+            }
+            
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            h1 {
+                color: #d4af37; /* Dark golden yellow */
+                text-align: center;
+                margin-bottom: 30px;
+            }
+            
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #222222;
+                box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            }
+            
+            th {
+                background-color: #d4af37; /* Dark golden yellow */
+                color: #1a1a1a;
+                padding: 12px;
+                text-align: left;
+            }
+            
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #333333;
+            }
+            
+            tr:hover {
+                background-color: #2a2a2a;
+            }
+            
+            a {
+                color: #d4af37; /* Dark golden yellow */
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+            
+            a:hover {
+                color: #ffffff;
+                text-decoration: underline;
+            }
+            
+            .button {
+                display: inline-block;
+                padding: 6px 12px;
+                background-color: #d4af37;
+                color: #1a1a1a;
+                border-radius: 4px;
+                font-weight: bold;
+            }
+            
+            .button:hover {
+                background-color: #c4a030;
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
-        <center>
-        <table border="1" class="table table-responsive">
-            <tr>
-                <th>Date</th>
-                <th>Notification</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            {% for var in var %}
-            <tr>
-                <td>{{var.current_date}}</td>
-                <td>{{var.Notifications}}</td>
-                <td><a href="{% url 'edit_notification' var.n_id %}">Edit</a></td>
-                <td><a href="{% url 'remove_notification' var.n_id %}">Remove</a></td>
-
-
-            </tr>
-            {% endfor %}
-        </table>
-    </center>
+        <div class="container">
+            <h1>Notifications</h1>
+            <center>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Notification</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                    {% for var in var %}
+                    <tr>
+                        <td>{{var.current_date}}</td>
+                        <td>{{var.Notifications}}</td>
+                        <td><a href="{% url 'edit_notification' var.n_id %}" class="button">Edit</a></td>
+                        <td><a href="{% url 'remove_notification' var.n_id %}" class="button">Remove</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </center>
+        </div>
     </body>
 </html>
