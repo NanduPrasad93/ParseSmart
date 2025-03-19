@@ -1,7 +1,6 @@
 {% load static %}
 {% block content %}
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,75 +9,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Notification</title>
     <style>
+        :root {
+            --gold-dark: #B8860B;
+            --gold-darker: #8B6914;
+            --gold-light: #DAA520;
+            --gold-highlight: #FFD700;
+            --gold-ultra-light: #FFF8DC;
+            --white: #ffffff;
+            --off-white: #F5F5F5;
+            --dark-text: #2C2C2C;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--gold-darker) 100%);
             margin: 0;
-            padding: 20px;
+            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
-            width: 60%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
             text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+            color: var(--gold-darker);
+            margin-bottom: 30px;
+            font-size: 28px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
         }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .form-footer {
             display: flex;
             justify-content: center;
+            margin-top: 10px;
         }
 
         button {
-            padding: 12px 25px;
-            background-color: #4CAF50;
+            padding: 14px 30px;
+            background: linear-gradient(45deg, var(--gold-darker), var(--gold-dark));
             color: white;
             font-size: 16px;
+            font-weight: 600;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
-            background-color: #45a049;
+            box-shadow: 0 5px 15px rgba(184, 134, 11, 0.4);
+            transform: translateY(-2px);
         }
-
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
+        
+        button:active {
+            transform: translateY(1px);
         }
-
-        input,
-        textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
+        
+        button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: skewX(-25deg);
+            transition: all 0.6s ease;
+        }
+        
+        button:hover::after {
+            left: 100%;
         }
 
-        input:focus,
-        textarea:focus {
-            border-color: #4CAF50;
+        /* Style for Django's form.as_p */
+        form p {
+            margin: 0 0 20px 0;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        form p label {
+            font-weight: 600;
+            color: var(--dark-text);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        form p input,
+        form p textarea,
+        form p select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            background-color: var(--off-white);
+        }
+
+        form p input:focus,
+        form p textarea:focus,
+        form p select:focus {
+            outline: none;
+            border-color: var(--gold-dark);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+            background-color: var(--gold-ultra-light);
+        }
+
+        form p textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        form p .helptext {
+            display: block;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        form p .errorlist {
+            color: #d32f2f;
+            list-style-type: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+        }
+
+        /* Checkbox styling */
+        form p input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        form p label[for$="checkbox"] {
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -88,11 +195,7 @@
         <h2>Add Notification</h2>
         <form method="post">
             {% csrf_token %}
-            
-            <div class="form-group">
-                {{ form.as_p }}
-            </div>
-
+            {{ form.as_p }}
             <div class="form-footer">
                 <button type="submit">Add New Notification</button>
             </div>
