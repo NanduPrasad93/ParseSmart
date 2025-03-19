@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maxton Admin</title>
+    <title>Maxton Admin Dashboard</title>
     <style>
         :root {
             --primary: #4f46e5;
@@ -290,7 +290,110 @@
         .user-menu:hover {
             color: var(--dark);
         }
-        
+
+        /* Content area */
+        .page-wrapper {
+            margin-left: 280px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.75rem;
+            border: 1px solid var(--gray);
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: var(--gray-light);
+        }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid var(--gray);
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        h6 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--gray);
+            margin: 1rem 0;
+        }
+
+        /* Utility classes */
+        .sidebar-collapsed {
+            width: 70px;
+        }
+
+        .sidebar-collapsed + .page-wrapper {
+            margin-left: 70px;
+        }
+
+        .sidebar-collapsed .menu-title, 
+        .sidebar-collapsed .menu-label,
+        .sidebar-collapsed .user-info {
+            display: none;
+        }
+
+        .sidebar-collapsed .user-profile {
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .sidebar-collapsed .user-avatar {
+            margin-right: 0;
+        }
+
+        .sidebar-collapsed .user-menu {
+            display: none;
+        }
+
+        /* Links styling */
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
         /* Material Icons */
         .material-icons-outlined {
             font-family: 'Material Icons';
@@ -410,6 +513,184 @@
         </div>
     </aside>
 
+    <!-- Main content area -->
+    <div class="page-wrapper">
+        <!-- Experts Table -->
+        <h6 class="mb-0 text-uppercase">Experts</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Designation</th>
+                                <th scope="col">Field</th>
+                                <th scope="col">Year of experience</th>
+                                <th scope="col">Profile Picture</th>
+                                <th scope="col">LinkedIn</th>
+                                <th scope="col">Achievements</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if users %}
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.Name }}</td>
+                                        <td>{{ user.Contact }}</td>
+                                        <td>{{ user.Email }}</td>
+                                        <td>{{ user.Designation}}</td>
+                                        <td>{{ user.Field }}</td>
+                                        <td>{{ user.Year_of_experience}}</td>
+                                        <td>{{ user.Profile_Picture}}</td>
+                                        <td>{{ user.LinkedIn}}</td>
+                                        <td>{{ user.Achievements}}</td>
+                                        <td>
+                                            {% if user.status == 0 %}
+                                                <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                                <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                            {% elif user.status == 1 %}
+                                                <p>Approved</p>
+                                                <a href="{% url 'reject' pk=user.pk %}" aria-label="Reject user {{ user.Name }}">Reject</a>
+                                            {% else %}
+                                                <p>Rejected</p>
+                                                <a href="{% url 'accept' pk=user.pk %}" aria-label="Accept user {{ user.Name }}">Accept</a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="10" class="text-center">No users found.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Candidates Table -->
+        <h6 class="mb-0 text-uppercase">Candidates</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="candidates-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in var %}
+                                <tr>
+                                    <td>{{ user.Name }}</td>
+                                    <td>{{ user.Gender }}</td>
+                                    <td>{{ user.Contact }}</td>
+                                    <td>{{ user.Email }}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="4" class="text-center">No users found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complaints Table -->
+        <h6 class="mb-0 text-uppercase">Complaints</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="complaints-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">Complaint Subject</th>
+                                <th scope="col">Complaint</th>
+                                <th scope="col">Reply</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for com in com %}
+                                <tr>
+                                    <td>{{ com.created_datetime }}</td>
+                                    <td>{{ com.login_id.Name }}</td>
+                                    <td>{{ com.login_id.Contact }}</td>
+                                    <td>{{ com.Complaint_Subject }}</td>
+                                    <td>{{ com.complaint }}</td>
+                                    <td><a href="{% url 'Response' id=com.com_id %}">Reply</a></td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="6" class="text-center">No complaints found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Companies Table -->
+        <h6 class="mb-0 text-uppercase">Companies</h6>
+        <hr>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="companies-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th scope="col">Business Category</th>
+                                <th scope="col">Business Name</th>
+                                <th scope="col">Contact</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for company in company %}
+                                <tr>
+                                    <td>{{ company.Business_category }}</td>
+                                    <td>{{ company.Business_name }}</td>
+                                    <td>{{ company.Contact }}</td>
+                                    <td>{{ company.Email }}</td>
+                                    <td>
+                                        {% if company.com_status == 0 %}
+                                            <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                            <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                        {% elif company.com_status == 1 %}
+                                            <p>Approved</p>
+                                            <a href="{% url 'com_reject' pk=company.pk %}">Reject</a>
+                                        {% else %}
+                                            <p>Rejected</p>
+                                            <a href="{% url 'com_accept' pk=company.pk %}">Accept</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="5" class="text-center">No companies found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // MetisMenu functionality
@@ -434,10 +715,12 @@
             // Sidebar toggle
             const sidebarClose = document.querySelector('.sidebar-close');
             const sidebar = document.querySelector('.sidebar-wrapper');
+            const pageWrapper = document.querySelector('.page-wrapper');
             
             if (sidebarClose) {
                 sidebarClose.addEventListener('click', function() {
                     sidebar.classList.toggle('sidebar-collapsed');
+                    pageWrapper.classList.toggle('expanded');
                 });
             }
             
