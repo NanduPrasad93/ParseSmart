@@ -265,8 +265,6 @@ class private_Apply_vaccancy(models.Model):
     current_date = models.DateField(auto_now_add=True)
     p_status = models.IntegerField(default=0) 
 
-class Subject(models.Model):
-    name = models.CharField(max_length=255, unique=True)
 
 class MCQ(models.Model):
     category = models.CharField(max_length=100)  
