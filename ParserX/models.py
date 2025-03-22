@@ -278,3 +278,15 @@ class MCQ(models.Model):
 
     def __str__(self):
         return f"{self.category} - {self.question[:50]}"
+    
+    
+
+
+class InterviewResponse(models.Model):
+    candidate = models.ForeignKey(Candidate,on_delete=models.CASCADE,null=True)
+    question = models.TextField()
+    answer = models.TextField()
+    score = models.FloatField()
+    feedback = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+

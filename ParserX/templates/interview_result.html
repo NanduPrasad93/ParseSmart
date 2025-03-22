@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Responses</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Welcome to the Interview Simulator</h1>
+
+    <div id="results">
+        <h2>Your Interview History</h2>
+    </div>
+    <h2>Your Progress Over Time</h2>
+    <canvas id="progressChart"></canvas>
+
+    <!-- Load External JavaScript -->
+    <script src="{% static 'js/interview.js' %}"></script>
+    <script>
+        // Pass the user_id to the JavaScript functions
+        const userId = {{ user_id }};
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchResponses(userId);
+            fetchProgressData(userId);
+        });
+    </script>
+</body>
+</html>
