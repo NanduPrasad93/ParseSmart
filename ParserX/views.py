@@ -1080,7 +1080,7 @@ def interview_url(request, id):
                 print("No URL provided in request")
                 return JsonResponse({'success': False, 'message': 'No URL provided'}, status=400)
 
-            # Get the job object
+            
             try:
                 job = Company_vaccancy.objects.get(id=id)
                 print(f"Found job with ID {id}")
@@ -1155,19 +1155,18 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from .models import MCQ
 
-# Fetch 60 random MCQs by category
 def get_mcqs(request, category):
     mcqs = MCQ.objects.filter(category=category).order_by('?')[:10].values(
         "question", "option_a", "option_b", "option_c", "option_d", "correct_option"
     )
     return JsonResponse(list(mcqs), safe=False)
 
-# Fetch all categories
+
 def get_categories(request):
     categories = MCQ.objects.values_list("category", flat=True).distinct()
     return JsonResponse(list(categories), safe=False)
 
-# Fetch user performance data (for visualization)
+
 def get_performance_data(request):
     category_counts = (
         MCQ.objects.values("category")
@@ -1176,7 +1175,7 @@ def get_performance_data(request):
     )
     return JsonResponse(list(category_counts), safe=False)
 
-# Render the MCQ test page
+
 def mcq_test(request):
     return render(request, "mcq_test.html")
 
