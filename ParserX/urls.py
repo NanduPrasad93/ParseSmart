@@ -134,7 +134,16 @@ urlpatterns=[
     path("api/mcq/<str:category>/", views.get_mcqs, name="get_mcqs"),
     path("api/categories/", views.get_categories, name="get_categories"),
     path("mcq-test/", views.mcq_test, name="mcq_test"),
-
+    
+    # path('api/user_responses/<int:user_id>/', views.get_user_responses, name='get_user_responses'),
+    # path('api/retry_answer/<int:response_id>/', views.retry_answer, name='retry_answer'),
+    # path('api/user_progress/<int:user_id>/', views.user_progress, name='user_progress'),
+    # path('interview_results/', views.interview_results, name='interview_results'),
+    
+    path('api/user_responses/<int:user_id>/', views.get_user_responses, name='get_user_responses'),
+    path('api/retry_answer/<int:response_id>/', views.retry_answer, name='retry_answer'),
+    path('api/user_progress/<int:user_id>/', views.user_progress, name='user_progress'),
+    path('interview_results/<int:user_id>/', views.interview_results, name='interview_results'), 
 ]
 
 

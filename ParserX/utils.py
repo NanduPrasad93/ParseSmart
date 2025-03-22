@@ -31,3 +31,36 @@
 #         }
 
 
+
+# ParserX/utils.py
+from textblob import TextBlob  
+
+def analyze_response(answer):
+    """AI-enhanced analysis with scoring."""
+    blob = TextBlob(answer)
+    sentiment_score = blob.sentiment.polarity  
+    word_count = len(blob.words)
+
+    important_keywords = ["leadership", "decision making", "ethics", "governance", "public service", "policy", "problem-solving"]
+    matched_keywords = [word for word in important_keywords if word in answer.lower()]
+    
+    keyword_score = (len(matched_keywords) / len(important_keywords)) * 5 if important_keywords else 0  
+    sentiment_points = (sentiment_score + 1) * 5  
+
+    if word_count < 10:
+        length_score = 2  
+    elif word_count > 50:
+        length_score = 4  
+    else:
+        length_score = 5  
+
+    final_score = round(sentiment_points + length_score + keyword_score, 1)
+    sentiment_feedback = "Your response is positive! Keep up the strong tone." if sentiment_score > 0.2 else "Your response is neutral, try adding enthusiasm."
+    complexity_feedback = "Your response is well-structured!" if word_count > 10 else "Try providing more details."
+    keyword_feedback = f"You included {len(matched_keywords)} important keywords. Keep using relevant terms!"
+
+    feedback = f"{sentiment_feedback} {complexity_feedback} {keyword_feedback}"
+    return feedback, min(final_score, 10)
+
+
+

@@ -45,6 +45,8 @@ from django.shortcuts import render, redirect
 from .models import Candidate, Tips
 
 
+
+
 def Home(request):
     return render(request,'Home.html')
 def admin1(request):
@@ -1180,6 +1182,83 @@ def mcq_test(request):
     return render(request, "mcq_test.html")
 
 
+#################-INTERVIEW-####################################
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response  # ✅ Make sure this is from DRF
+from .models import InterviewResponse
+from .serializers import InterviewResponseSerializer
 
 
 
+@api_view(['GET'])
+def get_user_responses(request, user_id):
+    """Fetch user's interview responses."""
+    responses = InterviewResponse.objects.filter(candidate_id=user_id)
+
+    data = [
+        {
+            "id": response.id,
+            "question": response.question,
+            "answer": response.answer,
+            "score": response.score,
+            "feedback": response.feedback,
+        }
+        for response in responses
+    ]
+
+    return JsonResponse(data, safe=False)
+
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+import json
+from .models import InterviewResponse
+from .utils import analyze_response
+
+
+@csrf_exempt
+def retry_answer(request, response_id):
+    """Allow candidates to retry a low-scoring answer."""
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_answer = data.get("answer", "").strip()
+
+            # Fetch the response from the database
+            interview_response = InterviewResponse.objects.get(id=response_id)
+
+            # Re-evaluate the new answer (using the existing AI function)
+            feedback, score = analyze_response(new_answer)  
+
+            # Update the database
+            interview_response.answer = new_answer
+            interview_response.score = score
+            interview_response.feedback = feedback
+            interview_response.save()
+
+            return JsonResponse({"message": "Answer updated", "score": score, "feedback": feedback})
+
+        except InterviewResponse.DoesNotExist:
+            return JsonResponse({"error": "Response not found"}, status=404)
+
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
+from django.http import JsonResponse
+from .models import InterviewResponse
+
+def user_progress(request, user_id):
+    """Fetch user's past scores to display in a progress chart."""
+    responses = InterviewResponse.objects.filter(candidate_id=user_id).order_by("created_at")
+
+    data = [{"timestamp": response.created_at.strftime("%Y-%m-%d %H:%M:%S"), "score": response.score}
+            for response in responses]
+
+    return JsonResponse(data, safe=False)
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from .models import InterviewResponse
+
+def interview_results(request, user_id):
+    """Render the interview results page for a specific user."""
+    return render(request, "interview_result.html", {'user_id': user_id})
